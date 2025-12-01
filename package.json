@@ -1,0 +1,35 @@
+{
+  "name": "ai-translator",
+  "version": "1.0.0",
+  "description": "AI驱动的i18n文件自动翻译工具",
+  "main": "index.ts",
+  "module": "index.ts",
+  "type": "module",
+  "bin": {
+    "ai-translator": "src/cli.ts"
+  },
+  "scripts": {
+    "start": "bun run src/cli.ts",
+    "build": "bun build src/cli.ts --outdir ./dist --target node",
+    "dev": "bun run src/cli.ts"
+  },
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "commander": "^14.0.2"
+  },
+  "keywords": [
+    "i18n",
+    "translation",
+    "ai",
+    "cli",
+    "internationalization"
+  ],
+  "author": "AI Translator",
+  "license": "MIT"
+}
