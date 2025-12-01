@@ -460,8 +460,8 @@
   "reviews": {
     "reviews_to_sellers": "Адзнакі прадаўцам",
     "reviews_to_products": "Адзнакі таварам",
-    "no_reviews_to_sellers": "Вы яшчэ не пісалі адзнакі прадаўцам.",
-    "no_reviews_to_products": "Вы яшчэ не пісалі адзнакі таварам.",
+    "no_reviews_to_sellers": "Вы яшчэ не пісалі водгукаў пра прадаўцоў.",
+    "no_reviews_to_products": "Вы яшчэ не пісалі водгукаў пра тавары.",
     "reply_from_seller": "Адказ ад прадаўца"
   }
 }

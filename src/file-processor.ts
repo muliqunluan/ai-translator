@@ -183,11 +183,24 @@ export function updateLanguageFile(
   // 合并新内容到现有内容
   for (const [groupName, newGroupData] of Object.entries(newGroupedContent)) {
     if (!existingGroupedContent[groupName]) {
-      existingGroupedContent[groupName] = {};
+      // 如果组不存在，直接创建
+      existingGroupedContent[groupName] = { ...newGroupData };
+    } else {
+      // 检查组内容是否发生了结构性变化
+      const existingKeys = Object.keys(existingGroupedContent[groupName]);
+      const newKeys = Object.keys(newGroupData);
+      
+      // 如果新键的数量与现有键不同，或者有键不匹配，说明有结构性变化
+      // 这种情况下，完全替换整个组
+      if (existingKeys.length !== newKeys.length ||
+          !existingKeys.every(key => newKeys.includes(key))) {
+        console.log(`检测到组 "${groupName}" 发生结构性变化，将完全替换该组内容`);
+        existingGroupedContent[groupName] = { ...newGroupData };
+      } else {
+        // 否则，只合并新增或修改的键
+        Object.assign(existingGroupedContent[groupName], newGroupData);
+      }
     }
-    
-    // 合并组内容
-    Object.assign(existingGroupedContent[groupName], newGroupData);
   }
   
   // 保存更新后的内容

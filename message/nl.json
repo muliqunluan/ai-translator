@@ -460,7 +460,7 @@
   "reviews": {
     "reviews_to_sellers": "Beoordelingen voor verkopers",
     "reviews_to_products": "Beoordelingen voor producten",
-    "no_reviews_to_sellers": "U heeft nog geen verkopersbeoordelingen geschreven.",
+    "no_reviews_to_sellers": "U heeft nog geen verkoperbeoordelingen geschreven.",
     "no_reviews_to_products": "U heeft nog geen productbeoordelingen geschreven.",
     "reply_from_seller": "Reactie van verkoper"
   }

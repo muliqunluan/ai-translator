@@ -458,10 +458,10 @@
     "submit_fail_desc": "Při odesílání vaší recenze došlo k chybě. Zkuste to prosím znovu."
   },
   "reviews": {
-    "reviews_to_sellers": "Recenze prodejitelům",
+    "reviews_to_sellers": "Recenze prodejatelům",
     "reviews_to_products": "Recenze produktům",
-    "no_reviews_to_sellers": "Ještě jste nenapsali žádné recenze prodejitelům.",
-    "no_reviews_to_products": "Ještě jste nenapsali žádné recenze produktům.",
+    "no_reviews_to_sellers": "Ještě jste nenapsali žádné recenze pro prodejce.",
+    "no_reviews_to_products": "Ještě jste nenapsali žádné recenze pro produkty.",
     "reply_from_seller": "Odpověď od prodejce"
   }
 }
