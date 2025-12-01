@@ -1,10 +1,5 @@
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 
-// JSON值类型定义
-type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
-interface JSONObject { [key: string]: JSONValue; }
-interface JSONArray extends Array<JSONValue> {}
-
 // 差异类型
 export type DiffType = 'added' | 'modified' | 'deleted' | 'unchanged';
 
@@ -26,52 +21,8 @@ export interface DiffResult {
   deletedCount: number;
 }
 
-// 简单的差异结果接口（用于顶层比较）
-interface SimpleDiffResult {
-  missing: string[];
-  added: string[];
-  changed: string[];
-}
-
 /**
- * 简单比较两个JSON对象
- * 使用JSON.stringify进行整体比较，更高效但不够精确
- */
-function simpleDiff(oldObj: JSONObject, newObj: JSONObject): SimpleDiffResult {
-  const result: SimpleDiffResult = {
-    missing: [],
-    added: [],
-    changed: []
-  };
-
-  // 遍历 oldObj：检查缺失和修改
-  for (const key in oldObj) {
-    if (!(key in newObj)) {
-      result.missing.push(key);
-      continue;
-    }
-
-    const oldVal = oldObj[key];
-    const newVal = newObj[key];
-
-    // 只要内容不完全一样，就视为 changed（整体更新）
-    if (JSON.stringify(oldVal) !== JSON.stringify(newVal)) {
-      result.changed.push(key);
-    }
-  }
-
-  // 遍历 newObj：检查新增
-  for (const key in newObj) {
-    if (!(key in oldObj)) {
-      result.added.push(key);
-    }
-  }
-
-  return result;
-}
-
-/**
- * 深度比较两个对象（保留原有逻辑，用于需要精确比较的场景）
+ * 深度比较两个对象
  */
 function deepCompare(
   obj1: any,
@@ -111,17 +62,9 @@ function deepCompare(
         path: currentPath
       });
     } else if (typeof value1 === 'object' && value1 !== null && value2 !== null) {
-      // 对于对象，使用简单比较方法
-      if (JSON.stringify(value1) !== JSON.stringify(value2)) {
-        // 如果对象内容不同，将整个对象标记为修改
-        changes.push({
-          key: pathString,
-          type: 'modified',
-          oldValue: value1,
-          newValue: value2,
-          path: currentPath
-        });
-      }
+      // 递归比较嵌套对象
+      const nestedChanges = deepCompare(value1, value2, currentPath);
+      changes.push(...nestedChanges);
     } else if (value1 !== value2) {
       changes.push({
         key: pathString,
@@ -190,6 +133,63 @@ export function compareJsonFiles(
   if (isOldEmpty && !isCurrentEmpty) {
     // 特殊情况：旧文件为空，新文件有内容
     // 将所有当前内容标记为新增
+    changes = [];
+    const flattenObject = (obj: any, prefix: string = ''): DiffItem[] => {
+      const result: DiffItem[] = [];
+      for (const [key, value] of Object.entries(obj)) {
+        const fullKey = prefix ? `${prefix}.${key}` : key;
+        if (typeof value === 'object' && value !== null) {
+          result.push(...flattenObject(value, fullKey));
+        } else {
+          result.push({
+            key: fullKey,
+            type: 'added',
+            newValue: value as string,
+            path: fullKey.split('.')
+          });
+        }
+      }
+      return result;
+    };
+    changes = flattenObject(currentData);
+  } else if (isOldPartial && !isCurrentEmpty) {
+    // 特殊情况：旧文件只包含部分内容，新文件有更多内容
+    // 将新文件中多出的内容标记为新增，已有的内容进行比较
+    changes = [];
+    
+    // 首先添加所有新组
+    for (const key of currentKeys) {
+      if (!oldKeys.includes(key)) {
+        // 这是一个新组，将其所有内容标记为新增
+        const flattenObject = (obj: any, prefix: string = ''): DiffItem[] => {
+          const result: DiffItem[] = [];
+          for (const [innerKey, value] of Object.entries(obj)) {
+            const fullKey = prefix ? `${prefix}.${innerKey}` : innerKey;
+            if (typeof value === 'object' && value !== null) {
+              result.push(...flattenObject(value, fullKey));
+            } else {
+              result.push({
+                key: fullKey,
+                type: 'added',
+                newValue: value as string,
+                path: fullKey.split('.')
+              });
+            }
+          }
+          return result;
+        };
+        changes.push(...flattenObject(currentData[key], key));
+      }
+    }
+    
+    // 然后比较已有的组
+    for (const key of oldKeys) {
+      if (currentKeys.includes(key)) {
+        const nestedChanges = deepCompare(currentData[key], oldData[key], [key]);
+        changes.push(...nestedChanges);
+      }
+    }
+  } else if (!isOldEmpty && isCurrentEmpty) {
     // 特殊情况：新文件为空，旧文件有内容
     // 将所有旧内容标记为删除
     changes = [];
