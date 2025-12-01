@@ -178,7 +178,7 @@ export async function translateText(request: TranslationRequest): Promise<Transl
     const config = loadConfig();
     const prompt = buildTranslationPrompt(request.text, request.targetLanguage, request.context);
     
-    console.log(`🔄 翻译请求: "${request.text}" -> ${request.targetLanguage}`);
+    console.log(`🔄 翻译请求: -> ${request.targetLanguage}`);
     
     const translatedText = await callAI(config, prompt);
     
@@ -200,7 +200,7 @@ export async function translateText(request: TranslationRequest): Promise<Transl
       console.warn(`⚠️  警告：占位符数量不匹配，原文: ${placeholders.length}, 翻译: ${translatedPlaceholders.length}`);
     }
     
-    console.log(`✅ 翻译完成: "${translatedText}"`);
+    console.log(`✅ 翻译完成`);
     
     return {
       success: true,
@@ -265,7 +265,6 @@ ${jsonString}
   }
   
   console.log(`\n✅ 整组翻译完成`);
-  console.log(`   译文预览: ${response.translatedText.substring(0, 200)}${response.translatedText.length > 200 ? '...' : ''}`);
   
   // 解析翻译后的JSON
   try {

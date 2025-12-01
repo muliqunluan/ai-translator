@@ -4,7 +4,7 @@ import { Command } from 'commander';
 import { translate, printTranslateSummary } from './translate.js';
 import type { TranslateOptions } from './translate.js';
 import { getLanguageFiles, printLanguageInfo, syncDeleteFieldsFromAllLanguages } from './file-processor.js';
-import { compareJsonFiles, printDiffReport, getDeletedFields } from './diff.js';
+import { simpleDiff, deleteFieldByPath, readJsonFile, saveJsonFile, backupFile } from './diff.js';
 import { getSupportedLanguages, getLanguageName } from './ai.js';
 import { resolve } from 'path';
 
@@ -51,13 +51,42 @@ program
         } else {
           // 无论是否首次运行，都检查差异
           console.log('\n🔍 检查文件差异...');
-          const diff = compareJsonFiles(enFile.path, oldEnFilePath);
-          printDiffReport(diff);
+          const diffResult = simpleDiff(oldEnFilePath, enFile.path);
+          
+          // 打印差异报告
+          console.log('\n=== 文件差异报告 ===');
+          if (diffResult.missing.length === 0 && diffResult.added.length === 0 && diffResult.changed.length === 0) {
+            console.log('✅ 没有发现变化');
+          } else {
+            console.log(`📊 变化统计:`);
+            console.log(`  - 新增: ${diffResult.added.length} 项`);
+            console.log(`  - 修改: ${diffResult.changed.length} 项`);
+            console.log(`  - 删除: ${diffResult.missing.length} 项`);
+            
+            if (diffResult.added.length > 0) {
+              console.log('\n➕ 新增项:');
+              diffResult.added.forEach(key => console.log(`  + ${key}`));
+            }
+            
+            if (diffResult.changed.length > 0) {
+              console.log('\n✏️ 修改项:');
+              diffResult.changed.forEach(key => console.log(`  ~ ${key}`));
+            }
+            
+            if (diffResult.missing.length > 0) {
+              console.log('\n➖ 删除项:');
+              diffResult.missing.forEach(key => console.log(`  - ${key}`));
+            }
+          }
+          console.log('==================');
           
           // 检查是否有被删除的字段，如果有则同步删除其他语言文件中的相应字段
-          if (diff.deletedCount > 0) {
+          if (diffResult.missing.length > 0) {
             console.log('\n🗑️  检测到删除的字段，正在同步删除其他语言文件中的相应字段...');
-            deletedFields = getDeletedFields(enFile.path, oldEnFilePath);
+            deletedFields = diffResult.missing.map(key => ({
+              key,
+              path: [key]
+            }));
             
             if (deletedFields.length > 0) {
               console.log(`发现 ${deletedFields.length} 个被删除的字段:`);
@@ -72,7 +101,6 @@ program
                 
                 // 同时从 en_old.json 中删除这些字段
                 console.log('🔄 更新备份文件，移除已删除的字段...');
-                const { readJsonFile, saveJsonFile, deleteFieldByPath } = await import('./diff.js');
                 let backupData = readJsonFile(oldEnFilePath);
                 
                 let deletedCount = 0;
@@ -114,14 +142,14 @@ program
           if (isFirstTime) {
             console.log('\n🎯 首次翻译：将翻译所有内容');
             shouldTranslate = true;
-          } else if (isOldFileEmpty && diff.deletedCount > 0) {
+          } else if (isOldFileEmpty && diffResult.missing.length > 0) {
             // en_old.json 为空但 en.json 有内容（显示为删除项）
             console.log('\n🎯 检测到 en_old.json 为空且 en.json 有内容，将触发翻译');
             shouldTranslate = true;
-          } else if (diff.hasChanges && (diff.addedCount > 0 || diff.modifiedCount > 0)) {
+          } else if ((diffResult.added.length > 0 || diffResult.changed.length > 0)) {
             console.log('\n🔄 检测到变化，准备增量翻译');
             shouldTranslate = true;
-          } else if (diff.hasChanges && diff.deletedCount > 0 && diff.addedCount === 0 && diff.modifiedCount === 0) {
+          } else if (diffResult.missing.length > 0 && diffResult.added.length === 0 && diffResult.changed.length === 0) {
             // 特殊情况：只有删除项，但实际可能是en_old.json只包含部分内容
             // 检查en.json的内容是否比en_old.json多
             try {
@@ -161,10 +189,8 @@ program
           if (result.success) {
             // 4. 备份当前状态
             console.log('\n💾 第三步：备份当前状态');
-            const { backupCurrentFile, getDeletedFields, deleteFieldByPath, readJsonFile, saveJsonFile } = await import('./diff.js');
-            
             // 先备份当前文件
-            const backupSuccess = backupCurrentFile(enFile.path, oldEnFilePath);
+            const backupSuccess = backupFile(enFile.path, oldEnFilePath);
             
             // 如果有被删除的字段，也需要从备份文件中删除
             if (deletedFields.length > 0) {

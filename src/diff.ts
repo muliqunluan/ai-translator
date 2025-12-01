@@ -1,402 +1,228 @@
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 
-// 差异类型
-export type DiffType = 'added' | 'modified' | 'deleted' | 'unchanged';
+// 简化的JSON类型定义
+type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
+interface JSONObject { [key: string]: JSONValue; }
+interface JSONArray extends Array<JSONValue> { }
 
-// 差异项接口
-export interface DiffItem {
-  key: string;
-  type: DiffType;
-  oldValue?: string;
-  newValue?: string;
-  path: string[]; // 嵌套路径，如 ['common', 'loading']
-}
-
-// 差异结果接口
-export interface DiffResult {
-  hasChanges: boolean;
-  changes: DiffItem[];
-  addedCount: number;
-  modifiedCount: number;
-  deletedCount: number;
+// 简化的差异结果接口
+interface DiffResult {
+    missing: string[];
+    added: string[];
+    changed: string[];
 }
 
 /**
- * 深度比较两个对象
+ * 简单比较两个对象的差异（只比较顶层键）
  */
-function deepCompare(
-  obj1: any,
-  obj2: any,
-  path: string[] = []
-): DiffItem[] {
-  const changes: DiffItem[] = [];
-  const allKeys = new Set([...Object.keys(obj1 || {}), ...Object.keys(obj2 || {})]);
+const diff = (oldObj: JSONObject, newObj: JSONObject): DiffResult => {
+    const result: DiffResult = {
+        missing: [],
+        added: [],
+        changed: []
+    };
 
-  for (const key of allKeys) {
-    const currentPath = [...path, key];
-    const pathString = currentPath.join('.');
-    const value1 = obj1?.[key];
-    const value2 = obj2?.[key];
+    // 遍历 oldObj：检查缺失和修改
+    for (const key in oldObj) {
+        if (!(key in newObj)) {
+            result.missing.push(key);
+            continue;
+        }
 
-    // 检查键是否存在
-    if (!(key in obj1)) {
-      changes.push({
-        key: pathString,
-        type: 'added',
-        newValue: value2,
-        path: currentPath
-      });
-    } else if (!(key in obj2)) {
-      changes.push({
-        key: pathString,
-        type: 'deleted',
-        oldValue: value1,
-        path: currentPath
-      });
-    } else if (typeof value1 !== typeof value2) {
-      changes.push({
-        key: pathString,
-        type: 'modified',
-        oldValue: value1,
-        newValue: value2,
-        path: currentPath
-      });
-    } else if (typeof value1 === 'object' && value1 !== null && value2 !== null) {
-      // 递归比较嵌套对象
-      const nestedChanges = deepCompare(value1, value2, currentPath);
-      changes.push(...nestedChanges);
-    } else if (value1 !== value2) {
-      changes.push({
-        key: pathString,
-        type: 'modified',
-        oldValue: value1,
-        newValue: value2,
-        path: currentPath
-      });
+        const oldVal = oldObj[key];
+        const newVal = newObj[key];
+
+        // 只要内容不完全一样，就视为 changed（整体更新）
+        if (JSON.stringify(oldVal) !== JSON.stringify(newVal)) {
+            result.changed.push(key);
+        }
     }
-    // 如果值相等，则不需要记录（unchanged）
-  }
 
-  return changes;
-}
+    // 遍历 newObj：检查新增
+    for (const key in newObj) {
+        if (!(key in oldObj)) {
+            result.added.push(key);
+        }
+    }
+
+    return result;
+};
 
 /**
  * 读取JSON文件
  */
-export function readJsonFile(filePath: string): any {
-  try {
-    if (!existsSync(filePath)) {
-      return {};
+function readJsonFile(filePath: string): JSONObject {
+    try {
+        if (!existsSync(filePath)) {
+            return {};
+        }
+        const content = readFileSync(filePath, 'utf-8');
+        return JSON.parse(content);
+    } catch (error) {
+        console.error(`读取文件失败 ${filePath}: ${error}`);
+        return {};
     }
-    const content = readFileSync(filePath, 'utf-8');
-    return JSON.parse(content);
-  } catch (error) {
-    console.error(`读取文件失败 ${filePath}: ${error}`);
-    return {};
-  }
 }
 
 /**
  * 保存JSON文件
  */
-export function saveJsonFile(filePath: string, data: any): void {
-  try {
-    const content = JSON.stringify(data, null, 2);
-    writeFileSync(filePath, content, 'utf-8');
-  } catch (error) {
-    console.error(`保存文件失败 ${filePath}: ${error}`);
-  }
+function saveJsonFile(filePath: string, data: JSONObject): void {
+    try {
+        const content = JSON.stringify(data, null, 2);
+        writeFileSync(filePath, content, 'utf-8');
+    } catch (error) {
+        console.error(`保存文件失败 ${filePath}: ${error}`);
+    }
 }
 
 /**
- * 比较两个JSON文件的差异
+ * 备份文件
  */
-export function compareJsonFiles(
-  currentFilePath: string,
-  oldFilePath: string
+function backupFile(filePath: string, backupPath: string): boolean {
+    try {
+        const data = readJsonFile(filePath);
+        saveJsonFile(backupPath, data);
+        return true;
+    } catch (error) {
+        console.error(`备份文件失败: ${error}`);
+        return false;
+    }
+}
+
+/**
+ * 从对象中删除指定的键
+ */
+function removeKeys(obj: JSONObject, keysToRemove: string[]): JSONObject {
+    const result = { ...obj };
+    keysToRemove.forEach(key => {
+        if (key in result) {
+            delete result[key];
+        }
+    });
+    return result;
+}
+
+/**
+ * 获取需要翻译的内容
+ */
+function getTranslatableContent(
+    newObj: JSONObject,
+    diffResult: DiffResult
+): JSONObject {
+    const result: JSONObject = {};
+    
+    // 添加新增的字段
+    diffResult.added.forEach(key => {
+        if (key in newObj && newObj[key] !== undefined) {
+            result[key] = newObj[key] as JSONValue;
+        }
+    });
+    
+    // 添加修改的字段
+    diffResult.changed.forEach(key => {
+        if (key in newObj && newObj[key] !== undefined) {
+            result[key] = newObj[key] as JSONValue;
+        }
+    });
+    
+    return result;
+}
+
+/**
+ * 处理语言文件差异
+ */
+export function processLanguageFiles(
+    enOldPath: string,
+    enNewPath: string,
+    languageFiles: string[],
+    backupDir: string = './backups'
+): { translatableContent: JSONObject; success: boolean } {
+    try {
+        // 读取英文文件
+        const enOld = readJsonFile(enOldPath);
+        const enNew = readJsonFile(enNewPath);
+        
+        // 计算差异
+        const diffResult = diff(enOld, enNew);
+        
+        // 备份旧的英文文件
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const backupPath = `${backupDir}/en_old_${timestamp}.json`;
+        backupFile(enOldPath, backupPath);
+        
+        // 获取需要翻译的内容
+        const translatableContent = getTranslatableContent(enNew, diffResult);
+        
+        // 处理其他语言文件
+        languageFiles.forEach(langFile => {
+            if (langFile === enNewPath) return; // 跳过英文文件
+            
+            const langData = readJsonFile(langFile);
+            
+            // 移除缺失的字段
+            const updatedLangData = removeKeys(langData, diffResult.missing);
+            
+            // 保存更新后的语言文件
+            saveJsonFile(langFile, updatedLangData);
+            
+            console.log(`已更新语言文件: ${langFile}`);
+        });
+        
+        console.log('差异处理完成');
+        console.log(`缺失字段: ${diffResult.missing.join(', ')}`);
+        console.log(`新增字段: ${diffResult.added.join(', ')}`);
+        console.log(`修改字段: ${diffResult.changed.join(', ')}`);
+        
+        return { translatableContent, success: true };
+    } catch (error) {
+        console.error(`处理语言文件失败: ${error}`);
+        return { translatableContent: {}, success: false };
+    }
+}
+
+/**
+ * 简单的文件差异比较函数
+ */
+export function simpleDiff(
+    oldFilePath: string,
+    newFilePath: string
 ): DiffResult {
-  const currentData = readJsonFile(currentFilePath);
-  const oldData = readJsonFile(oldFilePath);
-
-  // 检查是否为空文件情况
-  const isOldEmpty = Object.keys(oldData).length === 0;
-  const isCurrentEmpty = Object.keys(currentData).length === 0;
-  
-  // 检查旧文件是否只包含部分内容（如只有common和form组）
-  const oldKeys = Object.keys(oldData);
-  const currentKeys = Object.keys(currentData);
-  const isOldPartial = oldKeys.length > 0 && oldKeys.length < currentKeys.length &&
-    oldKeys.every(key => currentKeys.includes(key));
-
-  let changes: DiffItem[];
-  
-  if (isOldEmpty && !isCurrentEmpty) {
-    // 特殊情况：旧文件为空，新文件有内容
-    // 将所有当前内容标记为新增
-    changes = [];
-    const flattenObject = (obj: any, prefix: string = ''): DiffItem[] => {
-      const result: DiffItem[] = [];
-      for (const [key, value] of Object.entries(obj)) {
-        const fullKey = prefix ? `${prefix}.${key}` : key;
-        if (typeof value === 'object' && value !== null) {
-          result.push(...flattenObject(value, fullKey));
-        } else {
-          result.push({
-            key: fullKey,
-            type: 'added',
-            newValue: value as string,
-            path: fullKey.split('.')
-          });
-        }
-      }
-      return result;
-    };
-    changes = flattenObject(currentData);
-  } else if (isOldPartial && !isCurrentEmpty) {
-    // 特殊情况：旧文件只包含部分内容，新文件有更多内容
-    // 将新文件中多出的内容标记为新增，已有的内容进行比较
-    changes = [];
-    
-    // 首先添加所有新组
-    for (const key of currentKeys) {
-      if (!oldKeys.includes(key)) {
-        // 这是一个新组，将其所有内容标记为新增
-        const flattenObject = (obj: any, prefix: string = ''): DiffItem[] => {
-          const result: DiffItem[] = [];
-          for (const [innerKey, value] of Object.entries(obj)) {
-            const fullKey = prefix ? `${prefix}.${innerKey}` : innerKey;
-            if (typeof value === 'object' && value !== null) {
-              result.push(...flattenObject(value, fullKey));
-            } else {
-              result.push({
-                key: fullKey,
-                type: 'added',
-                newValue: value as string,
-                path: fullKey.split('.')
-              });
-            }
-          }
-          return result;
-        };
-        changes.push(...flattenObject(currentData[key], key));
-      }
-    }
-    
-    // 然后比较已有的组
-    for (const key of oldKeys) {
-      if (currentKeys.includes(key)) {
-        const nestedChanges = deepCompare(currentData[key], oldData[key], [key]);
-        changes.push(...nestedChanges);
-      }
-    }
-  } else if (!isOldEmpty && isCurrentEmpty) {
-    // 特殊情况：新文件为空，旧文件有内容
-    // 将所有旧内容标记为删除
-    changes = [];
-    const flattenObject = (obj: any, prefix: string = ''): DiffItem[] => {
-      const result: DiffItem[] = [];
-      for (const [key, value] of Object.entries(obj)) {
-        const fullKey = prefix ? `${prefix}.${key}` : key;
-        if (typeof value === 'object' && value !== null) {
-          result.push(...flattenObject(value, fullKey));
-        } else {
-          result.push({
-            key: fullKey,
-            type: 'deleted',
-            oldValue: value as string,
-            path: fullKey.split('.')
-          });
-        }
-      }
-      return result;
-    };
-    changes = flattenObject(oldData);
-  } else {
-    // 正常比较
-    changes = deepCompare(currentData, oldData);
-  }
-
-  const addedCount = changes.filter(c => c.type === 'added').length;
-  const modifiedCount = changes.filter(c => c.type === 'modified').length;
-  const deletedCount = changes.filter(c => c.type === 'deleted').length;
-
-  return {
-    hasChanges: changes.length > 0,
-    changes,
-    addedCount,
-    modifiedCount,
-    deletedCount
-  };
-}
-
-/**
- * 备份当前文件到历史版本
- */
-export function backupCurrentFile(
-  currentFilePath: string,
-  backupFilePath: string
-): boolean {
-  try {
-    const currentData = readJsonFile(currentFilePath);
-    saveJsonFile(backupFilePath, currentData);
-    return true;
-  } catch (error) {
-    console.error(`备份文件失败: ${error}`);
-    return false;
-  }
-}
-
-/**
- * 获取需要翻译的内容（新增和修改的项）
- */
-export function getTranslatableContent(
-  currentFilePath: string,
-  oldFilePath: string
-): Record<string, Record<string, string>> {
-  const diff = compareJsonFiles(currentFilePath, oldFilePath);
-  const currentData = readJsonFile(currentFilePath);
-  
-  // 按组分组需要翻译的内容
-  const translatableContent: Record<string, Record<string, string>> = {};
-  
-  // 只处理新增和修改的项
-  const translatableChanges = diff.changes.filter(
-    change => change.type === 'added' || change.type === 'modified'
-  );
-
-  for (const change of translatableChanges) {
-    if (change.path.length >= 2) {
-      const groupName = change.path[0];
-      const keyName = change.path[1];
-      
-      if (groupName && keyName) {
-        if (!translatableContent[groupName]) {
-          translatableContent[groupName] = {};
-        }
-        
-        // 获取当前值
-        const groupData = currentData[groupName];
-        if (groupData && typeof groupData === 'object' && keyName in groupData) {
-          translatableContent[groupName][keyName] = groupData[keyName];
-        }
-      }
-    } else if (change.path.length === 1) {
-      // 处理顶级键
-      const groupName = change.path[0];
-      if (groupName) {
-        if (!translatableContent[groupName]) {
-          translatableContent[groupName] = {};
-        }
-        
-        if (currentData[groupName] && typeof currentData[groupName] === 'string') {
-          translatableContent[groupName][groupName] = currentData[groupName];
-        }
-      }
-    }
-  }
-
-  return translatableContent;
-}
-
-/**
- * 打印差异报告
- */
-export function printDiffReport(diff: DiffResult): void {
-  console.log('\n=== 文件差异报告 ===');
-  
-  if (!diff.hasChanges) {
-    console.log('✅ 没有发现变化');
-    return;
-  }
-
-  console.log(`📊 变化统计:`);
-  console.log(`  - 新增: ${diff.addedCount} 项`);
-  console.log(`  - 修改: ${diff.modifiedCount} 项`);
-  console.log(`  - 删除: ${diff.deletedCount} 项`);
-  console.log(`  - 总计: ${diff.changes.length} 项变化`);
-
-  if (diff.addedCount > 0) {
-    console.log('\n➕ 新增项:');
-    diff.changes
-      .filter(c => c.type === 'added')
-      .forEach(c => {
-        const value = typeof c.newValue === 'object' ? JSON.stringify(c.newValue) : c.newValue;
-        console.log(`  + ${c.key}: "${value}"`);
-      });
-  }
-
-  if (diff.modifiedCount > 0) {
-    console.log('\n✏️ 修改项:');
-    diff.changes
-      .filter(c => c.type === 'modified')
-      .forEach(c => {
-        const oldValue = typeof c.oldValue === 'object' ? JSON.stringify(c.oldValue) : c.oldValue;
-        const newValue = typeof c.newValue === 'object' ? JSON.stringify(c.newValue) : c.newValue;
-        console.log(`  ~ ${c.key}: "${oldValue}" → "${newValue}"`);
-      });
-  }
-
-  if (diff.deletedCount > 0) {
-    console.log('\n➖ 删除项:');
-    diff.changes
-      .filter(c => c.type === 'deleted')
-      .forEach(c => {
-        const value = typeof c.oldValue === 'object' ? JSON.stringify(c.oldValue) : c.oldValue;
-        console.log(`  - ${c.key}: "${value}"`);
-      });
-  }
-
-  console.log('\n==================');
-}
-
-/**
- * 检查是否需要翻译
- */
-export function needsTranslation(
-  currentFilePath: string,
-  oldFilePath: string
-): boolean {
-  const diff = compareJsonFiles(currentFilePath, oldFilePath);
-  return diff.hasChanges && (diff.addedCount > 0 || diff.modifiedCount > 0);
-}
-
-/**
- * 获取被删除的字段路径
- */
-export function getDeletedFields(
-  currentFilePath: string,
-  oldFilePath: string
-): DiffItem[] {
-  const diff = compareJsonFiles(currentFilePath, oldFilePath);
-  return diff.changes.filter(change => change.type === 'deleted');
+    const oldObj = readJsonFile(oldFilePath);
+    const newObj = readJsonFile(newFilePath);
+    return diff(oldObj, newObj);
 }
 
 /**
  * 从对象中删除指定路径的字段
  */
 export function deleteFieldByPath(
-  obj: any,
-  path: string[]
+    obj: any,
+    path: string[]
 ): boolean {
-  if (path.length === 0) return false;
-  
-  let current: any = obj;
-  
-  // 导航到父对象
-  for (let i = 0; i < path.length - 1; i++) {
-    const key = path[i];
-    if (key === undefined || !current[key] || typeof current[key] !== 'object') {
-      return false; // 路径不存在
+    if (path.length === 0) return false;
+    
+    let current: any = obj;
+    
+    // 导航到父对象
+    for (let i = 0; i < path.length - 1; i++) {
+        const key = path[i];
+        if (key === undefined || !current[key] || typeof current[key] !== 'object') {
+            return false; // 路径不存在
+        }
+        current = current[key];
     }
-    current = current[key];
-  }
-  
-  // 删除最后一个键
-  const lastKey = path[path.length - 1];
-  if (lastKey !== undefined && typeof lastKey === 'string' && lastKey in current) {
-    delete current[lastKey];
-    return true;
-  }
-  
-  return false;
+    
+    // 删除最后一个键
+    const lastKey = path[path.length - 1];
+    if (lastKey !== undefined && typeof lastKey === 'string' && lastKey in current) {
+        delete current[lastKey];
+        return true;
+    }
+    
+    return false;
 }
+
+// 导出类型和函数供外部使用
+export type { JSONValue, JSONObject, JSONArray, DiffResult };
+export { diff, readJsonFile, saveJsonFile, backupFile, removeKeys, getTranslatableContent };

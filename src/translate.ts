@@ -8,12 +8,11 @@ import {
   printLanguageInfo
 } from './file-processor.js';
 import type { GroupedContent } from './file-processor.js';
-import { 
-  compareJsonFiles, 
-  backupCurrentFile, 
-  getTranslatableContent, 
-  printDiffReport,
-  needsTranslation
+import {
+  simpleDiff,
+  backupFile,
+  getTranslatableContent,
+  readJsonFile
 } from './diff.js';
 import { translateTextObject, getLanguageName } from './ai.js';
 
@@ -114,17 +113,66 @@ async function checkTranslationNeeds(
   }
   
   // 增量翻译：只翻译变化的内容
-  if (!needsTranslation(enFilePath, oldEnFilePath)) {
+  const diffResult = simpleDiff(oldEnFilePath, enFilePath);
+  
+  if (diffResult.missing.length === 0 && diffResult.added.length === 0 && diffResult.changed.length === 0) {
     console.log('\n✅ 没有检测到变化，无需翻译');
     return { shouldTranslate: false, translatableContent: {} };
   }
 
   console.log('\n🔍 检测到文件变化，准备增量翻译');
-  const translatableContent = getTranslatableContent(enFilePath, oldEnFilePath);
+  
+  // 获取需要翻译的内容
+  const enData = readJsonFile(enFilePath);
+  const rawTranslatableContent = getTranslatableContent(enData, diffResult);
+  
+  // 将 JSONObject 转换为 GroupedContent
+  const translatableContent: GroupedContent = {};
+  
+  for (const [key, value] of Object.entries(rawTranslatableContent)) {
+    if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+      // 如果是对象，检查并转换其值为字符串
+      const convertedObj: Record<string, string> = {};
+      for (const [subKey, subValue] of Object.entries(value)) {
+        if (typeof subValue === 'string') {
+          convertedObj[subKey] = subValue;
+        } else {
+          // 将非字符串值转换为字符串
+          convertedObj[subKey] = String(subValue);
+        }
+      }
+      translatableContent[key] = convertedObj;
+    } else {
+      // 如果不是对象，创建默认组
+      if (!translatableContent.default) {
+        translatableContent.default = {};
+      }
+      translatableContent.default[key] = typeof value === 'string' ? value : String(value || '');
+    }
+  }
   
   // 打印差异报告
-  const diff = compareJsonFiles(enFilePath, oldEnFilePath);
-  printDiffReport(diff);
+  console.log('\n=== 文件差异报告 ===');
+  console.log(`📊 变化统计:`);
+  console.log(`  - 新增: ${diffResult.added.length} 项`);
+  console.log(`  - 修改: ${diffResult.changed.length} 项`);
+  console.log(`  - 删除: ${diffResult.missing.length} 项`);
+  
+  if (diffResult.added.length > 0) {
+    console.log('\n➕ 新增项:');
+    diffResult.added.forEach(key => console.log(`  + ${key}`));
+  }
+  
+  if (diffResult.changed.length > 0) {
+    console.log('\n✏️ 修改项:');
+    diffResult.changed.forEach(key => console.log(`  ~ ${key}`));
+  }
+  
+  if (diffResult.missing.length > 0) {
+    console.log('\n➖ 删除项:');
+    diffResult.missing.forEach(key => console.log(`  - ${key}`));
+  }
+  console.log('==================');
 
   return { shouldTranslate: true, translatableContent };
 }
@@ -364,7 +412,7 @@ export async function translate(options: TranslateOptions = {}): Promise<Transla
 
     // 备份当前文件作为下次比较的基准
     if (!options.dryRun && result.summary.translatedCount > 0) {
-      const backupSuccess = backupCurrentFile(enFilePath, oldEnFilePath);
+      const backupSuccess = backupFile(enFilePath, oldEnFilePath);
       if (backupSuccess) {
         console.log('\n💾 已备份当前 en.json 作为下次比较基准');
       } else {
