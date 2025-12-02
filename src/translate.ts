@@ -17,7 +17,7 @@ import { translateTextObject, getLanguageName } from './ai.js';
 
 // 翻译选项接口
 export interface TranslateOptions {
-  messageDir?: string;
+  workspaceDir?: string;
   tempDir?: string;
   onLanguageComplete?: (languageCode: string, groupName?: string) => void;
 }
@@ -43,14 +43,14 @@ async function initializeTranslation(options: TranslateOptions): Promise<{
   oldEnFilePath: string;
   targetLanguages: string[];
 }> {
-  const messageDir = options.messageDir || 'workspace';
+  const workspaceDir = options.workspaceDir || 'workspace';
   const tempDir = options.tempDir || 'workspace/temp';
 
   // 确保temp目录存在
   ensureTempDirectory(tempDir);
 
   // 获取语言文件
-  const languageFiles = await getLanguageFiles(messageDir);
+  const languageFiles = await getLanguageFiles(workspaceDir);
 
   const enFile = languageFiles.find(f => f.code === 'en');
   if (!enFile) {
@@ -245,7 +245,7 @@ export async function translate(options: TranslateOptions = {}): Promise<Transla
 
     result.summary.totalLanguages = targetLanguages.length;
 
-    const workspace = options.messageDir
+    const workspace = options.workspaceDir
 
     if (targetLanguages.length === 0) {
       console.log('\n⚠️  没有找到目标语言文件');

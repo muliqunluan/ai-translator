@@ -20,7 +20,6 @@ ai-translator/
 │   ├── diff.ts            # 文件差异比较
 │   ├── file-processor.ts  # 文件处理逻辑
 │   └── translate.ts       # 翻译核心逻辑
-├── workspace/               # 生产环境语言文件目录
 ├── test-workspace/          # 测试环境语言文件目录
 ├── .env.template          # 配置文件模板
 ├── package.json           # 项目配置
@@ -81,7 +80,7 @@ max_tokens = 4096
 temperature = 0.6
 
 # 工作模式设置
-is_test_mode = true  # true使用test-message文件夹，false使用message文件夹
+is_test_mode = true  # true使用test-workspace文件夹，false使用workspace文件夹
 workspace = workspace
 work_temp = workspace/temp
 test_workspace = test-workspace
@@ -93,7 +92,7 @@ test_work_temp = test-workspace/temp
 ### 基本使用
 
 1. **准备语言文件：**
-   - 将你的英文源文件 `en.json` 放入 `workspace/` 文件夹（生产环境）或 `test-workspace/` 文件夹（测试环境）
+   - 将你的英文源文件 `en.json` 放入 `workspace/` 文件夹（需手动创建）或 `test-workspace/` 文件夹（测试环境）
    - 创建其他语言的空JSON文件（如 `zh-CN.json`, `fr.json`, `de.json` 等）
 
 2. **运行自动翻译：**

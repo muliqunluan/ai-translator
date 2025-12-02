@@ -167,7 +167,7 @@ program
         const mainBar = progressBar.create(totalSteps, 0, { status: '初始化翻译环境' });
 
         const result = await translate({
-          messageDir:workspace,
+          workspaceDir:workspace,
           tempDir:temp,
           onLanguageComplete: (languageCode: string, groupName?: string) => {
             const languageName = getLanguageName(languageCode);

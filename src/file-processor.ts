@@ -15,10 +15,10 @@ export interface GroupedContent {
 }
 
 
-// 获取message文件夹下的所有语言文件
-export async function getLanguageFiles(messageDir: string = 'workspace'): Promise<LanguageFile[]> {
+// 获取 workspace 文件夹下的所有语言文件
+export async function getLanguageFiles(workspaceDir: string = 'workspace'): Promise<LanguageFile[]> {
   try {
-    const fullPath = resolve(process.cwd(), messageDir);
+    const fullPath = resolve(process.cwd(), workspaceDir);
     
     // 确保目录存在
     if (!existsSync(fullPath)) {
