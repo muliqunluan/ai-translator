@@ -1,9 +1,8 @@
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 
-// 简化的JSON类型定义
-type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
+// 符合语言文件的JSON类型定义
+type JSONValue = string | JSONObject;
 interface JSONObject { [key: string]: JSONValue; }
-interface JSONArray extends Array<JSONValue> { }
 
 // 简化的差异结果接口
 interface DiffResult {
@@ -204,5 +203,5 @@ export function deleteFieldByPath(
 }
 
 // 导出类型和函数供外部使用
-export type { JSONValue, JSONObject, JSONArray, DiffResult };
+export type { JSONValue, JSONObject, DiffResult };
 export { diff, readJsonFile, saveJsonFile, backupFile, removeKeys, getTranslatableContent };
