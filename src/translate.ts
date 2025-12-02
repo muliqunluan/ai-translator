@@ -324,9 +324,7 @@ export async function translate(options: TranslateOptions = {}): Promise<Transla
 
 // 打印翻译结果摘要
 export function printTranslateSummary(result: TranslateResult): void {
-  console.log('\n' + '='.repeat(50));
-  console.log('📊 翻译结果摘要');
-  console.log('='.repeat(50));
+  console.log('\n');
 
   if (result.success) {
     console.log('✅ 翻译完成！');
@@ -361,5 +359,4 @@ export function printTranslateSummary(result: TranslateResult): void {
     });
   }
 
-  console.log('='.repeat(50));
 }
