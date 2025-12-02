@@ -2,7 +2,7 @@
 
 import { Command } from 'commander';
 import { translate, printTranslateSummary } from './translate.js';
-import { getLanguageFiles, printLanguageInfo, syncDeleteFieldsFromAllLanguages } from './file-processor.js';
+import { getLanguageFiles, syncDeleteFieldsFromAllLanguages } from './file-processor.js';
 import { simpleDiff, deleteFieldByPath, readJsonFile, saveJsonFile, backupFile } from './diff.js';
 import { resolve } from 'path';
 import { getLanguageName } from './ai.js';
@@ -23,6 +23,8 @@ program
   .action(async (options: any) => {
     try {
       console.log('🚀 一键自动翻译模式');
+
+      // 0. 确认工作区域
       var workspace = ''
       var temp = ''
       if (process.env.is_test_mode) {
@@ -32,10 +34,9 @@ program
         workspace = process.env.workspace!
         temp = process.env.work_temp!
       }
+
       // 1. 检查翻译状态
       const languageFiles = await getLanguageFiles(workspace);
-      printLanguageInfo(languageFiles);
-
       const enFile = languageFiles.find(f => f.code === 'en');
       if (!enFile) {
         console.log('❌ 未找到 en.json 文件');

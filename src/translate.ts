@@ -4,8 +4,7 @@ import {
   getTargetLanguages,
   groupEnContent,
   updateLanguageFile,
-  ensureTempDirectory,
-  printLanguageInfo
+  ensureTempDirectory
 } from './file-processor.js';
 import type { GroupedContent } from './file-processor.js';
 import {
@@ -52,7 +51,6 @@ async function initializeTranslation(options: TranslateOptions): Promise<{
 
   // 获取语言文件
   const languageFiles = await getLanguageFiles(messageDir);
-  printLanguageInfo(languageFiles);
 
   const enFile = languageFiles.find(f => f.code === 'en');
   if (!enFile) {

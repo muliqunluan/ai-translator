@@ -200,18 +200,6 @@ export function ensureTempDirectory(tempDir: string = 'message/temp'): void {
   }
 }
 
-// 打印语言文字信息
-export function printLanguageInfo(languageFiles: LanguageFile[]): void {
-  const targetLanguages = getTargetLanguages(languageFiles);
-  
-  const enFile = languageFiles.find(f => f.code === 'en');
-  if (enFile && enFile.exists) {
-    console.log(`📄 源语言: en | 🌍 目标语言: ${targetLanguages.length}种`);
-  } else {
-    console.log('❌ 未找到源语言文件 en.json');
-  }
-}
-
 // 验证语言文件结构
 export function validateLanguageStructure(
   enFilePath: string,
