@@ -203,47 +203,12 @@ ${jsonString}
     }
     cleanText = cleanText.trim();
 
-    // 尝试多种方式解析JSON
-    let translatedObject;
-    try {
-      translatedObject = JSON.parse(cleanText);
-    } catch (firstError: any) {
-      // 尝试修复常见的JSON问题
-      let fixedText = cleanText;
-
-      // 修复尾随逗号
-      fixedText = fixedText.replace(/,\s*}/g, '}').replace(/,\s*]/g, ']');
-
-      // 修复单引号
-      fixedText = fixedText.replace(/'/g, '"');
-
-      // 修复未引用的键
-      fixedText = fixedText.replace(/(\w+):/g, '"$1":');
-
-      try {
-        translatedObject = JSON.parse(fixedText);
-      } catch (secondError: any) {
-        // 最后尝试：手动提取键值对
-        translatedObject = {} as Record<string, string>;
-        const lines = cleanText.split('\n');
-        for (const line of lines) {
-          const match = line.match(/^\s*"([^"]+)"\s*:\s*"([^"]*)"/);
-          if (match && match[1] && match[2]) {
-            translatedObject[match[1]] = match[2];
-          }
-        }
-
-        if (Object.keys(translatedObject).length === 0) {
-          throw new Error('无法解析任何有效的JSON数据');
-        }
-      }
-    }
+    const translatedObject = JSON.parse(cleanText);
 
     // 验证翻译结果
-    const translatedKeys = Object.keys(translatedObject);
     const originalKeys = Object.keys(textObject);
 
-    // 检查是否有键缺失
+    // 检查是否有键缺失，如果有则使用原值
     for (const key of originalKeys) {
       if (!(key in translatedObject)) {
         translatedObject[key] = textObject[key];
@@ -253,7 +218,8 @@ ${jsonString}
     return translatedObject;
 
   } catch (parseError) {
-    return ({});
+    console.error('JSON解析失败:', parseError);
+    return textObject; // 解析失败时返回原始对象
   }
 }
 
