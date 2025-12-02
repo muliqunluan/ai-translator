@@ -194,7 +194,6 @@ export function updateLanguageFile(
       // 这种情况下，完全替换整个组
       if (existingKeys.length !== newKeys.length ||
           !existingKeys.every(key => newKeys.includes(key))) {
-        console.log(`检测到组 "${groupName}" 发生结构性变化，将完全替换该组内容`);
         existingGroupedContent[groupName] = { ...newGroupData };
       } else {
         // 否则，只合并新增或修改的键
@@ -222,25 +221,14 @@ export function ensureTempDirectory(tempDir: string = 'message/temp'): void {
  * 打印语言文件信息
  */
 export function printLanguageInfo(languageFiles: LanguageFile[]): void {
-  console.log('\n=== 语言文件信息 ===');
+  const targetLanguages = getTargetLanguages(languageFiles);
   
   const enFile = languageFiles.find(f => f.code === 'en');
-  if (enFile) {
-    console.log(`📄 源语言文件: ${enFile.code} (${enFile.exists ? '✅' : '❌'})`);
+  if (enFile && enFile.exists) {
+    console.log(`📄 源语言: en | 🌍 目标语言: ${targetLanguages.length}种`);
+  } else {
+    console.log('❌ 未找到源语言文件 en.json');
   }
-  
-  const targetLanguages = getTargetLanguages(languageFiles);
-  console.log(`🌍 目标语言数量: ${targetLanguages.length}`);
-  
-  if (targetLanguages.length > 0) {
-    console.log('📋 目标语言列表:');
-    targetLanguages.forEach(code => {
-      const file = languageFiles.find(f => f.code === code);
-      console.log(`  - ${code} (${file?.exists ? '✅' : '❌'})`);
-    });
-  }
-  
-  console.log('==================');
 }
 
 /**

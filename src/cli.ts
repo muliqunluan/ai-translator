@@ -30,10 +30,7 @@ program
         workspace = process.env.workspace!
         temp = process.env.work_temp!
       }
-      console.log('工作区', workspace)
-      console.log('temp', temp)
       // 1. 检查翻译状态
-      console.log('\n📊 第一步：检查翻译状态');
       const languageFiles = await getLanguageFiles(workspace);
       printLanguageInfo(languageFiles);
 
@@ -53,57 +50,25 @@ program
 
 
       // 无论是否首次运行，都检查差异
-      console.log('\n🔍 检查文件差异...');
       const diffResult = simpleDiff(oldEnFilePath, enFile.path);
 
       // 打印差异报告
-      console.log('\n=== 文件差异报告 ===');
-      if (diffResult.missing.length === 0 && diffResult.added.length === 0 && diffResult.changed.length === 0) {
-        console.log('✅ 没有发现变化');
-      } else {
-        console.log(`📊 变化统计:`);
-        console.log(`  - 新增: ${diffResult.added.length} 项`);
-        console.log(`  - 修改: ${diffResult.changed.length} 项`);
-        console.log(`  - 删除: ${diffResult.missing.length} 项`);
-
-        if (diffResult.added.length > 0) {
-          console.log('\n➕ 新增项:');
-          diffResult.added.forEach(key => console.log(`  + ${key}`));
-        }
-
-        if (diffResult.changed.length > 0) {
-          console.log('\n✏️ 修改项:');
-          diffResult.changed.forEach(key => console.log(`  ~ ${key}`));
-        }
-
-        if (diffResult.missing.length > 0) {
-          console.log('\n➖ 删除项:');
-          diffResult.missing.forEach(key => console.log(`  - ${key}`));
-        }
+      if (diffResult.missing.length > 0 || diffResult.added.length > 0 || diffResult.changed.length > 0) {
+        console.log(`\n📊 检测到变化: +${diffResult.added.length} ~${diffResult.changed.length} -${diffResult.missing.length}`);
       }
-      console.log('==================');
 
       // 检查是否有被删除的字段，如果有则同步删除其他语言文件中的相应字段
       if (diffResult.missing.length > 0) {
-        console.log('\n🗑️  检测到删除的字段，正在同步删除其他语言文件中的相应字段...');
         deletedFields = diffResult.missing.map(key => ({
           key,
           path: [key]
         }));
 
         if (deletedFields.length > 0) {
-          console.log(`发现 ${deletedFields.length} 个被删除的字段:`);
-          deletedFields.forEach(field => {
-            console.log(`  - ${field.key}`);
-          });
-
           const deleteResult = syncDeleteFieldsFromAllLanguages(languageFiles, deletedFields);
 
           if (deleteResult.success) {
-            console.log('✅ 成功同步删除所有语言文件中的相应字段');
-
             // 同时从 en_old.json 中删除这些字段
-            console.log('🔄 更新备份文件，移除已删除的字段...');
             let backupData = readJsonFile(oldEnFilePath);
 
             let deletedCount = 0;
@@ -115,15 +80,7 @@ program
 
             if (deletedCount > 0) {
               saveJsonFile(oldEnFilePath, backupData);
-              console.log(`✅ 已从备份文件中移除 ${deletedCount} 个字段`);
             }
-          } else {
-            console.log('⚠️  部分字段删除失败:');
-            deleteResult.results.forEach(result => {
-              if (!result.success) {
-                console.log(`  - ${result.language}: ${result.field}`);
-              }
-            });
           }
         }
       }
@@ -147,10 +104,8 @@ program
         shouldTranslate = true;
       } else if (isOldFileEmpty && diffResult.missing.length > 0) {
         // en_old.json 为空但 en.json 有内容（显示为删除项）
-        console.log('\n🎯 检测到 en_old.json 为空且 en.json 有内容，将触发翻译');
         shouldTranslate = true;
       } else if ((diffResult.added.length > 0 || diffResult.changed.length > 0)) {
-        console.log('\n🔄 检测到变化，准备增量翻译');
         shouldTranslate = true;
       } else if (diffResult.missing.length > 0 && diffResult.added.length === 0 && diffResult.changed.length === 0) {
         // 特殊情况：只有删除项，但实际可能是en_old.json只包含部分内容
@@ -162,14 +117,12 @@ program
           const oldKeyCount = Object.keys(oldData).length;
 
           if (currentKeyCount > oldKeyCount) {
-            console.log('\n🎯 检测到 en.json 内容比 en_old.json 多，将触发增量翻译');
             shouldTranslate = true;
           } else {
             console.log('\n✅ 没有检测到需要翻译的内容');
             process.exit(0);
           }
         } catch (error) {
-          console.log('\n⚠️  无法分析文件内容，跳过翻译');
           process.exit(0);
         }
       } else {
@@ -180,7 +133,7 @@ program
 
       if (shouldTranslate) {
         // 3. 执行翻译
-        console.log('\n🌍 第二步：执行翻译');
+        console.log('\n🌍 开始翻译...');
 
         const result = await translate({
           messageDir:workspace,
@@ -191,13 +144,11 @@ program
 
         if (result.success) {
           // 4. 备份当前状态
-          console.log('\n💾 第三步：备份当前状态');
           // 先备份当前文件
           const backupSuccess = backupFile(enFile.path, oldEnFilePath);
 
           // 如果有被删除的字段，也需要从备份文件中删除
           if (deletedFields.length > 0) {
-            console.log('🔄 更新备份文件，移除已删除的字段...');
             let backupData = readJsonFile(oldEnFilePath);
 
             let deletedCount = 0;
@@ -209,18 +160,14 @@ program
 
             if (deletedCount > 0) {
               saveJsonFile(oldEnFilePath, backupData);
-              console.log(`✅ 已从备份文件中移除 ${deletedCount} 个字段`);
             }
           }
 
           if (backupSuccess) {
-            console.log('✅ 已备份当前状态，下次将进行增量翻译');
+            console.log('\n✅ 翻译完成！下次将进行增量翻译');
           } else {
-            console.log('⚠️  备份失败，但不影响翻译结果');
+            console.log('\n✅ 翻译完成！（备份失败，但不影响翻译结果）');
           }
-
-          console.log('\n🎉 一键翻译完成！');
-          console.log('💡 下次运行将自动进行增量翻译');
           process.exit(0);
         } else {
           console.log('\n💥 翻译失败！');
