@@ -43,7 +43,9 @@
     "item_unknown": "Unknown {{name}}",
     "create": "Create",
     "quantity": "Quantity",
-    "quantity_abbr": "Qty"
+    "quantity_abbr": "Qty",
+    "no_data": "No Data",
+    "no_data_found": "No data found"
   },
   "form": {
     "save": "Save",
@@ -160,7 +162,45 @@
   },
   "product": {
     "thumbnail_alt": "Product image of {{productTitle}}",
-    "quantity": "Quantity"
+    "quantity": "Quantity",
+    "variant_label": "Product Variant:",
+    "buy_now": "Buy Now",
+    "add_to_cart": "Add to Cart",
+    "reviews": "Reviews",
+    "detail": "Detail Product",
+    "merchant": "Merchant",
+    "information": "Information",
+    "details": "Details",
+    "weight": "Weight",
+    "height": "Height",
+    "width": "Width",
+    "material": "Material",
+    "origin_country": "Origin country",
+    "merchant_information": "Merchant Information",
+    "chat": "Chat",
+    "visit_merchant": "Visit Merchant",
+    "related_products": "Related Products",
+    "product_reviews": "Product Reviews",
+    "from_reviews": "from {{total}} reviews",
+    "review_lists": "Review Lists"
+  },
+  "filter": {
+    "filter_option": "Filter Option",
+    "best_filter": "Best Filter",
+    "condition": "Condition",
+    "price_range": "Price Range",
+    "discount": "Discount",
+    "minimum_price": "Minimum price",
+    "maximum_price": "Maximum price",
+    "reviews_filter": "Reviews Filter",
+    "rating": "Rating"
+  },
+  "sort": {
+    "sort_by": "Sort By:",
+    "best_sellers": "Best Sellers",
+    "newest_arrivals": "Newest Arrivals",
+    "price_low_to_high": "Price: Low to High",
+    "price_high_to_low": "Price: High to Low"
   },
   "cart": {
     "title": "Shopping Cart",
@@ -223,6 +263,21 @@
     "failed": "Checkout Failed!",
     "failureMessage": "Unfortunately, your order could not be processed. Please try again.",
     "backToHome": "Back to Home",
+    "showingChoicesProduct": "Showing your choices product",
+    "paymentSuccessful": "Your Payment is Successful",
+    "paymentProcessingDescription": "Your payment will be processed in 30 mins. If any problem please chat to customer service. Detail information will be included below.",
+    "paymentMethod": "Payment Method",
+    "nextStep": "Next Step",
+    "selectedProduct": "Selected Product",
+    "shipping": "Shipping",
+    "selectDeliveryMethod": "Select delivery method",
+    "payNow": "Pay Now",
+    "paymentFailed": "Payment failed",
+    "loadError": "Load error",
+    "failedToGenerateOrder": "Failed to generate order!",
+    "failedToSelectPaymentMethod": "Failed to select payment method",
+    "noSeller": "No Seller",
+    "placeOrder": "Place Order",
     "checkDetail": "Check Detail"
   },
   "accountCreated": {
@@ -231,7 +286,10 @@
     "signInButton": "Sign In"
   },
   "categories": {
-    "allCategories": "All Categories"
+    "allCategories": "All Categories",
+    "allProducts": "All Products",
+    "showing_product_for": "Showing product for \"{{name}}\"",
+    "showing_range": "Showing {{start}} - {{end}} Products"
   },
   "collections_section": {
     "featured_collections": "Featured Collections",
@@ -289,7 +347,8 @@
       "request_return": "Return & Refund",
       "cancel_order": "Cancel Order",
       "cancel_description": "Contact seller for cancellation",
-      "write_review": "Write reviews"
+      "write_review": "Write reviews",
+      "see_reviews": "See reviews"
     }
   },
   "customer_address": {
@@ -385,6 +444,11 @@
     "no_addresses": "No addresses available. Please add an address to proceed.",
     "add_new": "Add New Address",
     "manage_address": "Manage Address",
+    "noAddress": "No address",
+    "noAddressDataFound": "No address data found",
+    "createAddress": "Create Address",
+    "otherAddress": "Other Address",
+    "edit": "Edit",
     "clear_selected_address": "Clear Selected Address"
   },
   "customer_returns": {
@@ -461,7 +525,10 @@
     "submitted_success_title": "Review Submitted Successfully",
     "submitted_success_desc": "Thank you for your feedback! Your review has been submitted successfully.",
     "submit_fail_title": "Failed to Submit Review",
-    "submit_fail_desc": "There was an error submitting your review. Please try again."
+    "submit_fail_desc": "There was an error submitting your review. Please try again.",
+    "comment_character_count": "{{current}}/{{max}} characters",
+    "characters_remaining": "characters remaining",
+    "comment_too_long": "Comment too long"
   },
   "reviews": {
     "reviews_to_sellers": "Reviews to Sellers",
@@ -469,5 +536,14 @@
     "no_reviews_to_sellers": "You haven't written any seller reviews yet.",
     "no_reviews_to_products": "You haven't written any product reviews yet.",
     "reply_from_seller": "Reply from seller"
+  },
+  "wishlist": {
+    "my_wishlist": "My Wishlist",
+    "empty_title": "Your wishlist is empty",
+    "empty_description": "Start adding items you love to keep track of them here.",
+    "start_shopping": "Start Shopping",
+    "added_to_wishlist": "Added to wishlist",
+    "removed_from_wishlist": "Removed from wishlist",
+    "error_updating_wishlist": "Failed to update wishlist"
   }
 }

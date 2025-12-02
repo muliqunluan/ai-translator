@@ -17,7 +17,7 @@
     "continue": "Працягнуць",
     "yes": "Так",
     "no": "Не",
-    "ok": "Добра",
+    "ok": "OK",
     "error": "Памылка",
     "success": "Паспяхова",
     "warning": "Папярэджанне",
@@ -32,7 +32,7 @@
     "updatedAt": "Абноўлена",
     "deletedAt": "Выдалена",
     "actions": "Дзеянні",
-    "all": "Усё",
+    "all": "Усе",
     "active": "Актыўны",
     "inactive": "Неактыўны",
     "enabled": "Уключана",
@@ -43,29 +43,31 @@
     "item_unknown": "Невядомы {{name}}",
     "create": "Стварыць",
     "quantity": "Колькасць",
-    "quantity_abbr": "Кол."
+    "quantity_abbr": "Кол.",
+    "no_data": "Няма дадзеных",
+    "no_data_found": "Дадзеныя не знойдзены"
   },
   "form": {
     "save": "Захаваць",
     "cancel": "Адмяніць",
     "fieldPlaceholder": "Увядзіце {{field}}",
-    "fieldIsRequired": "{{field}} абавязкова для запаўнення",
-    "fieldIsInvalid": "{{field}} несапраўдны",
+    "fieldIsRequired": "{{field}} з'яўляецца абавязковым",
+    "fieldIsInvalid": "{{field}} з'яўляецца няправільным",
     "selectFile": "Калі ласка, выберыце файл",
     "headingCreate": "Стварыць новы {{name}}",
     "headingEdit": "Рэдагаваць {{name}}",
     "headingDelete": "Выдаліць {{name}}",
-    "emailRequired": "Электронная пошта абавязковая",
+    "emailRequired": "Электронная пошта з'яўляецца абавязковай",
     "emailInvalid": "Калі ласка, увядзіце сапраўдны адрас электроннай пошты",
-    "passwordRequired": "Пароль абавязковы",
+    "passwordRequired": "Пароль з'яўляецца абавязковым",
     "passwordMinLength": "Пароль павінен змяшчаць не менш 6 сімвалаў",
-    "verificationCodeRequired": "Код праверкі абавязковы",
+    "verificationCodeRequired": "Код праверкі з'яўляецца абавязковым",
     "verificationCodeLength": "Код праверкі павінен складацца з 6 сімвалаў",
     "confirmDefaultTitle": "Вы ўпэўнены?"
   },
   "dialog": {
-    "confirmDeletionHeading": "Вы ўпэўнены, што жадаеце выдаліць гэта?",
-    "confirmDeletionDesc": "Увага! Гэтае дзеянне нельга адмяніць! \nКалі ласка, увядзіце {{text}}, каб пацвердзіць выдаленне:",
+    "confirmDeletionHeading": "Вы ўпэўнены, што хочаце выдаліць гэта?",
+    "confirmDeletionDesc": "Увага! Гэта немагчыма адрабіць! \nКалі ласка, увядзіце {{text}}, каб пацвердзіць выдаленне:",
     "confirmDeletionPlaceholder": "Увядзіце тут..."
   },
   "navigation": {
@@ -86,7 +88,7 @@
     "forgotPassword": "Забылі пароль?",
     "signIn": "Увайсці",
     "signUp": "Зарэгістравацца",
-    "orUsingOtherMethod": "Або выкарыстоўвайце іншы метад",
+    "orUsingOtherMethod": "Або скарыстайцеся іншым метадам",
     "signInWithFacebook": "Увайсці праз Facebook",
     "signInWithGoogle": "Увайсці праз Google",
     "signInWithTwitter": "Увайсці праз Twitter",
@@ -94,7 +96,9 @@
     "emailVerificationCodePlaceholder": "Код праверкі электроннай пошты",
     "send": "Адправіць",
     "createAccount": "Стварыць уліковы запіс",
-    "alreadyHaveAccount": "Ужо ёсць уліковы запіс? Увайсці→"
+    "alreadyHaveAccount": "Ужо ёсць уліковы запіс? Увайсці→",
+    "loginExpiredTitle": "Сесія скончылася!",
+    "loginExpiredTips": "Калі ласка, увайдзіце зноў~"
   },
   "userCard": {
     "menu": "Меню",
@@ -107,7 +111,7 @@
     "settings": "Налады",
     "signOut": "Выйсці",
     "login": "Увайсці",
-    "register": "Зарэгістравацца",
+    "register": "Рэгістрацыя",
     "dashboard": "Панэль кіравання"
   },
   "user": {
@@ -116,13 +120,13 @@
   },
   "footer": {
     "description": "© 2024 FBE Store Усе правы абаронены.",
-    "details": "Найбуйнейшы маркетплейс, кіраваны кампаніяй Ideologist corp, якая прапануе розныя тавары для паўсядзённых патрэб і хобі.",
+    "details": "Найбольшы рынак, які кіруецца кампаніяй Ideologist corp, якая прапануе розныя віды тавараў для паўсядзённых патрэб і хобі.",
     "company": "Кампанія",
     "policies": "Палітыкі",
-    "help": "Дапамога",
-    "paymentMethods": "Метады аплаты",
+    "help": "Даведка",
+    "paymentMethods": "Спосабы аплаты",
     "aboutUs": "Пра нас",
-    "termOfService": "Умовы абслугоўвання",
+    "termOfService": "Умовы выкарыстання",
     "returns": "Вяртанні",
     "refundPolicy": "Палітыка вяртання сродкаў",
     "privacyPolicy": "Палітыка прыватнасці",
@@ -134,7 +138,7 @@
     "title": "404 Не знойдзена",
     "description": "Што-то пайшло не так",
     "page_not_found": "Старонка не знойдзена",
-    "page_does_not_exist": "Старонка, да якой вы спрабавалі атрымаць доступ, не існуе.",
+    "page_does_not_exist": "Старонка, якую вы спрабавалі адкрыць, не існуе.",
     "go_to_frontpage": "Перайсці на галоўную старонку"
   },
   "product_card": {
@@ -145,24 +149,44 @@
   },
   "new_arrivals_section": {
     "heading": "Новыны",
-    "description": "Паглядзіце на апошнія даданні ў нашу калекцыю.",
+    "description": "Паглядзіце апошнія дапаўненні нашай калекцыі.",
     "cta": "Загрузіць яшчэ"
   },
   "sales_section": {
     "heading": "Вялікая зніжка",
     "description": "Не прапусціце нашы эксклюзіўныя прапановы і зніжкі.",
-    "cta": "Загрузіць больш"
+    "cta": "Загрузіць яшчэ"
   },
   "seller": {
     "joined": "Далучыўся"
   },
   "product": {
     "thumbnail_alt": "Выява прадукту {{productTitle}}",
-    "quantity": "Колькасць"
+    "quantity": "Колькасць",
+    "variant_label": "Варыянт прадукту:",
+    "buy_now": "Купіць зараз",
+    "add_to_cart": "Дадаць у кошык",
+    "reviews": "Адзывы",
+    "detail": "Дэталі прадукту",
+    "merchant": "Прадавец",
+    "information": "Інфармацыя",
+    "details": "Дэталі",
+    "weight": "Вага",
+    "height": "Вышыня",
+    "width": "Шырыня",
+    "material": "Матэрыял",
+    "origin_country": "Краіна паходжання",
+    "merchant_information": "Інфармацыя пра прадаўца",
+    "chat": "Чат",
+    "visit_merchant": "Наведаць прадаўца",
+    "related_products": "Звязаныя прадукты",
+    "product_reviews": "Адзывы на прадукт",
+    "from_reviews": "з {{total}} адзываў",
+    "review_lists": "Спісы адзываў"
   },
   "cart": {
     "title": "Кошык",
-    "subtitle": "Праверце выбраныя тавары",
+    "subtitle": "Праглядзіце выбраныя тавары",
     "items": "тавары",
     "empty": "Ваш кошык пусты",
     "go_shopping": "За пакупкамі",
@@ -170,11 +194,11 @@
     "total": "Сума",
     "checkout": "Аформіць заказ",
     "delivery": "Дастаўка",
-    "order_summary": "Зводка заказу",
+    "order_summary": "Зводка заказа",
     "tax_fee": "Падатак",
     "discount": "Зніжка",
     "total_price": "Агульная сума",
-    "use_promo": "Выкарыстоўваць промакоды",
+    "use_promo": "Выкарыстоўвайце промакоды",
     "choose_product_to_use_promo": "Дадайце і кіруйце вашымі промакодамі",
     "promo_code": "Промакод",
     "promos_desc": "Выкарыстоўвайце промакоды, каб атрымаць зніжкі на ваш заказ.",
@@ -182,46 +206,61 @@
     "enter_promo_code": "Увядзіце промакод",
     "added_promo_codes": "Вашы промакоды",
     "add_promo_code": "Дадаць новы промакод",
-    "add_multiple_promos_desc": "Вы можаце дадаць некалькі кодаў і ўжыць іх да вашага заказу.",
+    "add_multiple_promos_desc": "Вы можаце дадаць некалькі кодаў і ўжыць іх да вашага заказа.",
     "apply_promo_codes": "Ужыць промакоды",
     "delete_promo_code": "Выдаліць промакод",
     "subtotal": "Прамежкавая сума",
-    "add_error": "Памылка дадання тавару ў кошык",
-    "add_error_description": "Узнікла праблема пры даданні тавару ў кошык. Паспрабуйце зноў.",
+    "add_error": "Памылка дадання тавара ў кошык",
+    "add_error_description": "Узнікла праблема з даданнем тавара ў ваш кошык. Паспрабуйце зноў.",
     "no_variant_id": "Не пазначаны ID варыянту",
     "add_success": "Тавар паспяхова дададзены ў кошык",
     "product_added": "Тавар дададзены ў кошык",
-    "add_products": "Дадайце тавары, каб пачаць",
-    "seller": "Прадавец",
-    "shipping_fee": "Плата за дастаўку",
+    "add_products": "Дадайце некалькі тавараў, каб пачаць",
+    "seller": "Продавец",
+    "shipping_fee": "Кошт дастаўкі",
     "related_products": "Звязаныя тавары",
     "loading_cart_data": "Загрузка даных кошыка...",
     "empty_cart_no_recommendations": "Ваш кошык пусты, рэкамендацый няма",
     "no_related_products": "Няма рэкамендаваных звязаных тавараў",
-    "view_cart": "Паглядзець кошык"
+    "view_cart": "Праглядзець кошык"
   },
   "hero_section": {
-    "heading": "Ваш універсальны крама для ўсіх жыццёвых патрэб",
-    "description": "Ласкава просім у FBE — вашае ідэальнае месца для гладкага і задавальняючага штодзённага шопінгу. Незалежна ад таго, шукаеце вы апошнія модныя тэндэнцыі, якасныя тавары для дому, уважлівыя падарункі або штодзённыя неабходнасці, мы забяспечым вас тысячамі адборных прадуктаў ва ўсіх катэгорыях.",
+    "heading": "Ваш універсальны крама для ўсіх жыццёвых патрэбаў",
+    "description": "Сардэчна запрашаем у FBE — ваш ідэальнае месца для зручнага і прыемнага штодзённага шопінгу. Незалежна ад таго, шукаеце вы апошнія модныя тэндэнцыі, якасныя тавары для дому, прадуманыя падарункі ці штодзённыя неабходнасці, мы прапануем тысячы адабраных тавараў ва ўсіх катэгорыях.",
     "buy_now": "Купіць зараз",
-    "view_detail": "Паглядзець дэталі"
+    "view_detail": "Падрабязней"
   },
   "checkout": {
     "title": "Афармленне заказу",
-    "subtitle": "Аформіце свае куплі",
+    "subtitle": "Завяршыце куплю",
     "shippingAddress": "Адрас дастаўкі",
     "address": "Адрас",
     "change": "Змяніць адрас",
     "shippingOptions": "Варыянты дастаўкі",
-    "chooseShippingOption": "Абярыце варыянт дастаўкі",
+    "chooseShippingOption": "Выберыце варыянт дастаўкі",
     "shippingTo": "Дастаўка на {{address}}",
-    "selectAddressFirst": "Спачатку абярыце адрас дастаўкі",
+    "selectAddressFirst": "Спачатку выберыце адрас дастаўкі",
     "successful": "Заказ аформлены!",
     "thankYou": "Дзякуй за вашу куплю. Ваш заказ апрацоўваецца.",
-    "failed": "Памылка афармлення!",
-    "failureMessage": "На жаль, не ўдалося апрацаваць ваш заказ. Паспрабуйце зноў.",
+    "failed": "Не ўдалося аформіць заказ!",
+    "failureMessage": "На жаль, не ўдалося апрацаваць ваш заказ. Паспрабуйце яшчэ раз.",
     "backToHome": "На галоўную",
-    "checkDetail": "Падрабязнасці"
+    "showingChoicesProduct": "Паказаны выбраныя тавары",
+    "paymentSuccessful": "Аплата выканана",
+    "paymentProcessingDescription": "Ваша аплата будзе апрацавана на працягу 30 хвілін. Калі ўзнікнуць праблемы, калі ласка, звяжыцеся з службай падтрымкі. Дэтальная інфармацыя будзе паказана ніжэй.",
+    "paymentMethod": "Спосаб аплаты",
+    "nextStep": "Наступны крок",
+    "selectedProduct": "Выбраны тавар",
+    "shipping": "Дастаўка",
+    "selectDeliveryMethod": "Выберыце спосаб дастаўкі",
+    "payNow": "Аплатіць",
+    "paymentFailed": "Аплата не выканана",
+    "loadError": "Памылка загрузкі",
+    "failedToGenerateOrder": "Не ўдалося стварыць заказ!",
+    "failedToSelectPaymentMethod": "Не ўдалося выбраць спосаб аплаты",
+    "noSeller": "Няма прадаўца",
+    "placeOrder": "Аформіць заказ",
+    "checkDetail": "Паглядзець дэталі"
   },
   "accountCreated": {
     "title": "Акаўнт створаны паспяхова!",
@@ -229,7 +268,10 @@
     "signInButton": "Увайсці"
   },
   "categories": {
-    "allCategories": "Усе катэгорыі"
+    "allCategories": "Усе катэгорыі",
+    "allProducts": "Усе прадукты",
+    "showing_product_for": "Паказваецца прадукт для \"{{name}}\"",
+    "showing_range": "Паказваюцца {{start}} - {{end}} прадукты"
   },
   "collections_section": {
     "featured_collections": "Рэкамендаваныя калекцыі",
@@ -237,25 +279,28 @@
     "view_details": "Падрабязней",
     "view_all_collections": "Паглядзець усе калекцыі",
     "all_collections": "Усе калекцыі",
-    "browse_curated_collections": "Аглядайце нашы падборкі калекцый",
-    "no_collections_found": "Калекцыі не знойдзены",
+    "browse_curated_collections": "Праглядзець нашы адборныя калекцыі",
+    "no_collections_found": "Калекцый не знойдзена",
     "no_collections_available": "Зараз няма даступных калекцый.",
     "products_in_this_collection": "Тавары ў гэтай калекцыі",
-    "no_products_found": "Тавары не знойдзены",
+    "no_products_found": "Тавараў не знойдзена",
     "no_products_available_in_this_collection": "У гэтай калекцыі яшчэ няма тавараў."
   },
   "cool_reviews_section": {
-    "title": "Гавораць:"
+    "title": "Яны кажуць:"
   },
   "customer_navigation": {
     "dashboard": "Панэль кіравання",
     "my_stuff": "Мае рэчы",
-    "browsing_history": "Гісторыя праглядаў",
+    "browsing_history": "Гісторыя прагляду",
     "reviews": "Адзывы",
     "wishlist": "Спіс жаданняў",
-    "orders": "Заказы",
+    "orders": "Замовы",
     "orders_all": "Усе",
-    "orders_returns": "Вяртанні і кампенсацыі",
+    "orders_paid": "Аплочаныя",
+    "orders_shipping": "Дастаўка",
+    "orders_reviewable": "Для адзыву",
+    "orders_returns": "Вяртанні і ўзнагароджанні",
     "settings": "Налады",
     "settings_profile": "Профіль",
     "settings_addresses": "Адрасы дастаўкі",
@@ -269,21 +314,23 @@
       "completed": "Выкананы",
       "canceled": "Адменены",
       "returning": "Вяртанне",
-      "refunded": "Вярнуты",
-      "archived": "Архіўны",
+      "refunded": "Вернуты",
+      "archived": "Архіваваны",
       "draft": "Чарнавік",
       "requires_action": "Патрабуе дзеянняў"
     },
     "display_statuses": {
       "paid": "Аплочаны",
       "processing": "Апрацоўваецца",
-      "shipping": "Адпраўка",
+      "shipping": "Дастаўка",
       "delivered": "Дастаўлены"
     },
     "actions": {
       "request_return": "Вяртанне і вяртанне сродкаў",
       "cancel_order": "Адмяніць заказ",
-      "cancel_description": "Звяжыцеся з прадаўцом для адмены"
+      "cancel_description": "Звяжыцеся з прадаўцом для адмены",
+      "write_review": "Напісаць водгукі",
+      "see_reviews": "Паглядзець водгукі"
     }
   },
   "customer_address": {
@@ -293,7 +340,7 @@
     "fields": {
       "address_name": "Назва адраса",
       "is_default_shipping": "Адрас дастаўкі па змаўчанні",
-      "is_default_billing": "Адрас для рахункаў па змаўчанні",
+      "is_default_billing": "Адрас для аплаты па змаўчанні",
       "company": "Кампанія",
       "first_name": "Імя",
       "last_name": "Прозвішча",
@@ -301,22 +348,22 @@
       "address_2": "Адрас 2",
       "city": "Горад",
       "country_code": "Краіна",
-      "state_province": "Штат/вобласць",
+      "state_province": "Вобласць/Рэгіён",
       "postal_code": "Паштовы індэкс",
       "phone": "Мабільны тэлефон"
     },
     "edit_form": {
       "title": "Рэдагаваць адрас",
-      "description": "Калі ласка, запоўніце форму ніжэй, каб рэдагаваць ваш адрас.",
-      "set_default_shopping_address": "Усталяваць як адрас па змаўчанні для пакупак"
+      "description": "Калі ласка, запаўніце форму ніжэй, каб рэдагаваць ваш адрас.",
+      "set_default_shopping_address": "Зрабіць адрасам па змаўчанні для пакупак"
     },
-    "delete_confirm_description": "Вы выдаляеце гэты адрас, калі ласка, пераканайцеся, што гэта не памылка"
+    "delete_confirm_description": "Вы выдаляеце гэты адрас. Калі ласка, пераканайцеся, што гэта не памылка."
   },
   "customer_profile": {
     "name": "Профіль",
     "heading": "Асабісты профіль",
     "heading_info": "Асабістыя звесткі",
-    "heading_account": "Акаўнт",
+    "heading_account": "Уліковы запіс",
     "fields": {
       "first_name": "Імя",
       "last_name": "Прозвішча",
@@ -341,7 +388,7 @@
     "password": {
       "password_was_set": "Пароль быў усталяваны",
       "form_heading": "Змяніць пароль",
-      "form_description": "Увядзіце свой бягучы пароль і новы пароль, каб абнавіць пароль вашага ўліковага запісу.",
+      "form_description": "Увядзіце свой бягучы пароль і новы пароль, каб абнавіць пароль да ўліковага запісу.",
       "send_reset_email_title": "Адправіць ліст для скіду пароля",
       "send_reset_email_description": "Мы адправім спасылку для скіду пароля на вашу адрас электроннай пошты",
       "send_reset_email": "Адправіць ліст для скіду пароля",
@@ -351,53 +398,58 @@
     }
   },
   "return_request": {
-    "title": "Запыт на вяртанне заказу і вяртанне сродкаў",
+    "title": "Запыт на вяртанне замовы і вяртанне сродкаў",
     "request_return": "Запыт на вяртанне і вяртанне сродкаў",
     "confirm_return": "Адправіць запыт на вяртанне",
-    "select_items_to_return": "Абярыце тавары, якія вы хочаце вярнуць",
+    "select_items_to_return": "Выберыце тавары, якія вы хочаце вярнуць",
     "refund_amount": "Сума вяртання",
     "return_address": "Адрас для вяртання",
-    "return_address_description": "Калі ласка, адправіце тавары на наступны адрас",
+    "return_address_description": "Калі ласка, адпраўце тавары на наступны адрас",
     "return_reason": "Прычына вяртання",
-    "select_return_reason": "Абярыце прычыну вяртання",
+    "select_return_reason": "Выберыце прычыну вяртання",
     "return_shipping_options": "Варыянты дастаўкі для вяртання",
-    "select_shipping_method": "Абярыце спосаб дастаўкі для вяртання",
-    "shipping_address": "Адрас для прыёму вяртаемых тавараў",
-    "shipping_address_description": "Калі ласка, запомніце наступны адрас. Пасля таго, як прадавец згадзіцца на вяртанне, вашы тавары павінны быць адпраўлены туды!",
+    "select_shipping_method": "Выберыце спосаб дастаўкі для вяртання",
+    "shipping_address": "Адрас для прыёму тавараў, што вяртаюцца",
+    "shipping_address_description": "Калі ласка, запомніце наступны адрас. Пасля таго, як прадавец прыме вяртанне, вашы тавары павінны быць адпраўлены туды!",
     "free_shipping": "Бясплатна",
     "phone": "Тэлефон",
     "shipping_cost": "Кошт дастаўкі",
-    "shipping_method_not_selected": "Калі ласка, абярыце спосаб дастаўкі для завяршэння вяртання",
-    "submit_fail_title": "Памылка запыту на вяртанне заказу",
-    "submitted_success_title": "Запыт на вяртанне адпраўлены! ",
-    "submitted_success_desc": "Прадавец неўзабаве апрацуе гэты запыт. Калі ласка, сачыце за гэтым заказам і вашай поштай!"
+    "shipping_method_not_selected": "Калі ласка, выберыце спосаб дастаўкі для завяршэння вяртання",
+    "submit_fail_title": "Памылка запыту на вяртанне замовы",
+    "submitted_success_title": "Запыт на вяртанне адпраўлены!",
+    "submitted_success_desc": "Прадавец неўзабаве апрацуе гэты запыт. Калі ласка, сачыце за гэтай замовай і вашай поштай!"
   },
   "checkout_address": {
     "main_address": "Асноўны адрас",
-    "selected": "Выбрана",
-    "select_address": "Выбраць адрас",
+    "selected": "Абрана",
+    "select_address": "Выберыце адрас",
     "no_addresses": "Няма даступных адрасоў. Калі ласка, дадайце адрас, каб працягнуць.",
     "add_new": "Дадаць новы адрас",
     "manage_address": "Кіраваць адрасам",
-    "clear_selected_address": "Ачысціць выбраны адрас"
+    "noAddress": "Няма адраса",
+    "noAddressDataFound": "Дадзеныя адраса не знойдзены",
+    "createAddress": "Стварыць адрас",
+    "otherAddress": "Іншы адрас",
+    "edit": "Рэдагаваць",
+    "clear_selected_address": "Ачысціць абраны адрас"
   },
   "customer_returns": {
     "title": "Вяртанні і вяртанні сродкаў",
     "description": "Адсочвайце і кіруйце запытамі на вяртанне і вяртаннем сродкаў",
-    "no_returns": "Запыты на вяртанне не знойдзены",
+    "no_returns": "Запытаў на вяртанне не знойдзена",
     "no_returns_description": "Вы яшчэ не рабілі запытаў на вяртанне.",
     "order_reference": "Нумар замовы",
     "return_reason": "Прычына вяртання",
     "return_items": "Запытаныя тавары для вяртання",
-    "return_address": "Адрас для вяртання",
+    "return_address": "Адрас вяртання",
     "view_return_tracking": "Адсочванне выканання",
-    "view_return_wait": "Апрацоўка",
+    "view_return_wait": "Апрацоўваецца",
     "return_details": "Дэталі вяртання",
     "return_tracking": "Адсочванне вяртання",
-    "requested_on": "Дата запыту",
+    "requested_on": "Запытана",
     "last_updated": "Апошняе абнаўленне",
-    "shipping_information": "Інфармацыя пра дастаўку",
-    "tracking_number": "Нумар для адсочвання",
+    "shipping_information": "Інфармацыя аб дастаўцы",
+    "tracking_number": "Нумар адсочвання",
     "vendor_reviewer_note": "Адказ прадаўца",
     "shipping_option": "Варыянт дастаўкі",
     "return_not_found": "Запыт на вяртанне не знойдзены",
@@ -423,27 +475,27 @@
       "received": "Атрымана",
       "returned": "Вернута"
     },
-    "add_tracking_info": "Дадаць інфармацыю для адсочвання выканання",
-    "shipping_company": "Кампанія па дастаўцы",
-    "shipping_company_placeholder": "Увядзіце назву кампаніі па дастаўцы",
-    "tracking_number_placeholder": "Увядзіце нумар для адсочвання",
-    "submit_tracking_info": "Адправіць інфармацыю для адсочвання выканання",
-    "tracking_info_submitted": "Інфармацыя для адсочвання выканання адпраўлена",
-    "tracking_info_submitted_desc": "Ваша інфармацыя для адсочвання выканання паспяхова адпраўлена.",
-    "tracking_information": "Інфармацыя для адсочвання выканання",
-    "tracking_invalid_input": "Няправільны нумар для адсочвання",
+    "add_tracking_info": "Дадаць інфармацыю аб адсочванні выканання",
+    "shipping_company": "Кампанія дастаўкі",
+    "shipping_company_placeholder": "Увядзіце назву кампаніі дастаўкі",
+    "tracking_number_placeholder": "Увядзіце нумар адсочвання",
+    "submit_tracking_info": "Адправіць інфармацыю аб адсочванні выканання",
+    "tracking_info_submitted": "Інфармацыя аб адсочванні выканання адпраўлена",
+    "tracking_info_submitted_desc": "Ваша інфармацыя аб адсочванні выканання паспяхова адпраўлена.",
+    "tracking_information": "Інфармацыя аб адсочванні выканання",
+    "tracking_invalid_input": "Няправільнае адсочванне",
     "waiting_seller_review": "Калі ласка, пачакайце, пакуль прадавец разглядзіць і апрацуе ваш запыт.",
-    "no_return_address": "Адрас для вяртання недаступны"
+    "no_return_address": "Адрас вяртання недаступны"
   },
   "sales": {
-    "no_sales_found": "Продажаў не знойдзена",
-    "no_sales_available": "Зараз няма даступных продажаў. Калі ласка, праверце пазней."
+    "no_sales_found": "Знайдзена продажаў не было",
+    "no_sales_available": "Зараз продажаў няма. Калі ласка, праверце пазней."
   },
   "review": {
-    "title": "Напішыце водгукі для гэтага заказу",
-    "rate_seller": "Ацаніце прадаўца",
-    "rate_items": "Ацаніце тавары",
-    "rate_items_description": "Калі ласка, ацаніце кожны тавар з вашага заказу і падзяліцеся сваім досведам.",
+    "title": "Напісаць водгукі для гэтага замаўлення",
+    "rate_seller": "Ацаніць прадаўца",
+    "rate_items": "Ацаніць тавары",
+    "rate_items_description": "Калі ласка, ацаніце кожны тавар з вашага замаўлення і падзяліцеся сваім досведам.",
     "seller_rating": "Рэйтынг прадаўца",
     "rating": "Рэйтынг",
     "select_rating": "Калі ласка, выберыце рэйтынг",
@@ -452,16 +504,46 @@
     "item_comment_placeholder": "Падзяліцеся сваім досведам з гэтым таварам...",
     "submit_review": "Адправіць водгук",
     "submitting": "Адпраўка...",
-    "submitted_success_title": "Водгук паспяхова адпраўлены",
+    "submitted_success_title": "Водгук адпраўлены паспяхова",
     "submitted_success_desc": "Дзякуй за ваш водгук! Ваш водгук быў паспяхова адпраўлены.",
-    "submit_fail_title": "Не ўдалося адправіць водгук",
-    "submit_fail_desc": "Падчас адпраўкі водгуку адбылася памылка. Калі ласка, паспрабуйце зноў."
+    "submit_fail_title": "Памылка адпраўкі водгука",
+    "submit_fail_desc": "Узнікла памылка пры адпраўцы вашага водгука. Калі ласка, паспрабуйце яшчэ раз.",
+    "comment_character_count": "{{current}}/{{max}} сімвалаў",
+    "characters_remaining": "сімвалаў засталося",
+    "comment_too_long": "Каментар занадта доўгі"
   },
   "reviews": {
     "reviews_to_sellers": "Адзнакі прадаўцам",
     "reviews_to_products": "Адзнакі таварам",
-    "no_reviews_to_sellers": "Вы яшчэ не пісалі водгукаў пра прадаўцоў.",
-    "no_reviews_to_products": "Вы яшчэ не пісалі водгукаў пра тавары.",
+    "no_reviews_to_sellers": "Вы яшчэ не пісалі адзнакі прадаўцам.",
+    "no_reviews_to_products": "Вы яшчэ не пісалі адзнакі таварам.",
     "reply_from_seller": "Адказ ад прадаўца"
+  },
+  "wishlist": {
+    "my_wishlist": "Мой спіс жаданняў",
+    "empty_title": "Ваш спіс жаданняў пусты",
+    "empty_description": "Пачніце дадаваць прадметы, якія вам падабаюцца, каб адсочваць іх тут.",
+    "start_shopping": "Пачаць пакупкі",
+    "added_to_wishlist": "Дададзена ў спіс жаданняў",
+    "removed_from_wishlist": "Выдалена са спісу жаданняў",
+    "error_updating_wishlist": "Не ўдалося абнавіць спіс жаданняў"
+  },
+  "filter": {
+    "filter_option": "Опцыя фільтра",
+    "best_filter": "Найлепшы фільтр",
+    "condition": "Стан",
+    "price_range": "Дыяпазон цэн",
+    "discount": "Зніжка",
+    "minimum_price": "Мінімальная цана",
+    "maximum_price": "Максімальная цана",
+    "reviews_filter": "Фільтр водгукаў",
+    "rating": "Рэйтынг"
+  },
+  "sort": {
+    "sort_by": "Сартаванне:",
+    "best_sellers": "Хіты продаж",
+    "newest_arrivals": "Навінкі",
+    "price_low_to_high": "Цана: ад нізкай да высокай",
+    "price_high_to_low": "Цана: ад высокай да нізкай"
   }
 }

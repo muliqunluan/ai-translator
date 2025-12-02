@@ -8,7 +8,7 @@
     "add": "Ajouter",
     "search": "Rechercher sur FBE...",
     "submit": "Soumettre",
-    "submitting": "Envoi en cours...",
+    "submitting": "Soumission...",
     "back": "Retour",
     "next": "Suivant",
     "previous": "Précédent",
@@ -32,7 +32,7 @@
     "updatedAt": "Mis à jour le",
     "deletedAt": "Supprimé le",
     "actions": "Actions",
-    "all": "Tous",
+    "all": "Tout",
     "active": "Actif",
     "inactive": "Inactif",
     "enabled": "Activé",
@@ -43,20 +43,22 @@
     "item_unknown": "{{name}} inconnu",
     "create": "Créer",
     "quantity": "Quantité",
-    "quantity_abbr": "Qté"
+    "quantity_abbr": "Qté",
+    "no_data": "Aucune donnée",
+    "no_data_found": "Aucune donnée trouvée"
   },
   "form": {
     "save": "Enregistrer",
     "cancel": "Annuler",
-    "fieldPlaceholder": "Saisir {{field}}",
+    "fieldPlaceholder": "Entrez {{field}}",
     "fieldIsRequired": "{{field}} est requis",
     "fieldIsInvalid": "{{field}} est invalide",
     "selectFile": "Veuillez sélectionner un fichier",
     "headingCreate": "Créer un nouveau {{name}}",
     "headingEdit": "Modifier {{name}}",
     "headingDelete": "Supprimer {{name}}",
-    "emailRequired": "L'e-mail est requis",
-    "emailInvalid": "Veuillez saisir une adresse e-mail valide",
+    "emailRequired": "L'email est requis",
+    "emailInvalid": "Veuillez entrer une adresse email valide",
     "passwordRequired": "Le mot de passe est requis",
     "passwordMinLength": "Le mot de passe doit contenir au moins 6 caractères",
     "verificationCodeRequired": "Le code de vérification est requis",
@@ -94,7 +96,9 @@
     "emailVerificationCodePlaceholder": "Code de vérification par email",
     "send": "Envoyer",
     "createAccount": "Créer un compte",
-    "alreadyHaveAccount": "Vous avez déjà un compte ? Se connecter→"
+    "alreadyHaveAccount": "Vous avez déjà un compte ? Se connecter→",
+    "loginExpiredTitle": "Session expirée !",
+    "loginExpiredTips": "Veuillez vous reconnecter~"
   },
   "userCard": {
     "menu": "Menu",
@@ -132,13 +136,13 @@
   },
   "not_found": {
     "title": "404 Non trouvé",
-    "description": "Une erreur s'est produite",
+    "description": "Une erreur est survenue",
     "page_not_found": "Page non trouvée",
     "page_does_not_exist": "La page que vous essayez d'accéder n'existe pas.",
     "go_to_frontpage": "Aller à la page d'accueil"
   },
   "product_card": {
-    "product_placeholder": "Product placeholder",
+    "product_placeholder": "Espace réservé au produit",
     "see_more": "Voir plus",
     "variants": "{count} variantes \n        À partir de",
     "variants1": "1 variante \n      À partir de"
@@ -150,7 +154,7 @@
   },
   "sales_section": {
     "heading": "Grande Vente",
-    "description": "Ne manquez pas nos offres exclusives et réductions.",
+    "description": "Ne manquez pas nos offres exclusives et nos réductions.",
     "cta": "Charger Plus"
   },
   "seller": {
@@ -158,11 +162,31 @@
   },
   "product": {
     "thumbnail_alt": "Image du produit {{productTitle}}",
-    "quantity": "Quantité"
+    "quantity": "Quantité",
+    "variant_label": "Variante du produit :",
+    "buy_now": "Acheter maintenant",
+    "add_to_cart": "Ajouter au panier",
+    "reviews": "Avis",
+    "detail": "Détails du produit",
+    "merchant": "Vendeur",
+    "information": "Informations",
+    "details": "Détails",
+    "weight": "Poids",
+    "height": "Hauteur",
+    "width": "Largeur",
+    "material": "Matériau",
+    "origin_country": "Pays d'origine",
+    "merchant_information": "Informations sur le vendeur",
+    "chat": "Chat",
+    "visit_merchant": "Visiter le vendeur",
+    "related_products": "Produits associés",
+    "product_reviews": "Avis sur le produit",
+    "from_reviews": "sur {{total}} avis",
+    "review_lists": "Liste des avis"
   },
   "cart": {
     "title": "Panier",
-    "subtitle": "Vérifiez les articles sélectionnés",
+    "subtitle": "Vérifiez vos articles sélectionnés",
     "items": "articles",
     "empty": "Votre panier est vide",
     "go_shopping": "Faire du shopping",
@@ -174,10 +198,10 @@
     "tax_fee": "Frais de taxe",
     "discount": "Remise",
     "total_price": "Prix total",
-    "use_promo": "Utiliser des codes promo",
+    "use_promo": "Utiliser les codes promo",
     "choose_product_to_use_promo": "Ajoutez et gérez vos codes promo",
     "promo_code": "Code promo",
-    "promos_desc": "Utilisez des codes promo pour obtenir des réductions sur votre commande.",
+    "promos_desc": "Utilisez les codes promo pour obtenir des réductions sur votre commande.",
     "enter_promo_code_to_get_discount": "Entrez votre code promo pour obtenir une réduction",
     "enter_promo_code": "Entrez le code promo",
     "added_promo_codes": "Vos codes promo",
@@ -194,15 +218,15 @@
     "add_products": "Ajoutez des produits pour commencer",
     "seller": "Vendeur",
     "shipping_fee": "Frais de livraison",
-    "related_products": "Produits connexes",
+    "related_products": "Produits associés",
     "loading_cart_data": "Chargement des données du panier...",
     "empty_cart_no_recommendations": "Votre panier est vide, aucune recommandation disponible",
-    "no_related_products": "Aucun produit connexe recommandé",
+    "no_related_products": "Aucun produit associé recommandé",
     "view_cart": "Voir le panier"
   },
   "hero_section": {
     "heading": "Votre boutique tout-en-un pour tous les besoins de la vie",
-    "description": "Bienvenue chez FBE—votre destination de référence pour des achats quotidiens fluides et satisfaisants. Que vous cherchiez les dernières tendances de la mode, des articles essentiels pour la maison de haute qualité, des cadeaux attentionnés ou des produits de première nécessité, nous vous couvrons avec des milliers de produits sélectionnés dans toutes les catégories.",
+    "description": "Bienvenue sur FBE—votre destination de référence pour des achats quotidiens fluides et satisfaisants. Que vous cherchiez les dernières tendances de la mode, des articles essentiels de haute qualité pour la maison, des cadeaux attentionnés ou des produits de première nécessité, nous vous couvrons avec des milliers de produits sélectionnés dans toutes les catégories.",
     "buy_now": "Acheter maintenant",
     "view_detail": "Voir les détails"
   },
@@ -221,7 +245,22 @@
     "failed": "Échec de la commande !",
     "failureMessage": "Malheureusement, votre commande n'a pas pu être traitée. Veuillez réessayer.",
     "backToHome": "Retour à l'accueil",
-    "checkDetail": "Voir les détails"
+    "showingChoicesProduct": "Affichage de vos choix de produits",
+    "paymentSuccessful": "Votre paiement a réussi",
+    "paymentProcessingDescription": "Votre paiement sera traité dans 30 minutes. En cas de problème, veuillez contacter le service client. Les informations détaillées seront incluses ci-dessous.",
+    "paymentMethod": "Méthode de paiement",
+    "nextStep": "Étape suivante",
+    "selectedProduct": "Produit sélectionné",
+    "shipping": "Livraison",
+    "selectDeliveryMethod": "Sélectionnez le mode de livraison",
+    "payNow": "Payer maintenant",
+    "paymentFailed": "Échec du paiement",
+    "loadError": "Erreur de chargement",
+    "failedToGenerateOrder": "Échec de la génération de la commande !",
+    "failedToSelectPaymentMethod": "Échec de la sélection de la méthode de paiement",
+    "noSeller": "Aucun vendeur",
+    "placeOrder": "Passer la commande",
+    "checkDetail": "Vérifier les détails"
   },
   "accountCreated": {
     "title": "Création de compte réussie !",
@@ -229,7 +268,10 @@
     "signInButton": "Se connecter"
   },
   "categories": {
-    "allCategories": "Toutes les catégories"
+    "allCategories": "Toutes les catégories",
+    "allProducts": "Tous les produits",
+    "showing_product_for": "Affichage du produit pour \"{{name}}\"",
+    "showing_range": "Affichage de {{start}} - {{end}} produits"
   },
   "collections_section": {
     "featured_collections": "Collections en vedette",
@@ -249,12 +291,15 @@
   },
   "customer_navigation": {
     "dashboard": "Tableau de bord",
-    "my_stuff": "Mes articles",
+    "my_stuff": "Mes affaires",
     "browsing_history": "Historique de navigation",
     "reviews": "Avis",
     "wishlist": "Liste de souhaits",
     "orders": "Commandes",
-    "orders_all": "Tout",
+    "orders_all": "Toutes",
+    "orders_paid": "Payées",
+    "orders_shipping": "En cours de livraison",
+    "orders_reviewable": "À évaluer",
     "orders_returns": "Retours et remboursements",
     "settings": "Paramètres",
     "settings_profile": "Profil",
@@ -277,13 +322,15 @@
     "display_statuses": {
       "paid": "Payée",
       "processing": "En traitement",
-      "shipping": "En livraison",
+      "shipping": "En expédition",
       "delivered": "Livrée"
     },
     "actions": {
       "request_return": "Retour & Remboursement",
       "cancel_order": "Annuler la commande",
-      "cancel_description": "Contacter le vendeur pour annuler"
+      "cancel_description": "Contacter le vendeur pour annulation",
+      "write_review": "Rédiger des avis",
+      "see_reviews": "Voir les avis"
     }
   },
   "customer_address": {
@@ -294,7 +341,7 @@
       "address_name": "Nom de l'adresse",
       "is_default_shipping": "Adresse de livraison par défaut",
       "is_default_billing": "Adresse de facturation par défaut",
-      "company": "Société ",
+      "company": "Entreprise ",
       "first_name": "Prénom",
       "last_name": "Nom",
       "address_1": "Adresse 1",
@@ -310,7 +357,7 @@
       "description": "Veuillez remplir le formulaire ci-dessous pour modifier votre adresse.",
       "set_default_shopping_address": "Définir comme adresse de livraison par défaut"
     },
-    "delete_confirm_description": "Vous êtes sur le point de supprimer cette adresse, veuillez vous assurer que ce n'est pas une erreur"
+    "delete_confirm_description": "Vous êtes sur le point de supprimer cette adresse, veuillez vous assurer qu'il ne s'agit pas d'une erreur"
   },
   "customer_profile": {
     "name": "Profil",
@@ -330,29 +377,29 @@
     "heading": "Sécurité du compte",
     "account_security": "Sécurité du compte",
     "password_set": "Mot de passe défini",
-    "email_verified": "E-mail vérifié",
+    "email_verified": "Email vérifié",
     "phone_verified": "Téléphone vérifié",
     "security_tips": "Conseils de sécurité",
     "fields": {
       "password": "Mot de passe",
       "phone": "Téléphone",
-      "email": "E-mail"
+      "email": "Email"
     },
     "password": {
       "password_was_set": "Le mot de passe a été défini",
       "form_heading": "Changer le mot de passe",
       "form_description": "Entrez votre mot de passe actuel et un nouveau mot de passe pour mettre à jour le mot de passe de votre compte.",
-      "send_reset_email_title": "Envoyer un e-mail de réinitialisation",
-      "send_reset_email_description": "Nous enverrons un lien de réinitialisation du mot de passe à votre adresse e-mail",
-      "send_reset_email": "Envoyer l'e-mail de réinitialisation",
+      "send_reset_email_title": "Envoyer un email de réinitialisation",
+      "send_reset_email_description": "Nous enverrons un lien de réinitialisation du mot de passe à votre adresse email",
+      "send_reset_email": "Envoyer l'email de réinitialisation",
       "sending": "Envoi en cours...",
-      "email_sent": "E-mail envoyé",
-      "reset_email_sent_message": "L'e-mail de réinitialisation du mot de passe a été envoyé. Veuillez vérifier votre boîte de réception."
+      "email_sent": "Email envoyé",
+      "reset_email_sent_message": "L'email de réinitialisation du mot de passe a été envoyé. Veuillez vérifier votre boîte de réception."
     }
   },
   "return_request": {
-    "title": "Demande de retour et remboursement de commande",
-    "request_return": "Demande de retour et remboursement",
+    "title": "Demande de retour et de remboursement",
+    "request_return": "Demande de retour et de remboursement",
     "confirm_return": "Soumettre la demande de retour",
     "select_items_to_return": "Sélectionnez les articles que vous souhaitez retourner",
     "refund_amount": "Montant du remboursement",
@@ -368,7 +415,7 @@
     "phone": "Téléphone",
     "shipping_cost": "Frais d'expédition",
     "shipping_method_not_selected": "Veuillez sélectionner une méthode d'expédition pour finaliser le retour",
-    "submit_fail_title": "Échec de la demande de retour de commande",
+    "submit_fail_title": "Échec de la demande de retour",
     "submitted_success_title": "Demande de retour soumise ! ",
     "submitted_success_desc": "Le vendeur traitera cette demande prochainement, veuillez surveiller cette commande et votre boîte de réception !"
   },
@@ -379,6 +426,11 @@
     "no_addresses": "Aucune adresse disponible. Veuillez ajouter une adresse pour continuer.",
     "add_new": "Ajouter une nouvelle adresse",
     "manage_address": "Gérer l'adresse",
+    "noAddress": "Aucune adresse",
+    "noAddressDataFound": "Aucune donnée d'adresse trouvée",
+    "createAddress": "Créer une adresse",
+    "otherAddress": "Autre adresse",
+    "edit": "Modifier",
     "clear_selected_address": "Effacer l'adresse sélectionnée"
   },
   "customer_returns": {
@@ -388,12 +440,12 @@
     "no_returns_description": "Vous n'avez pas encore fait de demande de retour.",
     "order_reference": "Référence de commande",
     "return_reason": "Motif de retour",
-    "return_items": "Articles retournés demandés",
+    "return_items": "Articles demandés en retour",
     "return_address": "Adresse de retour",
-    "view_return_tracking": "Suivi d'exécution",
+    "view_return_tracking": "Suivi de livraison",
     "view_return_wait": "En cours de traitement",
     "return_details": "Détails du retour",
-    "return_tracking": "Suivi du retour",
+    "return_tracking": "Suivi de retour",
     "requested_on": "Demandé le",
     "last_updated": "Dernière mise à jour",
     "shipping_information": "Informations d'expédition",
@@ -403,7 +455,7 @@
     "return_not_found": "Demande de retour non trouvée",
     "return_not_found_description": "La demande de retour que vous recherchez n'existe pas ou a été supprimée.",
     "refunded_amount": "Montant remboursé",
-    "refunded_waiting": "Le vendeur traite votre demande, merci de patienter !",
+    "refunded_waiting": "Le vendeur traite votre demande, veuillez patienter !",
     "steps": {
       "accepted": "Accepté",
       "shipping": "Expédition",
@@ -423,14 +475,14 @@
       "received": "Reçu",
       "returned": "Retourné"
     },
-    "add_tracking_info": "Ajouter le suivi d'exécution",
+    "add_tracking_info": "Ajouter un suivi de livraison",
     "shipping_company": "Compagnie d'expédition",
     "shipping_company_placeholder": "Entrez le nom de la compagnie d'expédition",
     "tracking_number_placeholder": "Entrez le numéro de suivi",
-    "submit_tracking_info": "Soumettre le suivi d'exécution",
-    "tracking_info_submitted": "Suivi d'exécution soumis",
-    "tracking_info_submitted_desc": "Votre suivi d'exécution a été soumis avec succès.",
-    "tracking_information": "Suivi d'exécution",
+    "submit_tracking_info": "Soumettre le suivi de livraison",
+    "tracking_info_submitted": "Suivi de livraison soumis",
+    "tracking_info_submitted_desc": "Votre suivi de livraison a été soumis avec succès.",
+    "tracking_information": "Suivi de livraison",
     "tracking_invalid_input": "Suivi invalide",
     "waiting_seller_review": "Veuillez attendre que le vendeur examine et traite votre demande.",
     "no_return_address": "Aucune adresse de retour disponible"
@@ -451,11 +503,14 @@
     "seller_comment_placeholder": "Partagez votre expérience avec ce vendeur...",
     "item_comment_placeholder": "Partagez votre expérience avec ce produit...",
     "submit_review": "Soumettre l'avis",
-    "submitting": "Soumission en cours...",
+    "submitting": "Envoi en cours...",
     "submitted_success_title": "Avis soumis avec succès",
     "submitted_success_desc": "Merci pour votre retour ! Votre avis a été soumis avec succès.",
     "submit_fail_title": "Échec de la soumission de l'avis",
-    "submit_fail_desc": "Une erreur est survenue lors de la soumission de votre avis. Veuillez réessayer."
+    "submit_fail_desc": "Une erreur s'est produite lors de la soumission de votre avis. Veuillez réessayer.",
+    "comment_character_count": "{{current}}/{{max}} caractères",
+    "characters_remaining": "caractères restants",
+    "comment_too_long": "Commentaire trop long"
   },
   "reviews": {
     "reviews_to_sellers": "Avis sur les vendeurs",
@@ -463,5 +518,32 @@
     "no_reviews_to_sellers": "Vous n'avez pas encore écrit d'avis sur les vendeurs.",
     "no_reviews_to_products": "Vous n'avez pas encore écrit d'avis sur les produits.",
     "reply_from_seller": "Réponse du vendeur"
+  },
+  "wishlist": {
+    "my_wishlist": "Ma liste d'envies",
+    "empty_title": "Votre liste d'envies est vide",
+    "empty_description": "Commencez à ajouter les articles que vous aimez pour les suivre ici.",
+    "start_shopping": "Commencer les achats",
+    "added_to_wishlist": "Ajouté à la liste d'envies",
+    "removed_from_wishlist": "Retiré de la liste d'envies",
+    "error_updating_wishlist": "Échec de la mise à jour de la liste d'envies"
+  },
+  "filter": {
+    "filter_option": "Option de filtre",
+    "best_filter": "Meilleur filtre",
+    "condition": "Condition",
+    "price_range": "Gamme de prix",
+    "discount": "Remise",
+    "minimum_price": "Prix minimum",
+    "maximum_price": "Prix maximum",
+    "reviews_filter": "Filtre d'avis",
+    "rating": "Note"
+  },
+  "sort": {
+    "sort_by": "Trier par :",
+    "best_sellers": "Meilleures ventes",
+    "newest_arrivals": "Nouveautés",
+    "price_low_to_high": "Prix : croissant",
+    "price_high_to_low": "Prix : décroissant"
   }
 }

@@ -24,13 +24,13 @@
     "create_success": "Úspěšně vytvořeno",
     "update_success": "Úspěšně aktualizováno",
     "delete_success": "Úspěšně smazáno",
-    "create_failed": "Vytvoření se nezdařilo",
-    "update_failed": "Aktualizace se nezdařila",
-    "delete_failed": "Smazání se nezdařilo",
+    "create_failed": "Vytvoření selhalo",
+    "update_failed": "Aktualizace selhala",
+    "delete_failed": "Smazání selhalo",
     "info": "Informace",
-    "createdAt": "Vytvořeno",
-    "updatedAt": "Aktualizováno",
-    "deletedAt": "Smazáno",
+    "createdAt": "Vytvořeno v",
+    "updatedAt": "Aktualizováno v",
+    "deletedAt": "Smazáno v",
     "actions": "Akce",
     "all": "Vše",
     "active": "Aktivní",
@@ -43,30 +43,32 @@
     "item_unknown": "Neznámý {{name}}",
     "create": "Vytvořit",
     "quantity": "Množství",
-    "quantity_abbr": "Množ."
+    "quantity_abbr": "Množ.",
+    "no_data": "Žádná data",
+    "no_data_found": "Žádná data nebyla nalezena"
   },
   "form": {
     "save": "Uložit",
     "cancel": "Zrušit",
     "fieldPlaceholder": "Zadejte {{field}}",
-    "fieldIsRequired": "{{field}} je povinný",
-    "fieldIsInvalid": "{{field}} je neplatný",
-    "selectFile": "Prosím vyberte soubor",
+    "fieldIsRequired": "Pole {{field}} je povinné",
+    "fieldIsInvalid": "Pole {{field}} je neplatné",
+    "selectFile": "Vyberte soubor",
     "headingCreate": "Vytvořit nový {{name}}",
     "headingEdit": "Upravit {{name}}",
     "headingDelete": "Smazat {{name}}",
-    "emailRequired": "Email je povinný",
-    "emailInvalid": "Prosím zadejte platnou emailovou adresu",
+    "emailRequired": "E-mail je povinný",
+    "emailInvalid": "Zadejte platnou e-mailovou adresu",
     "passwordRequired": "Heslo je povinné",
     "passwordMinLength": "Heslo musí mít alespoň 6 znaků",
     "verificationCodeRequired": "Ověřovací kód je povinný",
     "verificationCodeLength": "Ověřovací kód musí mít 6 znaků",
-    "confirmDefaultTitle": "Opravdu to chcete?"
+    "confirmDefaultTitle": "Opravdu?"
   },
   "dialog": {
     "confirmDeletionHeading": "Opravdu chcete smazat?",
     "confirmDeletionDesc": "Pozor! Tuto akci nelze vrátit zpět! \nPro potvrzení smazání zadejte {{text}}:",
-    "confirmDeletionPlaceholder": "Zadejte sem..."
+    "confirmDeletionPlaceholder": "Zadejte zde..."
   },
   "navigation": {
     "home": "Domů",
@@ -90,14 +92,16 @@
     "signInWithFacebook": "Přihlásit se přes Facebook",
     "signInWithGoogle": "Přihlásit se přes Google",
     "signInWithTwitter": "Přihlásit se přes Twitter",
-    "emailVerificationCode": "Ověřovací kód e-mailu",
-    "emailVerificationCodePlaceholder": "Ověřovací kód e-mailu",
+    "emailVerificationCode": "Ověřovací kód e-mailem",
+    "emailVerificationCodePlaceholder": "Ověřovací kód e-mailem",
     "send": "Odeslat",
     "createAccount": "Vytvořit účet",
-    "alreadyHaveAccount": "Již máte účet? Přihlásit se→"
+    "alreadyHaveAccount": "Máte již účet? Přihlaste se→",
+    "loginExpiredTitle": "Relace vypršela!",
+    "loginExpiredTips": "Prosím, přihlaste se znovu~"
   },
   "userCard": {
-    "menu": "Menu",
+    "menu": "Nabídka",
     "orders": "Objednávky",
     "messages": "Zprávy",
     "returns": "Vrácení",
@@ -108,7 +112,7 @@
     "signOut": "Odhlásit se",
     "login": "Přihlásit se",
     "register": "Registrovat se",
-    "dashboard": "Nástěnka"
+    "dashboard": "Přehled"
   },
   "user": {
     "guestName": "Host",
@@ -122,12 +126,12 @@
     "help": "Pomoc",
     "paymentMethods": "Platební metody",
     "aboutUs": "O nás",
-    "termOfService": "Obchodní podmínky",
+    "termOfService": "Podmínky služby",
     "returns": "Vrácení zboží",
     "refundPolicy": "Zásady vrácení peněz",
     "privacyPolicy": "Zásady ochrany soukromí",
     "shippingPolicy": "Zásady dopravy",
-    "sellerServiceAgreement": "Smlouva o službách prodejce",
+    "sellerServiceAgreement": "Smlouva o službách pro prodejce",
     "contactUs": "Kontaktujte nás"
   },
   "not_found": {
@@ -145,24 +149,44 @@
   },
   "new_arrivals_section": {
     "heading": "Novinky",
-    "description": "Prohlédněte si nejnovější přírůstky naší kolekce.",
+    "description": "Prohlédněte si nejnovější přírůstky do naší kolekce.",
     "cta": "Načíst více"
   },
   "sales_section": {
-    "heading": "Velký výprodej",
-    "description": "Nenechte si ujít naše exkluzivní nabídky a slevy.",
+    "heading": "Velká sleva",
+    "description": "Nezmeškejte naše exkluzivní nabídky a slevy.",
     "cta": "Načíst více"
   },
   "seller": {
-    "joined": "Připojil se"
+    "joined": "Připojen"
   },
   "product": {
     "thumbnail_alt": "Obrázek produktu {{productTitle}}",
-    "quantity": "Množství"
+    "quantity": "Množství",
+    "variant_label": "Varianta produktu:",
+    "buy_now": "Koupit nyní",
+    "add_to_cart": "Přidat do košíku",
+    "reviews": "Recenze",
+    "detail": "Detail produktu",
+    "merchant": "Prodejce",
+    "information": "Informace",
+    "details": "Podrobnosti",
+    "weight": "Hmotnost",
+    "height": "Výška",
+    "width": "Šířka",
+    "material": "Materiál",
+    "origin_country": "Země původu",
+    "merchant_information": "Informace o prodejci",
+    "chat": "Chat",
+    "visit_merchant": "Navštívit prodejce",
+    "related_products": "Související produkty",
+    "product_reviews": "Recenze produktu",
+    "from_reviews": "z {{total}} recenzí",
+    "review_lists": "Seznamy recenzí"
   },
   "cart": {
     "title": "Nákupní košík",
-    "subtitle": "Zkontrolujte si vybrané položky",
+    "subtitle": "Zkontrolujte vybrané položky",
     "items": "položky",
     "empty": "Váš košík je prázdný",
     "go_shopping": "Nakupovat",
@@ -170,7 +194,7 @@
     "total": "Celkem",
     "checkout": "Pokladna",
     "delivery": "Doručení",
-    "order_summary": "Shrnutí objednávky",
+    "order_summary": "Souhrn objednávky",
     "tax_fee": "Daň",
     "discount": "Sleva",
     "total_price": "Celková cena",
@@ -182,8 +206,8 @@
     "enter_promo_code": "Zadejte propagační kód",
     "added_promo_codes": "Vaše propagační kódy",
     "add_promo_code": "Přidat nový propagační kód",
-    "add_multiple_promos_desc": "Můžete přidat více kódů a uplatnit je na vaši objednávku.",
-    "apply_promo_codes": "Uplatnit propagační kódy",
+    "add_multiple_promos_desc": "Můžete přidat více kódů a použít je na vaši objednávku.",
+    "apply_promo_codes": "Použít propagační kódy",
     "delete_promo_code": "Odstranit propagační kód",
     "subtotal": "Mezisoučet",
     "add_error": "Chyba při přidávání produktu do košíku",
@@ -196,13 +220,13 @@
     "shipping_fee": "Poplatek za dopravu",
     "related_products": "Související produkty",
     "loading_cart_data": "Načítání dat košíku...",
-    "empty_cart_no_recommendations": "Váš košík je prázdný, nejsou k dispozici žádná doporučení",
+    "empty_cart_no_recommendations": "Váš košík je prázdný, nejsou dostupné žádné doporučení",
     "no_related_products": "Nebyly doporučeny žádné související produkty",
     "view_cart": "Zobrazit košík"
   },
   "hero_section": {
-    "heading": "Váš obchod pro všechny životní potřeby",
-    "description": "Vítejte ve FBE – vašem ideálním místě pro hladký a uspokojivý každodenní nákup. Ať už hledáte nejnovější módu, vysoce kvalitní domácí potřeby, promyšlené dárky nebo denní nezbytnosti, máme pro vás tisíce pečlivě vybraných produktů ve všech kategoriích.",
+    "heading": "Vaše jediné místo pro všechny životní potřeby",
+    "description": "Vítejte ve FBE – vašem oblíbeném místě pro plynulý a uspokojivý každodenní nákup. Ať už hledáte nejnovější módu, vysoce kvalitní domácí potřeby, promyšlené dárky nebo denní nezbytnosti, máme pro vás tisíce vybraných produktů ve všech kategoriích.",
     "buy_now": "Koupit nyní",
     "view_detail": "Zobrazit detail"
   },
@@ -214,13 +238,28 @@
     "change": "Změnit adresu",
     "shippingOptions": "Možnosti dopravy",
     "chooseShippingOption": "Vyberte způsob dopravy",
-    "shippingTo": "Doprava na adresu {{address}}",
+    "shippingTo": "Doprava na {{address}}",
     "selectAddressFirst": "Nejprve vyberte dodací adresu",
-    "successful": "Nákup úspěšně dokončen!",
+    "successful": "Pokladna úspěšná!",
     "thankYou": "Děkujeme za váš nákup. Vaše objednávka se zpracovává.",
-    "failed": "Nákup se nezdařil!",
-    "failureMessage": "Bohužel se vaši objednávku nepodařilo zpracovat. Zkuste to prosím znovu.",
-    "backToHome": "Zpět na domovskou stránku",
+    "failed": "Pokladna selhala!",
+    "failureMessage": "Bohužel, vaši objednávku se nepodařilo zpracovat. Zkuste to znovu.",
+    "backToHome": "Zpět domů",
+    "showingChoicesProduct": "Zobrazování vybraných produktů",
+    "paymentSuccessful": "Platba úspěšná",
+    "paymentProcessingDescription": "Vaše platba bude zpracována do 30 minut. Pokud nastane problém, kontaktujte zákaznický servis. Detailní informace budou uvedeny níže.",
+    "paymentMethod": "Způsob platby",
+    "nextStep": "Další krok",
+    "selectedProduct": "Vybraný produkt",
+    "shipping": "Doprava",
+    "selectDeliveryMethod": "Vyberte způsob doručení",
+    "payNow": "Zaplatit nyní",
+    "paymentFailed": "Platba selhala",
+    "loadError": "Chyba načítání",
+    "failedToGenerateOrder": "Nepodařilo se vygenerovat objednávku!",
+    "failedToSelectPaymentMethod": "Nepodařilo se vybrat způsob platby",
+    "noSeller": "Žádný prodejce",
+    "placeOrder": "Odeslat objednávku",
     "checkDetail": "Zkontrolovat detaily"
   },
   "accountCreated": {
@@ -229,7 +268,10 @@
     "signInButton": "Přihlásit se"
   },
   "categories": {
-    "allCategories": "Všechny kategorie"
+    "allCategories": "Všechny kategorie",
+    "allProducts": "Všechny produkty",
+    "showing_product_for": "Zobrazuji produkt pro \"{{name}}\"",
+    "showing_range": "Zobrazuji {{start}} - {{end}} produktů"
   },
   "collections_section": {
     "featured_collections": "Doporučené kolekce",
@@ -237,7 +279,7 @@
     "view_details": "Zobrazit detaily",
     "view_all_collections": "Zobrazit všechny kolekce",
     "all_collections": "Všechny kolekce",
-    "browse_curated_collections": "Procházejte naše vybrané kolekce",
+    "browse_curated_collections": "Procházet naše vybrané kolekce",
     "no_collections_found": "Nebyly nalezeny žádné kolekce",
     "no_collections_available": "V tuto chvíli nejsou k dispozici žádné kolekce.",
     "products_in_this_collection": "Produkty v této kolekci",
@@ -249,12 +291,15 @@
   },
   "customer_navigation": {
     "dashboard": "Nástěnka",
-    "my_stuff": "Moje věci",
+    "my_stuff": "Mé věci",
     "browsing_history": "Historie prohlížení",
     "reviews": "Recenze",
     "wishlist": "Seznam přání",
     "orders": "Objednávky",
     "orders_all": "Vše",
+    "orders_paid": "Zaplacené",
+    "orders_shipping": "Odesílané",
+    "orders_reviewable": "K recenzi",
     "orders_returns": "Vrácení a refundace",
     "settings": "Nastavení",
     "settings_profile": "Profil",
@@ -269,7 +314,7 @@
       "completed": "Dokončeno",
       "canceled": "Zrušeno",
       "returning": "Vrácení",
-      "refunded": "Proplaceno",
+      "refunded": "Refundováno",
       "archived": "Archivováno",
       "draft": "Koncept",
       "requires_action": "Vyžaduje akci"
@@ -281,9 +326,11 @@
       "delivered": "Doručeno"
     },
     "actions": {
-      "request_return": "Vrácení a proplacení",
+      "request_return": "Vrácení a refundace",
       "cancel_order": "Zrušit objednávku",
-      "cancel_description": "Kontaktujte prodejce pro zrušení"
+      "cancel_description": "Kontaktujte prodejce pro zrušení",
+      "write_review": "Napsat recenze",
+      "see_reviews": "Zobrazit recenze"
     }
   },
   "customer_address": {
@@ -307,10 +354,10 @@
     },
     "edit_form": {
       "title": "Upravit adresu",
-      "description": "Pro úpravu adresy vyplňte prosím následující formulář.",
+      "description": "Vyplňte prosím formulář níže pro úpravu vaší adresy.",
       "set_default_shopping_address": "Nastavit jako výchozí nákupní adresu"
     },
-    "delete_confirm_description": "Mažete tuto adresu, ujistěte se prosím, že se nejedná o omyl"
+    "delete_confirm_description": "Mažete tuto adresu, ujistěte se prosím, že to není chyba"
   },
   "customer_profile": {
     "name": "Profil",
@@ -322,7 +369,7 @@
       "last_name": "Příjmení",
       "company_name": "Název společnosti",
       "phone": "Telefon",
-      "created_at": "Registrace dne",
+      "created_at": "Datum registrace",
       "email": "E-mail"
     }
   },
@@ -330,9 +377,9 @@
     "heading": "Zabezpečení účtu",
     "account_security": "Zabezpečení účtu",
     "password_set": "Heslo nastaveno",
-    "email_verified": "Ověřený e-mail",
-    "phone_verified": "Ověřený telefon",
-    "security_tips": "Tipy pro zabezpečení",
+    "email_verified": "E-mail ověřen",
+    "phone_verified": "Telefon ověřen",
+    "security_tips": "Bezpečnostní tipy",
     "fields": {
       "password": "Heslo",
       "phone": "Telefon",
@@ -343,7 +390,7 @@
       "form_heading": "Změnit heslo",
       "form_description": "Zadejte své aktuální heslo a nové heslo pro aktualizaci hesla k účtu.",
       "send_reset_email_title": "Odeslat e-mail pro resetování",
-      "send_reset_email_description": "Pošleme vám odkaz pro resetování hesla na vaši e-mailovou adresu",
+      "send_reset_email_description": "Odešleme odkaz na resetování hesla na vaši e-mailovou adresu",
       "send_reset_email": "Odeslat e-mail pro resetování",
       "sending": "Odesílání...",
       "email_sent": "E-mail odeslán",
@@ -363,14 +410,14 @@
     "return_shipping_options": "Možnosti dopravy pro vrácení",
     "select_shipping_method": "Vyberte způsob dopravy pro vrácení",
     "shipping_address": "Adresa pro přijetí vracených položek",
-    "shipping_address_description": "Prosím, zapamatujte si následující adresu. Poté, co prodávající přijme vrácení, vaše vracené položky musí být odeslány na tuto adresu!",
+    "shipping_address_description": "Prosím, zapamatujte si následující adresu. Poté, co prodávající přijme vrácení, vaše vracené položky musí být odeslány tam!",
     "free_shipping": "Zdarma",
     "phone": "Telefon",
     "shipping_cost": "Cena dopravy",
     "shipping_method_not_selected": "Prosím, vyberte způsob dopravy pro dokončení vrácení",
     "submit_fail_title": "Žádost o vrácení objednávky selhala",
     "submitted_success_title": "Žádost o vrácení odeslána! ",
-    "submitted_success_desc": "Prodávající brzy zpracuje tuto žádost, prosím, sledujte tuto objednávku a vaši schránku!"
+    "submitted_success_desc": "Prodávající brzy zpracuje tuto žádost, prosím, sledujte tuto objednávku a vaši e-mailovou schránku!"
   },
   "checkout_address": {
     "main_address": "Hlavní adresa",
@@ -379,31 +426,36 @@
     "no_addresses": "Nejsou k dispozici žádné adresy. Prosím, přidejte adresu pro pokračování.",
     "add_new": "Přidat novou adresu",
     "manage_address": "Spravovat adresu",
+    "noAddress": "Žádná adresa",
+    "noAddressDataFound": "Nebyla nalezena žádná data adresy",
+    "createAddress": "Vytvořit adresu",
+    "otherAddress": "Jiná adresa",
+    "edit": "Upravit",
     "clear_selected_address": "Zrušit výběr adresy"
   },
   "customer_returns": {
     "title": "Vrácení a refundace",
     "description": "Sledujte a spravujte své žádosti o vrácení a refundace",
-    "no_returns": "Nenalezeny žádné žádosti o vrácení",
-    "no_returns_description": "Ještě jste nepožádali o vrácení žádného zboží.",
-    "order_reference": "Odkaz na objednávku",
+    "no_returns": "Nebyly nalezeny žádné žádosti o vrácení",
+    "no_returns_description": "Zatím jste nepodali žádné žádosti o vrácení.",
+    "order_reference": "Číslo objednávky",
     "return_reason": "Důvod vrácení",
     "return_items": "Požadované vrácené položky",
     "return_address": "Adresa pro vrácení",
-    "view_return_tracking": "Sledování splnění",
+    "view_return_tracking": "Sledování plnění",
     "view_return_wait": "Zpracovává se",
-    "return_details": "Podrobnosti vrácení",
+    "return_details": "Detaily vrácení",
     "return_tracking": "Sledování vrácení",
     "requested_on": "Požadováno dne",
     "last_updated": "Naposledy aktualizováno",
     "shipping_information": "Informace o dopravě",
     "tracking_number": "Číslo sledování",
-    "vendor_reviewer_note": "Prodávající odpověděl",
+    "vendor_reviewer_note": "Odpověděl prodejce",
     "shipping_option": "Možnost dopravy",
     "return_not_found": "Žádost o vrácení nebyla nalezena",
     "return_not_found_description": "Žádost o vrácení, kterou hledáte, neexistuje nebo byla odstraněna.",
     "refunded_amount": "Částka k refundaci",
-    "refunded_waiting": "Prodávající to řeší, prosím o trpělivost!",
+    "refunded_waiting": "Prodejce to řeší, prosím o trpělivost!",
     "steps": {
       "accepted": "Přijato",
       "shipping": "Odeslání",
@@ -423,27 +475,27 @@
       "received": "Přijato",
       "returned": "Vráceno"
     },
-    "add_tracking_info": "Přidat sledování splnění",
-    "shipping_company": "Dopravní společnost",
-    "shipping_company_placeholder": "Zadejte název dopravní společnosti",
+    "add_tracking_info": "Přidat sledování plnění",
+    "shipping_company": "Dopravce",
+    "shipping_company_placeholder": "Zadejte název dopravce",
     "tracking_number_placeholder": "Zadejte číslo sledování",
-    "submit_tracking_info": "Odeslat sledování splnění",
-    "tracking_info_submitted": "Sledování splnění odesláno",
-    "tracking_info_submitted_desc": "Vaše sledování splnění bylo úspěšně odesláno.",
-    "tracking_information": "Sledování splnění",
+    "submit_tracking_info": "Odeslat sledování plnění",
+    "tracking_info_submitted": "Sledování plnění odesláno",
+    "tracking_info_submitted_desc": "Vaše sledování plnění bylo úspěšně odesláno.",
+    "tracking_information": "Sledování plnění",
     "tracking_invalid_input": "Neplatné sledování",
-    "waiting_seller_review": "Počkejte prosím, až prodávající zkontroluje a zpracuje vaši žádost.",
-    "no_return_address": "Není k dispozici adresa pro vrácení"
+    "waiting_seller_review": "Počkejte prosím, až prodejce zkontroluje a zpracuje vaši žádost.",
+    "no_return_address": "Adresa pro vrácení není k dispozici"
   },
   "sales": {
-    "no_sales_found": "Žádné prodeje nenalezeny",
-    "no_sales_available": "V tuto chvíli nejsou k dispozici žádné prodeje. Prosím, zkuste to znovu později."
+    "no_sales_found": "Nebyly nalezeny žádné prodeje",
+    "no_sales_available": "V tuto chvíli nejsou k dispozici žádné prodeje. Zkuste to prosím znovu později."
   },
   "review": {
     "title": "Napsat recenze k této objednávce",
     "rate_seller": "Ohodnotit prodejce",
     "rate_items": "Ohodnotit položky",
-    "rate_items_description": "Ohodnoťte prosím každou položku z vaší objednávky a podělte se o své zkušenosti.",
+    "rate_items_description": "Ohodnoťte každou položku z vaší objednávky a podělte se o své zkušenosti.",
     "seller_rating": "Hodnocení prodejce",
     "rating": "Hodnocení",
     "select_rating": "Prosím vyberte hodnocení",
@@ -455,13 +507,43 @@
     "submitted_success_title": "Recenze úspěšně odeslána",
     "submitted_success_desc": "Děkujeme za vaši zpětnou vazbu! Vaše recenze byla úspěšně odeslána.",
     "submit_fail_title": "Odeslání recenze selhalo",
-    "submit_fail_desc": "Při odesílání vaší recenze došlo k chybě. Zkuste to prosím znovu."
+    "submit_fail_desc": "Při odesílání recenze došlo k chybě. Zkuste to prosím znovu.",
+    "comment_character_count": "{{current}}/{{max}} znaků",
+    "characters_remaining": "zbývajících znaků",
+    "comment_too_long": "Komentář je příliš dlouhý"
   },
   "reviews": {
-    "reviews_to_sellers": "Recenze prodejatelům",
-    "reviews_to_products": "Recenze produktům",
-    "no_reviews_to_sellers": "Ještě jste nenapsali žádné recenze pro prodejce.",
-    "no_reviews_to_products": "Ještě jste nenapsali žádné recenze pro produkty.",
-    "reply_from_seller": "Odpověď od prodejce"
+    "reviews_to_sellers": "Recenze prodejce",
+    "reviews_to_products": "Recenze produktů",
+    "no_reviews_to_sellers": "Zatím jste nenapsali žádné recenze prodejce.",
+    "no_reviews_to_products": "Zatím jste nenapsali žádné recenze produktů.",
+    "reply_from_seller": "Odpověď prodejce"
+  },
+  "wishlist": {
+    "my_wishlist": "Můj seznam přání",
+    "empty_title": "Váš seznam přání je prázdný",
+    "empty_description": "Začněte přidávat položky, které milujete, abyste je měli přehledně na jednom místě.",
+    "start_shopping": "Začít nakupovat",
+    "added_to_wishlist": "Přidáno do seznamu přání",
+    "removed_from_wishlist": "Odebráno ze seznamu přání",
+    "error_updating_wishlist": "Nepodařilo se aktualizovat seznam přání"
+  },
+  "filter": {
+    "filter_option": "Možnost filtru",
+    "best_filter": "Nejlepší filtr",
+    "condition": "Stav",
+    "price_range": "Cenové rozpětí",
+    "discount": "Sleva",
+    "minimum_price": "Minimální cena",
+    "maximum_price": "Maximální cena",
+    "reviews_filter": "Filtr recenzí",
+    "rating": "Hodnocení"
+  },
+  "sort": {
+    "sort_by": "Řadit podle:",
+    "best_sellers": "Nejprodávanější",
+    "newest_arrivals": "Nejnovější",
+    "price_low_to_high": "Cena: od nejnižší",
+    "price_high_to_low": "Cena: od nejvyšší"
   }
 }

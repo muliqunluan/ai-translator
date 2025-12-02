@@ -8,7 +8,7 @@
     "add": "Toevoegen",
     "search": "Zoeken op FBE...",
     "submit": "Verzenden",
-    "submitting": "Versturen...",
+    "submitting": "Verzenden...",
     "back": "Terug",
     "next": "Volgende",
     "previous": "Vorige",
@@ -39,11 +39,13 @@
     "disabled": "Uitgeschakeld",
     "listLoading": "Laden...",
     "listNoResult": "Geen resultaten gevonden",
-    "item_not_found": "{{name}} is niet gevonden",
+    "item_not_found": "{{name}} niet gevonden",
     "item_unknown": "Onbekende {{name}}",
     "create": "Aanmaken",
     "quantity": "Hoeveelheid",
-    "quantity_abbr": "Hv"
+    "quantity_abbr": "Hoev.",
+    "no_data": "Geen gegevens",
+    "no_data_found": "Geen gegevens gevonden"
   },
   "form": {
     "save": "Opslaan",
@@ -74,7 +76,7 @@
     "cart": "Winkelwagen",
     "categories": "Categorieën",
     "products": "Producten",
-    "about": "Over ons",
+    "about": "Over",
     "contact": "Contact"
   },
   "login": {
@@ -94,7 +96,9 @@
     "emailVerificationCodePlaceholder": "E-mailverificatiecode",
     "send": "Verzenden",
     "createAccount": "Account aanmaken",
-    "alreadyHaveAccount": "Heeft u al een account? Inloggen→"
+    "alreadyHaveAccount": "Al een account? Log in→",
+    "loginExpiredTitle": "Sessie verlopen!",
+    "loginExpiredTips": "Log opnieuw in~"
   },
   "userCard": {
     "menu": "Menu",
@@ -116,7 +120,7 @@
   },
   "footer": {
     "description": "© 2024 FBE Store Alle rechten voorbehouden.",
-    "details": "De grootste marktplaats beheerd door Ideologist corp, die diverse soorten dagelijkse benodigdheden en hobby's biedt.",
+    "details": "De grootste marktplaats beheerd door Ideologist corp, die verschillende soorten dagelijkse benodigdheden en hobby's biedt.",
     "company": "Bedrijf",
     "policies": "Beleid",
     "help": "Help",
@@ -124,10 +128,10 @@
     "aboutUs": "Over ons",
     "termOfService": "Servicevoorwaarden",
     "returns": "Retouren",
-    "refundPolicy": "Restitutiebeleid",
+    "refundPolicy": "Terugbetalingsbeleid",
     "privacyPolicy": "Privacybeleid",
     "shippingPolicy": "Verzendbeleid",
-    "sellerServiceAgreement": "Dienstverleningsovereenkomst voor verkopers",
+    "sellerServiceAgreement": "Verkopersserviceovereenkomst",
     "contactUs": "Neem contact op"
   },
   "not_found": {
@@ -139,17 +143,17 @@
   },
   "product_card": {
     "product_placeholder": "Product placeholder",
-    "see_more": "Bekijk meer",
+    "see_more": "Meer bekijken",
     "variants": "{count} varianten \n        Vanaf",
     "variants1": "1 variant \n      Vanaf"
   },
   "new_arrivals_section": {
-    "heading": "Nieuwe Aankomsten",
+    "heading": "Nieuwe Aanwinsten",
     "description": "Bekijk de nieuwste toevoegingen aan onze collectie.",
     "cta": "Meer Laden"
   },
   "sales_section": {
-    "heading": "Grote Sale",
+    "heading": "Grote Aanbieding",
     "description": "Mis onze exclusieve aanbiedingen en kortingen niet.",
     "cta": "Meer Laden"
   },
@@ -158,7 +162,27 @@
   },
   "product": {
     "thumbnail_alt": "Productafbeelding van {{productTitle}}",
-    "quantity": "Hoeveelheid"
+    "quantity": "Hoeveelheid",
+    "variant_label": "Productvariant:",
+    "buy_now": "Koop Nu",
+    "add_to_cart": "Voeg Toe aan Winkelwagen",
+    "reviews": "Beoordelingen",
+    "detail": "Productdetails",
+    "merchant": "Verkoper",
+    "information": "Informatie",
+    "details": "Details",
+    "weight": "Gewicht",
+    "height": "Hoogte",
+    "width": "Breedte",
+    "material": "Materiaal",
+    "origin_country": "Herkomstland",
+    "merchant_information": "Verkoperinformatie",
+    "chat": "Chat",
+    "visit_merchant": "Bezoek Verkoper",
+    "related_products": "Gerelateerde Producten",
+    "product_reviews": "Productbeoordelingen",
+    "from_reviews": "uit {{total}} beoordelingen",
+    "review_lists": "Beoordelingenlijst"
   },
   "cart": {
     "title": "Winkelwagen",
@@ -166,24 +190,24 @@
     "items": "items",
     "empty": "Uw winkelwagen is leeg",
     "go_shopping": "Ga winkelen",
-    "quantity": "Aantal",
+    "quantity": "Hoeveelheid",
     "total": "Totaal",
     "checkout": "Afrekenen",
     "delivery": "Levering",
-    "order_summary": "Orderoverzicht",
+    "order_summary": "Besteloverzicht",
     "tax_fee": "Belasting",
     "discount": "Korting",
     "total_price": "Totaalprijs",
-    "use_promo": "Promotiecodes gebruiken",
+    "use_promo": "Gebruik promotiecodes",
     "choose_product_to_use_promo": "Voeg uw promotiecodes toe en beheer ze",
     "promo_code": "Promotiecode",
-    "promos_desc": "Gebruik promotiecodes voor korting op uw bestelling.",
-    "enter_promo_code_to_get_discount": "Voer uw promotiecode in voor korting",
+    "promos_desc": "Gebruik promotiecodes om korting te krijgen op uw bestelling.",
+    "enter_promo_code_to_get_discount": "Voer uw promotiecode in om korting te krijgen",
     "enter_promo_code": "Voer promotiecode in",
-    "added_promo_codes": "Uw Promotiecodes",
-    "add_promo_code": "Nieuwe Promotiecode Toevoegen",
+    "added_promo_codes": "Uw promotiecodes",
+    "add_promo_code": "Nieuwe promotiecode toevoegen",
     "add_multiple_promos_desc": "U kunt meerdere codes toevoegen en toepassen op uw bestelling.",
-    "apply_promo_codes": "Promotiecodes Toepassen",
+    "apply_promo_codes": "Promotiecodes toepassen",
     "delete_promo_code": "Promotiecode verwijderen",
     "subtotal": "Subtotaal",
     "add_error": "Fout bij toevoegen van product aan winkelwagen",
@@ -194,21 +218,21 @@
     "add_products": "Voeg producten toe om te beginnen",
     "seller": "Verkoper",
     "shipping_fee": "Verzendkosten",
-    "related_products": "Gerelateerde Producten",
+    "related_products": "Gerelateerde producten",
     "loading_cart_data": "Winkelwagengegevens laden...",
     "empty_cart_no_recommendations": "Uw winkelwagen is leeg, geen aanbevelingen beschikbaar",
     "no_related_products": "Geen gerelateerde producten aanbevolen",
-    "view_cart": "Winkelwagen Bekijken"
+    "view_cart": "Winkelwagen bekijken"
   },
   "hero_section": {
     "heading": "Uw One-Stop Shop voor Elke Levensbehoefte",
-    "description": "Welkom bij FBE—uw favoriete plek voor soepel en bevredigend dagelijks winkelen. Of u nu op zoek bent naar de laatste mode, hoogwaardige huisbenodigdheden, doordachte cadeaus of dagelijkse benodigdheden, wij hebben duizenden gecureerde producten in alle categorieën voor u.",
-    "buy_now": "Koop Nu",
+    "description": "Welkom bij FBE—uw favoriete plek voor soepel, bevredigend dagelijks winkelen. Of u nu op zoek bent naar de nieuwste mode, hoogwaardige huishoudelijke artikelen, doordachte cadeaus of dagelijkse benodigdheden, wij hebben duizenden geselecteerde producten in alle categorieën voor u.",
+    "buy_now": "Nu Kopen",
     "view_detail": "Bekijk Details"
   },
   "checkout": {
     "title": "Afrekenen",
-    "subtitle": "Voltooi je aankoop",
+    "subtitle": "Voltooi uw aankoop",
     "shippingAddress": "Verzendadres",
     "address": "Adres",
     "change": "Adres wijzigen",
@@ -217,11 +241,26 @@
     "shippingTo": "Verzenden naar {{address}}",
     "selectAddressFirst": "Selecteer eerst een verzendadres",
     "successful": "Afrekenen geslaagd!",
-    "thankYou": "Bedankt voor je aankoop. Je bestelling wordt verwerkt.",
+    "thankYou": "Bedankt voor uw aankoop. Uw bestelling wordt verwerkt.",
     "failed": "Afrekenen mislukt!",
-    "failureMessage": "Helaas kon je bestelling niet worden verwerkt. Probeer het opnieuw.",
+    "failureMessage": "Helaas kon uw bestelling niet worden verwerkt. Probeer het opnieuw.",
     "backToHome": "Terug naar home",
-    "checkDetail": "Details bekijken"
+    "showingChoicesProduct": "Uw gekozen producten worden weergegeven",
+    "paymentSuccessful": "Uw betaling is geslaagd",
+    "paymentProcessingDescription": "Uw betaling wordt binnen 30 minuten verwerkt. Mocht er een probleem zijn, neem dan contact op met de klantenservice. Gedetailleerde informatie vindt u hieronder.",
+    "paymentMethod": "Betaalwijze",
+    "nextStep": "Volgende stap",
+    "selectedProduct": "Geselecteerd product",
+    "shipping": "Verzending",
+    "selectDeliveryMethod": "Kies bezorgmethode",
+    "payNow": "Nu betalen",
+    "paymentFailed": "Betaling mislukt",
+    "loadError": "Laadfout",
+    "failedToGenerateOrder": "Bestelling genereren mislukt!",
+    "failedToSelectPaymentMethod": "Betaalwijze selecteren mislukt",
+    "noSeller": "Geen verkoper",
+    "placeOrder": "Bestelling plaatsen",
+    "checkDetail": "Details controleren"
   },
   "accountCreated": {
     "title": "Account succesvol aangemaakt!",
@@ -229,13 +268,16 @@
     "signInButton": "Inloggen"
   },
   "categories": {
-    "allCategories": "Alle Categorieën"
+    "allCategories": "Alle Categorieën",
+    "allProducts": "Alle Producten",
+    "showing_product_for": "Product getoond voor \"{{name}}\"",
+    "showing_range": "{{start}} - {{end}} Producten getoond"
   },
   "collections_section": {
-    "featured_collections": "Uitgelichte Collecties",
+    "featured_collections": "Aanbevolen Collecties",
     "buy": "Kopen",
-    "view_details": "Details Bekijken",
-    "view_all_collections": "Alle Collecties Bekijken",
+    "view_details": "Bekijk Details",
+    "view_all_collections": "Bekijk Alle Collecties",
     "all_collections": "Alle Collecties",
     "browse_curated_collections": "Blader door onze gecureerde collecties",
     "no_collections_found": "Geen collecties gevonden",
@@ -249,12 +291,15 @@
   },
   "customer_navigation": {
     "dashboard": "Dashboard",
-    "my_stuff": "Mijn Spullen",
-    "browsing_history": "Browsegeschiedenis",
+    "my_stuff": "Mijn spullen",
+    "browsing_history": "Geschiedenis",
     "reviews": "Beoordelingen",
     "wishlist": "Verlanglijst",
     "orders": "Bestellingen",
     "orders_all": "Alles",
+    "orders_paid": "Betaald",
+    "orders_shipping": "Verzending",
+    "orders_reviewable": "Beoordeelbaar",
     "orders_returns": "Retouren & Terugbetalingen",
     "settings": "Instellingen",
     "settings_profile": "Profiel",
@@ -281,9 +326,11 @@
       "delivered": "Geleverd"
     },
     "actions": {
-      "request_return": "Retourneren & Terugbetaling",
+      "request_return": "Retourneren & terugbetaling",
       "cancel_order": "Bestelling annuleren",
-      "cancel_description": "Neem contact op met de verkoper voor annulering"
+      "cancel_description": "Neem contact op met verkoper voor annulering",
+      "write_review": "Reviews schrijven",
+      "see_reviews": "Reviews bekijken"
     }
   },
   "customer_address": {
@@ -343,11 +390,11 @@
       "form_heading": "Wachtwoord wijzigen",
       "form_description": "Voer uw huidige wachtwoord en een nieuw wachtwoord in om uw accountwachtwoord bij te werken.",
       "send_reset_email_title": "Reset-e-mail verzenden",
-      "send_reset_email_description": "We sturen een wachtwoordherstellink naar uw e-mailadres",
+      "send_reset_email_description": "We sturen een link om uw wachtwoord te resetten naar uw e-mailadres",
       "send_reset_email": "Reset-e-mail verzenden",
       "sending": "Verzenden...",
       "email_sent": "E-mail verzonden",
-      "reset_email_sent_message": "Wachtwoordherstel-e-mail is verzonden. Controleer uw inbox."
+      "reset_email_sent_message": "De e-mail om uw wachtwoord te resetten is verzonden. Controleer uw inbox."
     }
   },
   "return_request": {
@@ -369,16 +416,21 @@
     "shipping_cost": "Verzendkosten",
     "shipping_method_not_selected": "Selecteer een verzendmethode om de retour af te ronden",
     "submit_fail_title": "Retouraanvraag mislukt",
-    "submitted_success_title": "Retouraanvraag ingediend!",
+    "submitted_success_title": "Retouraanvraag ingediend! ",
     "submitted_success_desc": "De verkoper zal deze aanvraag snel behandelen. Houd deze bestelling en uw mailbox in de gaten!"
   },
   "checkout_address": {
     "main_address": "Hoofdadres",
     "selected": "Geselecteerd",
     "select_address": "Adres selecteren",
-    "no_addresses": "Geen adressen beschikbaar. Voeg een adres toe om verder te gaan.",
+    "no_addresses": "Geen adressen beschikbaar. Voeg een adres toe om door te gaan.",
     "add_new": "Nieuw adres toevoegen",
     "manage_address": "Adres beheren",
+    "noAddress": "Geen adres",
+    "noAddressDataFound": "Geen adresgegevens gevonden",
+    "createAddress": "Adres aanmaken",
+    "otherAddress": "Anders adres",
+    "edit": "Bewerken",
     "clear_selected_address": "Geselecteerde adres wissen"
   },
   "customer_returns": {
@@ -390,20 +442,20 @@
     "return_reason": "Reden van retour",
     "return_items": "Retourgezochte artikelen",
     "return_address": "Retouradres",
-    "view_return_tracking": "Verzending volgen",
+    "view_return_tracking": "Verzending bijhouden",
     "view_return_wait": "In behandeling",
     "return_details": "Retourdetails",
-    "return_tracking": "Retourvolgen",
+    "return_tracking": "Retourzending bijhouden",
     "requested_on": "Aangevraagd op",
     "last_updated": "Laatst bijgewerkt",
     "shipping_information": "Verzendinformatie",
-    "tracking_number": "Trackingsnummer",
+    "tracking_number": "Traceernummer",
     "vendor_reviewer_note": "Verkoper heeft gereageerd",
     "shipping_option": "Verzendoptie",
     "return_not_found": "Retouraanvraag niet gevonden",
     "return_not_found_description": "De retouraanvraag die u zoekt bestaat niet of is verwijderd.",
     "refunded_amount": "Terugbetaald bedrag",
-    "refunded_waiting": "De verkoper is bezig met de afhandeling, even geduld alstublieft!",
+    "refunded_waiting": "De verkoper is bezig met de afhandeling, geduld alstublieft!",
     "steps": {
       "accepted": "Geaccepteerd",
       "shipping": "Verzonden",
@@ -423,14 +475,14 @@
       "received": "Ontvangen",
       "returned": "Geretourneerd"
     },
-    "add_tracking_info": "Verzendinformatie toevoegen",
+    "add_tracking_info": "Verzending bijhouden toevoegen",
     "shipping_company": "Vervoerder",
-    "shipping_company_placeholder": "Voer de naam van de vervoerder in",
-    "tracking_number_placeholder": "Voer het trackingsnummer in",
-    "submit_tracking_info": "Verzendinformatie indienen",
-    "tracking_info_submitted": "Verzendinformatie ingediend",
-    "tracking_info_submitted_desc": "Uw verzendinformatie is succesvol ingediend.",
-    "tracking_information": "Verzendinformatie",
+    "shipping_company_placeholder": "Voer naam vervoerder in",
+    "tracking_number_placeholder": "Voer traceernummer in",
+    "submit_tracking_info": "Verzending bijhouden indienen",
+    "tracking_info_submitted": "Verzending bijhouden ingediend",
+    "tracking_info_submitted_desc": "Uw verzending bijhouden is succesvol ingediend.",
+    "tracking_information": "Verzending bijhouden",
     "tracking_invalid_input": "Ongeldige tracking",
     "waiting_seller_review": "Wacht alstublieft tot de verkoper uw aanvraag beoordeelt en verwerkt.",
     "no_return_address": "Geen retouradres beschikbaar"
@@ -444,7 +496,7 @@
     "rate_seller": "Beoordeel de verkoper",
     "rate_items": "Beoordeel de artikelen",
     "rate_items_description": "Beoordeel elk artikel uit uw bestelling en deel uw ervaring.",
-    "seller_rating": "Verkopersbeoordeling",
+    "seller_rating": "Verkoperbeoordeling",
     "rating": "Beoordeling",
     "select_rating": "Selecteer een beoordeling",
     "comment": "Opmerking",
@@ -455,13 +507,43 @@
     "submitted_success_title": "Beoordeling succesvol ingediend",
     "submitted_success_desc": "Bedankt voor uw feedback! Uw beoordeling is succesvol ingediend.",
     "submit_fail_title": "Beoordeling indienen mislukt",
-    "submit_fail_desc": "Er is een fout opgetreden bij het indienen van uw beoordeling. Probeer het opnieuw."
+    "submit_fail_desc": "Er is een fout opgetreden bij het indienen van uw beoordeling. Probeer het opnieuw.",
+    "comment_character_count": "{{current}}/{{max}} tekens",
+    "characters_remaining": "tekens resterend",
+    "comment_too_long": "Opmerking te lang"
   },
   "reviews": {
     "reviews_to_sellers": "Beoordelingen voor verkopers",
     "reviews_to_products": "Beoordelingen voor producten",
-    "no_reviews_to_sellers": "U heeft nog geen verkoperbeoordelingen geschreven.",
+    "no_reviews_to_sellers": "U heeft nog geen verkopersbeoordelingen geschreven.",
     "no_reviews_to_products": "U heeft nog geen productbeoordelingen geschreven.",
     "reply_from_seller": "Reactie van verkoper"
+  },
+  "wishlist": {
+    "my_wishlist": "Mijn verlanglijstje",
+    "empty_title": "Uw verlanglijstje is leeg",
+    "empty_description": "Voeg items die u leuk vindt toe om ze hier bij te houden.",
+    "start_shopping": "Begin met winkelen",
+    "added_to_wishlist": "Toegevoegd aan verlanglijstje",
+    "removed_from_wishlist": "Verwijderd van verlanglijstje",
+    "error_updating_wishlist": "Fout bij het bijwerken van verlanglijstje"
+  },
+  "filter": {
+    "filter_option": "Filteroptie",
+    "best_filter": "Beste Filter",
+    "condition": "Staat",
+    "price_range": "Prijsbereik",
+    "discount": "Korting",
+    "minimum_price": "Minimumprijs",
+    "maximum_price": "Maximumprijs",
+    "reviews_filter": "Beoordelingenfilter",
+    "rating": "Beoordeling"
+  },
+  "sort": {
+    "sort_by": "Sorteren op:",
+    "best_sellers": "Bestsellers",
+    "newest_arrivals": "Nieuwste artikelen",
+    "price_low_to_high": "Prijs: Laag naar hoog",
+    "price_high_to_low": "Prijs: Hoog naar laag"
   }
 }
