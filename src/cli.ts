@@ -2,10 +2,8 @@
 
 import { Command } from 'commander';
 import { translate, printTranslateSummary } from './translate.js';
-import type { TranslateOptions } from './translate.js';
 import { getLanguageFiles, printLanguageInfo, syncDeleteFieldsFromAllLanguages } from './file-processor.js';
 import { simpleDiff, deleteFieldByPath, readJsonFile, saveJsonFile, backupFile } from './diff.js';
-import { getSupportedLanguages, getLanguageName } from './ai.js';
 import { resolve } from 'path';
 
 const program = new Command();
