@@ -47,22 +47,5 @@
     "no_data": "No Data",
     "no_data_found": "No data found"
   },
-  "form": {
-    "save": "Save",
-    "cancel": "Cancel",
-    "fieldPlaceholder": "Enter {{field}}",
-    "fieldIsRequired": "{{field}} is required",
-    "fieldIsInvalid": "{{field}} is invalid",
-    "selectFile": "Please select a file",
-    "headingCreate": "Create New {{name}}",
-    "headingEdit": "Edit {{name}}",
-    "headingDelete": "Delete {{name}}",
-    "emailRequired": "Email is required",
-    "emailInvalid": "Please enter a valid email address",
-    "passwordRequired": "Password is required",
-    "passwordMinLength": "Password must be at least 6 characters",
-    "verificationCodeRequired": "Verification code is required",
-    "verificationCodeLength": "Verification code must be 6 characters",
-    "confirmDefaultTitle": "Are you sure?"
-  }
+  "hello": "Hello"
 }

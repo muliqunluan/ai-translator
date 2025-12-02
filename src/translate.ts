@@ -174,7 +174,7 @@ async function checkTranslationNeeds(
 async function translateLanguage(
   languageCode: string,
   translatableContent: GroupedContent,
-  dryRun: boolean = false
+  workspace: string
 ): Promise<{ success: boolean; error?: string }> {
   try {
     const languageName = getLanguageName(languageCode);
@@ -183,17 +183,6 @@ async function translateLanguage(
     // 验证输入
     if (!translatableContent || Object.keys(translatableContent).length === 0) {
       throw new Error('没有内容需要翻译');
-    }
-
-    if (dryRun) {
-      console.log('🔍 预览模式 - 将要翻译的内容:');
-      for (const [groupName, groupData] of Object.entries(translatableContent)) {
-        console.log(`  📁 组: ${groupName}`);
-        for (const [key, value] of Object.entries(groupData)) {
-          console.log(`    - ${key}: "${value}"`);
-        }
-      }
-      return { success: true };
     }
 
     const translatedGroups: GroupedContent = {};
@@ -259,7 +248,7 @@ async function translateLanguage(
     }
 
     // 获取语言文件路径并更新
-    const languageFilePath = resolve(process.cwd(), 'message', `${languageCode}.json`);
+    const languageFilePath = resolve(process.cwd(), workspace, `${languageCode}.json`);
     
     // 验证文件路径
     if (!languageFilePath) {
@@ -338,6 +327,8 @@ export async function translate(options: TranslateOptions = {}): Promise<Transla
 
     result.summary.totalLanguages = targetLanguages.length;
 
+    const workspace = options.messageDir
+
     if (targetLanguages.length === 0) {
       console.log('\n⚠️  没有找到目标语言文件');
       result.success = true;
@@ -374,10 +365,12 @@ export async function translate(options: TranslateOptions = {}): Promise<Transla
     // 翻译每个语言
     for (const languageCode of targetLanguages) {
       console.log(`\n🔄 开始处理语言: ${languageCode} (${getLanguageName(languageCode)})`);
+      console.log("------",enFilePath)
       
       const translateResult = await translateLanguage(
         languageCode,
-        translatableContent
+        translatableContent,
+        workspace!
       );
 
       if (translateResult.success) {

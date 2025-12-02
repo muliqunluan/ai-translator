@@ -23,10 +23,20 @@ program
   .action(async (options: any) => {
     try {
       console.log('🚀 一键自动翻译模式');
-
+      var workspace = ''
+      var temp = ''
+      if (process.env.is_test_mode) {
+        workspace = process.env.test_workspace!
+        temp = process.env.test_work_temp!
+      } else {
+        workspace = process.env.workspace!
+        temp = process.env.work_temp!
+      }
+      console.log('工作区', workspace)
+      console.log('temp', temp)
       // 1. 检查翻译状态
       console.log('\n📊 第一步：检查翻译状态');
-      const languageFiles = await getLanguageFiles('message');
+      const languageFiles = await getLanguageFiles(workspace);
       printLanguageInfo(languageFiles);
 
       const enFile = languageFiles.find(f => f.code === 'en');
@@ -36,7 +46,7 @@ program
       }
 
       // 2. 检查是否有内容需要翻译
-      const oldEnFilePath = resolve(process.cwd(), 'message/temp', 'en_old.json');
+      const oldEnFilePath = resolve(process.cwd(), temp, 'en_old.json');
       const { existsSync, readFileSync } = await import('fs');
       const isFirstTime = !existsSync(oldEnFilePath);
 
@@ -174,7 +184,10 @@ program
         // 3. 执行翻译
         console.log('\n🌍 第二步：执行翻译');
 
-        const result = await translate({});
+        const result = await translate({
+          messageDir:workspace,
+          tempDir:temp
+        });
 
         printTranslateSummary(result);
 
