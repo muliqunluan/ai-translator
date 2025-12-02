@@ -20,8 +20,6 @@ import { translateTextObject, getLanguageName } from './ai.js';
 export interface TranslateOptions {
   messageDir?: string;
   tempDir?: string;
-  force?: boolean; // 是否强制翻译所有内容
-  dryRun?: boolean; // 是否只显示将要翻译的内容，不实际翻译
 }
 
 // 翻译结果接口
@@ -80,14 +78,7 @@ async function initializeTranslation(options: TranslateOptions): Promise<{
 async function checkTranslationNeeds(
   enFilePath: string,
   oldEnFilePath: string,
-  force: boolean = false
 ): Promise<{ shouldTranslate: boolean; translatableContent: GroupedContent }> {
-  if (force) {
-    // 强制翻译：获取所有内容
-    console.log('\n🔄 强制翻译模式：将翻译所有内容');
-    const allContent = groupEnContent(enFilePath);
-    return { shouldTranslate: true, translatableContent: allContent };
-  }
 
   // 检查是否为首次运行或 en_old.json 为空
   const { existsSync, readFileSync } = await import('fs');
@@ -356,8 +347,7 @@ export async function translate(options: TranslateOptions = {}): Promise<Transla
     // 检查翻译需求
     const { shouldTranslate, translatableContent } = await checkTranslationNeeds(
       enFilePath,
-      oldEnFilePath,
-      options.force
+      oldEnFilePath
     );
 
     if (!shouldTranslate) {
@@ -387,8 +377,7 @@ export async function translate(options: TranslateOptions = {}): Promise<Transla
       
       const translateResult = await translateLanguage(
         languageCode,
-        translatableContent,
-        options.dryRun
+        translatableContent
       );
 
       if (translateResult.success) {
@@ -411,7 +400,7 @@ export async function translate(options: TranslateOptions = {}): Promise<Transla
     }
 
     // 备份当前文件作为下次比较的基准
-    if (!options.dryRun && result.summary.translatedCount > 0) {
+    if (result.summary.translatedCount > 0) {
       const backupSuccess = backupFile(enFilePath, oldEnFilePath);
       if (backupSuccess) {
         console.log('\n💾 已备份当前 en.json 作为下次比较基准');
@@ -519,25 +508,4 @@ export function printTranslateSummary(result: TranslateResult): void {
   }
 
   console.log('='.repeat(50));
-}
-
-/**
- * 快速翻译函数（简化版本）
- */
-export async function quickTranslate(
-  languages?: string[], 
-  force: boolean = false
-): Promise<TranslateResult> {
-  const options: TranslateOptions = {
-    force,
-    dryRun: false
-  };
-
-  if (languages && languages.length > 0) {
-    // 如果指定了特定语言，可以通过环境变量或其他方式传递
-    // 这里保持简单，使用默认行为
-    console.log(`指定语言: ${languages.join(', ')}`);
-  }
-
-  return await translate(options);
 }
