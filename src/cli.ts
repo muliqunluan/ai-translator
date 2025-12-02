@@ -5,6 +5,8 @@ import { translate, printTranslateSummary } from './translate.js';
 import { getLanguageFiles, printLanguageInfo, syncDeleteFieldsFromAllLanguages } from './file-processor.js';
 import { simpleDiff, deleteFieldByPath, readJsonFile, saveJsonFile, backupFile } from './diff.js';
 import { resolve } from 'path';
+import { getLanguageName } from './ai.js';
+import * as cliProgress from 'cli-progress';
 
 const program = new Command();
 
@@ -134,12 +136,50 @@ program
       if (shouldTranslate) {
         // 3. 执行翻译
         console.log('\n🌍 开始翻译...');
+        
+        // 创建进度条
+        const targetLanguages = languageFiles.filter(f => f.code !== 'en').map(f => f.code);
+        
+        // 计算总组数
+        const enData = JSON.parse(require('fs').readFileSync(enFile.path, 'utf-8'));
+        let totalGroups = 0;
+        for (const [key, value] of Object.entries(enData)) {
+          if (typeof value === 'object' && value !== null) {
+            totalGroups++;
+          } else {
+            totalGroups++; // 每个非对象值也算一个组
+          }
+        }
+        
+        const totalSteps = 2 + (targetLanguages.length * totalGroups); // 2 = 初始化+摘要
+        
+        // 创建多进度条实例
+        const progressBar = new cliProgress.MultiBar(
+          {
+            clearOnComplete: false,
+            hideCursor: true,
+            format: '翻译进度 |{bar}| {percentage}% | {value}/{total} | {status}',
+          },
+          cliProgress.Presets.shades_grey
+        );
+        
+        const mainBar = progressBar.create(totalSteps, 0, { status: '初始化翻译环境' });
 
         const result = await translate({
           messageDir:workspace,
-          tempDir:temp
+          tempDir:temp,
+          onLanguageComplete: (languageCode: string, groupName?: string) => {
+            const languageName = getLanguageName(languageCode);
+            if (groupName) {
+              mainBar.increment(1, { status: `${languageName} - ${groupName} 组完成` });
+            } else {
+              mainBar.increment(1, { status: `完成 ${languageName} 翻译` });
+            }
+          }
         });
 
+        mainBar.increment(1, { status: '生成翻译摘要' });
+        progressBar.stop();
         printTranslateSummary(result);
 
         if (result.success) {

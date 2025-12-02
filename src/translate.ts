@@ -20,6 +20,7 @@ import { translateTextObject, getLanguageName } from './ai.js';
 export interface TranslateOptions {
   messageDir?: string;
   tempDir?: string;
+  onLanguageComplete?: (languageCode: string, groupName?: string) => void;
 }
 
 // 翻译结果接口
@@ -147,7 +148,8 @@ async function checkTranslationNeeds(
 async function translateLanguage(
   languageCode: string,
   translatableContent: GroupedContent,
-  workspace: string
+  workspace: string,
+  onGroupComplete?: (groupName: string) => void
 ): Promise<{ success: boolean; error?: string }> {
   try {
     // 验证输入
@@ -181,6 +183,11 @@ async function translateLanguage(
         }
         
         translatedGroups[groupName] = translatedGroup;
+        
+        // 通知组完成
+        if (onGroupComplete) {
+          onGroupComplete(groupName);
+        }
         
       } catch (groupError) {
         groupErrors++;
@@ -286,7 +293,13 @@ export async function translate(options: TranslateOptions = {}): Promise<Transla
       const translateResult = await translateLanguage(
         languageCode,
         translatableContent,
-        workspace!
+        workspace!,
+        (groupName: string) => {
+          // 通知进度条当前组完成
+          if (options.onLanguageComplete) {
+            options.onLanguageComplete(languageCode, groupName);
+          }
+        }
       );
 
       if (translateResult.success) {

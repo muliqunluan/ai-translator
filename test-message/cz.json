@@ -27,7 +27,7 @@
     "create_failed": "Vytvoření selhalo",
     "update_failed": "Aktualizace selhala",
     "delete_failed": "Smazání selhalo",
-    "info": "Informace",
+    "info": "Info",
     "createdAt": "Vytvořeno",
     "updatedAt": "Aktualizováno",
     "deletedAt": "Smazáno",
@@ -45,7 +45,7 @@
     "quantity": "Množství",
     "quantity_abbr": "Množ.",
     "no_data": "Žádná data",
-    "no_data_found": "Nebyla nalezena žádná data"
+    "no_data_found": "Žádná data nebyla nalezena"
   },
   "hello": "Ahoj"
 }
