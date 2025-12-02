@@ -12,9 +12,7 @@ interface DiffResult {
     changed: string[];
 }
 
-/**
- * 简单比较两个对象的差异（只比较顶层键）
- */
+// 简单比较两个对象的差异（只比较顶层键）
 const diff = (oldObj: JSONObject, newObj: JSONObject): DiffResult => {
     const result: DiffResult = {
         missing: [],
@@ -22,7 +20,6 @@ const diff = (oldObj: JSONObject, newObj: JSONObject): DiffResult => {
         changed: []
     };
 
-    // 遍历 oldObj：检查缺失和修改
     for (const key in oldObj) {
         if (!(key in newObj)) {
             result.missing.push(key);
@@ -32,13 +29,11 @@ const diff = (oldObj: JSONObject, newObj: JSONObject): DiffResult => {
         const oldVal = oldObj[key];
         const newVal = newObj[key];
 
-        // 只要内容不完全一样，就视为 changed（整体更新）
         if (JSON.stringify(oldVal) !== JSON.stringify(newVal)) {
             result.changed.push(key);
         }
     }
 
-    // 遍历 newObj：检查新增
     for (const key in newObj) {
         if (!(key in oldObj)) {
             result.added.push(key);
@@ -48,9 +43,7 @@ const diff = (oldObj: JSONObject, newObj: JSONObject): DiffResult => {
     return result;
 };
 
-/**
- * 读取JSON文件
- */
+// 读取JSON
 function readJsonFile(filePath: string): JSONObject {
     try {
         if (!existsSync(filePath)) {
@@ -64,9 +57,7 @@ function readJsonFile(filePath: string): JSONObject {
     }
 }
 
-/**
- * 保存JSON文件
- */
+// 保存JSON
 function saveJsonFile(filePath: string, data: JSONObject): void {
     try {
         const content = JSON.stringify(data, null, 2);
@@ -76,9 +67,7 @@ function saveJsonFile(filePath: string, data: JSONObject): void {
     }
 }
 
-/**
- * 备份文件
- */
+// 备份文件
 function backupFile(filePath: string, backupPath: string): boolean {
     try {
         const data = readJsonFile(filePath);
@@ -90,9 +79,7 @@ function backupFile(filePath: string, backupPath: string): boolean {
     }
 }
 
-/**
- * 从对象中删除指定的键
- */
+// 从对象中删除指定的键
 function removeKeys(obj: JSONObject, keysToRemove: string[]): JSONObject {
     const result = { ...obj };
     keysToRemove.forEach(key => {
@@ -103,9 +90,8 @@ function removeKeys(obj: JSONObject, keysToRemove: string[]): JSONObject {
     return result;
 }
 
-/**
- * 获取需要翻译的内容
- */
+
+// 获取需要翻译的内容
 function getTranslatableContent(
     newObj: JSONObject,
     diffResult: DiffResult
@@ -129,9 +115,7 @@ function getTranslatableContent(
     return result;
 }
 
-/**
- * 处理语言文件差异
- */
+// 处理文件差异
 export function processLanguageFiles(
     enOldPath: string,
     enNewPath: string,
@@ -181,9 +165,7 @@ export function processLanguageFiles(
     }
 }
 
-/**
- * 简单的文件差异比较函数
- */
+// 文件差异比较函数
 export function simpleDiff(
     oldFilePath: string,
     newFilePath: string
@@ -193,9 +175,7 @@ export function simpleDiff(
     return diff(oldObj, newObj);
 }
 
-/**
- * 从对象中删除指定路径的字段
- */
+// 从对象中删除指定路径的字段
 export function deleteFieldByPath(
     obj: any,
     path: string[]

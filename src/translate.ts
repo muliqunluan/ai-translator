@@ -37,9 +37,7 @@ export interface TranslateResult {
   };
 }
 
-/**
- * 初始化翻译环境
- */
+// 初始化翻译环境
 async function initializeTranslation(options: TranslateOptions): Promise<{
   languageFiles: any[];
   enFilePath: string;
@@ -73,9 +71,7 @@ async function initializeTranslation(options: TranslateOptions): Promise<{
   };
 }
 
-/**
- * 检查是否需要翻译
- */
+// 检查是否需要翻译
 async function checkTranslationNeeds(
   enFilePath: string,
   oldEnFilePath: string,
@@ -142,9 +138,7 @@ async function checkTranslationNeeds(
   return { shouldTranslate: true, translatableContent };
 }
 
-/**
- * 翻译单个语言
- */
+// 翻译单个语言
 async function translateLanguage(
   languageCode: string,
   translatableContent: GroupedContent,
@@ -231,9 +225,7 @@ async function translateLanguage(
   }
 }
 
-/**
- * 主翻译函数
- */
+// 主翻译函数
 export async function translate(options: TranslateOptions = {}): Promise<TranslateResult> {
   const result: TranslateResult = {
     success: false,
@@ -332,9 +324,7 @@ export async function translate(options: TranslateOptions = {}): Promise<Transla
   }
 }
 
-/**
- * 打印翻译结果摘要
- */
+// 打印翻译结果摘要
 export function printTranslateSummary(result: TranslateResult): void {
   console.log('\n' + '='.repeat(50));
   console.log('📊 翻译结果摘要');

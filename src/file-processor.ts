@@ -14,9 +14,8 @@ export interface GroupedContent {
   [groupName: string]: Record<string, string>;
 }
 
-/**
- * 获取message文件夹下的所有语言文件
- */
+
+// 获取message文件夹下的所有语言文件
 export async function getLanguageFiles(messageDir: string = 'message'): Promise<LanguageFile[]> {
   try {
     const fullPath = resolve(process.cwd(), messageDir);
@@ -64,18 +63,14 @@ export async function getLanguageFiles(messageDir: string = 'message'): Promise<
   }
 }
 
-/**
- * 获取需要翻译的目标语言列表（排除en）
- */
+// 获取需要翻译的目标语言列表（排除en）
 export function getTargetLanguages(languageFiles: LanguageFile[]): string[] {
   return languageFiles
     .filter(file => file.code !== 'en')
     .map(file => file.code);
 }
 
-/**
- * 读取JSON文件内容
- */
+// 读取JSON文件
 function readJsonFile(filePath: string): any {
   try {
     if (!existsSync(filePath)) {
@@ -89,9 +84,7 @@ function readJsonFile(filePath: string): any {
   }
 }
 
-/**
- * 保存JSON文件内容
- */
+// 保存JSON文件
 function saveJsonFile(filePath: string, data: any): void {
   try {
     // 确保目录存在
@@ -107,9 +100,7 @@ function saveJsonFile(filePath: string, data: any): void {
   }
 }
 
-/**
- * 将en.json内容按组分组
- */
+// 分组
 export function groupEnContent(enFilePath: string): GroupedContent {
   const enData = readJsonFile(enFilePath);
   const groupedContent: GroupedContent = {};
@@ -130,9 +121,7 @@ export function groupEnContent(enFilePath: string): GroupedContent {
   return groupedContent;
 }
 
-/**
- * 读取现有语言文件并按组分组
- */
+// 读取现有语言文件然后分组
 export function groupExistingContent(languageFilePath: string): GroupedContent {
   const data = readJsonFile(languageFilePath);
   const groupedContent: GroupedContent = {};
@@ -151,9 +140,7 @@ export function groupExistingContent(languageFilePath: string): GroupedContent {
   return groupedContent;
 }
 
-/**
- * 合并分组内容为完整的语言文件
- */
+// 合并分组
 export function mergeGroupedContent(groupedContent: GroupedContent): Record<string, any> {
   const mergedContent: Record<string, any> = {};
 
@@ -170,9 +157,7 @@ export function mergeGroupedContent(groupedContent: GroupedContent): Record<stri
   return mergedContent;
 }
 
-/**
- * 更新语言文件（增量更新）
- */
+// 更新语言文件
 export function updateLanguageFile(
   languageFilePath: string,
   newGroupedContent: GroupedContent
@@ -207,9 +192,7 @@ export function updateLanguageFile(
   saveJsonFile(languageFilePath, mergedContent);
 }
 
-/**
- * 确保temp目录存在
- */
+// 确保 temp 文件存在
 export function ensureTempDirectory(tempDir: string = 'message/temp'): void {
   const fullPath = resolve(process.cwd(), tempDir);
   if (!existsSync(fullPath)) {
@@ -217,9 +200,7 @@ export function ensureTempDirectory(tempDir: string = 'message/temp'): void {
   }
 }
 
-/**
- * 打印语言文件信息
- */
+// 打印语言文字信息
 export function printLanguageInfo(languageFiles: LanguageFile[]): void {
   const targetLanguages = getTargetLanguages(languageFiles);
   
@@ -231,9 +212,7 @@ export function printLanguageInfo(languageFiles: LanguageFile[]): void {
   }
 }
 
-/**
- * 验证语言文件结构
- */
+// 验证语言文件结构
 export function validateLanguageStructure(
   enFilePath: string,
   languageFilePath: string
@@ -268,9 +247,7 @@ export function validateLanguageStructure(
   };
 }
 
-/**
- * 从语言文件中删除指定路径的字段
- */
+// 从语言文件中删除指定路径的字段
 export function deleteFieldFromLanguageFile(
   languageFilePath: string,
   path: string[]
@@ -291,9 +268,8 @@ export function deleteFieldFromLanguageFile(
   }
 }
 
-/**
- * 从所有语言文件中同步删除指定路径的字段
- */
+
+// 从所有语言文件中同步删除指定路径的字段
 export function syncDeleteFieldsFromAllLanguages(
   languageFiles: LanguageFile[],
   deletedFields: Array<{ path: string[]; key: string }>

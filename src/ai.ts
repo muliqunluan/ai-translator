@@ -39,9 +39,7 @@ const LANGUAGE_MAP: Record<string, string> = {
   'be': '白俄罗斯语'
 };
 
-/**
- * 读取配置文件
- */
+// 读取配置
 function loadConfig(): AIConfig {
   try {
     const envPath = resolve(process.cwd(), '.env');
@@ -88,9 +86,7 @@ function loadConfig(): AIConfig {
   }
 }
 
-/**
- * 构建翻译提示词
- */
+// 构建提示词
 function buildTranslationPrompt(text: string, targetLanguage: string, context?: string): string {
   const languageName = LANGUAGE_MAP[targetLanguage] || targetLanguage;
   
@@ -127,9 +123,7 @@ interface APIResponse {
   }>;
 }
 
-/**
- * 调用AI API进行翻译
- */
+// 调用AI翻译
 async function callAI(config: AIConfig, prompt: string): Promise<string> {
   try {
     const response = await fetch(config.url, {
@@ -170,9 +164,7 @@ async function callAI(config: AIConfig, prompt: string): Promise<string> {
   }
 }
 
-/**
- * 翻译单个文本
- */
+// 翻译文本
 export async function translateText(request: TranslationRequest): Promise<TranslationResponse> {
   try {
     const config = loadConfig();
@@ -197,9 +189,7 @@ export async function translateText(request: TranslationRequest): Promise<Transl
   }
 }
 
-/**
- * 批量翻译文本对象
- */
+// 批量翻译文本对象
 export async function translateTextObject(
   textObject: Record<string, string>,
   targetLanguage: string,
@@ -305,42 +295,8 @@ ${jsonString}
     return translatedObject;
     
   } catch (parseError) {
-    // 如果JSON解析失败，尝试逐个翻译作为备选方案
-    return await fallbackToIndividualTranslation(textObject, targetLanguage, context);
+    return({});
   }
-}
-
-/**
- * 备选方案：逐个翻译
- */
-async function fallbackToIndividualTranslation(
-  textObject: Record<string, string>,
-  targetLanguage: string,
-  context?: string
-): Promise<Record<string, string>> {
-  const result: Record<string, string> = {};
-  let translationErrors = 0;
-  const totalItems = Object.keys(textObject).length;
-  
-  for (const [key, value] of Object.entries(textObject)) {
-    const response = await translateText({
-      text: value,
-      targetLanguage,
-      context: context ? `${context}\n\n当前翻译项: ${key}` : undefined
-    });
-    
-    if (response.success && response.translatedText) {
-      result[key] = response.translatedText;
-    } else {
-      translationErrors++;
-      result[key] = value; // 翻译失败时保持原文
-    }
-    
-    // 添加延迟以避免API限制
-    await new Promise(resolve => setTimeout(resolve, 100));
-  }
-  
-  return result;
 }
 
 /**
