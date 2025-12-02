@@ -44,7 +44,7 @@ function loadConfig(): AIConfig {
   try {
     const envPath = resolve(process.cwd(), '.env');
     const envContent = readFileSync(envPath, 'utf-8');
-    
+
     const config: Partial<AIConfig> = {};
     envContent.split('\n').forEach(line => {
       const [key, ...valueParts] = line.split('=');
@@ -86,34 +86,6 @@ function loadConfig(): AIConfig {
   }
 }
 
-// 构建提示词
-function buildTranslationPrompt(text: string, targetLanguage: string, context?: string): string {
-  const languageName = LANGUAGE_MAP[targetLanguage] || targetLanguage;
-  
-  const basePrompt = `你是一个专业的翻译助手。请将以下英文文本翻译成${languageName}。
-
-翻译要求：
-1. 保持原文的格式和结构
-2. 对于占位符（如 {{name}}, {{field}} 等），请保持不变
-3. 对于技术术语，使用标准的${languageName}翻译
-4. 保持简洁明了，符合用户界面的语言习惯
-5. 如果是按钮文本，请保持简洁
-6. 如果是错误或成功消息，请保持专业和友好的语气
-
-待翻译文本：
-${text}
-
-请只返回翻译后的文本，不要包含任何解释或说明。`;
-
-  if (context) {
-    return `${context}
-
-${basePrompt}`;
-  }
-
-  return basePrompt;
-}
-
 // API响应接口
 interface APIResponse {
   choices: Array<{
@@ -153,7 +125,7 @@ async function callAI(config: AIConfig, prompt: string): Promise<string> {
     }
 
     const data = await response.json() as APIResponse;
-    
+
     if (data.choices && data.choices.length > 0 && data.choices[0] && data.choices[0].message) {
       return data.choices[0].message.content.trim();
     } else {
@@ -168,15 +140,15 @@ async function callAI(config: AIConfig, prompt: string): Promise<string> {
 export async function translateText(request: TranslationRequest): Promise<TranslationResponse> {
   try {
     const config = loadConfig();
-    const prompt = buildTranslationPrompt(request.text, request.targetLanguage, request.context);
-    
+    const prompt = request.context!;
+
     const translatedText = await callAI(config, prompt);
-    
+
     // 验证翻译结果
     if (!translatedText || translatedText.trim().length === 0) {
       throw new Error('翻译结果为空');
     }
-    
+
     return {
       success: true,
       translatedText
@@ -197,7 +169,7 @@ export async function translateTextObject(
 ): Promise<Record<string, string>> {
   // 构建整组翻译的JSON字符串
   const jsonString = JSON.stringify(textObject, null, 2);
-  
+
   // 构建整组翻译的提示词
   const groupContext = `${context || ''}
 
@@ -217,22 +189,22 @@ ${jsonString}
 \`\`\`
 
 请返回完整的翻译后的JSON对象，格式与输入完全相同，只是值被翻译成${getLanguageName(targetLanguage)}。`;
-  
+
   const response = await translateText({
     text: jsonString,
     targetLanguage,
     context: groupContext
   });
-  
+
   if (!response.success || !response.translatedText) {
     throw new Error(`整组翻译失败: ${response.error}`);
   }
-  
+
   // 解析翻译后的JSON
   try {
     // 清理可能的markdown代码块标记
     let cleanText = response.translatedText.trim();
-    
+
     // 移除可能的markdown代码块标记
     if (cleanText.startsWith('```json')) {
       cleanText = cleanText.substring(7);
@@ -244,7 +216,7 @@ ${jsonString}
       cleanText = cleanText.substring(0, cleanText.length - 3);
     }
     cleanText = cleanText.trim();
-    
+
     // 尝试多种方式解析JSON
     let translatedObject;
     try {
@@ -252,16 +224,16 @@ ${jsonString}
     } catch (firstError: any) {
       // 尝试修复常见的JSON问题
       let fixedText = cleanText;
-      
+
       // 修复尾随逗号
       fixedText = fixedText.replace(/,\s*}/g, '}').replace(/,\s*]/g, ']');
-      
+
       // 修复单引号
       fixedText = fixedText.replace(/'/g, '"');
-      
+
       // 修复未引用的键
       fixedText = fixedText.replace(/(\w+):/g, '"$1":');
-      
+
       try {
         translatedObject = JSON.parse(fixedText);
       } catch (secondError: any) {
@@ -274,28 +246,28 @@ ${jsonString}
             translatedObject[match[1]] = match[2];
           }
         }
-        
+
         if (Object.keys(translatedObject).length === 0) {
           throw new Error('无法解析任何有效的JSON数据');
         }
       }
     }
-    
+
     // 验证翻译结果
     const translatedKeys = Object.keys(translatedObject);
     const originalKeys = Object.keys(textObject);
-    
+
     // 检查是否有键缺失
     for (const key of originalKeys) {
       if (!(key in translatedObject)) {
         translatedObject[key] = textObject[key];
       }
     }
-    
+
     return translatedObject;
-    
+
   } catch (parseError) {
-    return({});
+    return ({});
   }
 }
 

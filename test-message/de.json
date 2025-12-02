@@ -1,6 +1,6 @@
 {
   "common": {
-    "loading": "Laden...",
+    "loading": "Wird geladen...",
     "save": "Speichern",
     "cancel": "Abbrechen",
     "delete": "Löschen",
@@ -37,8 +37,8 @@
     "inactive": "Inaktiv",
     "enabled": "Aktiviert",
     "disabled": "Deaktiviert",
-    "listLoading": "Laden...",
-    "listNoResult": "Kein Ergebnis gefunden",
+    "listLoading": "Wird geladen...",
+    "listNoResult": "Keine Ergebnisse gefunden",
     "item_not_found": "{{name}} wurde nicht gefunden",
     "item_unknown": "Unbekannt {{name}}",
     "create": "Erstellen",

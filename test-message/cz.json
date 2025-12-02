@@ -38,14 +38,14 @@
     "enabled": "Povoleno",
     "disabled": "Zakázáno",
     "listLoading": "Načítání...",
-    "listNoResult": "Nebyly nalezeny žádné výsledky",
+    "listNoResult": "Nenalezeny žádné výsledky",
     "item_not_found": "{{name}} nebylo nalezeno",
     "item_unknown": "Neznámé {{name}}",
     "create": "Vytvořit",
     "quantity": "Množství",
     "quantity_abbr": "Množ.",
     "no_data": "Žádná data",
-    "no_data_found": "Žádná data nebyla nalezena"
+    "no_data_found": "Data nebyla nalezena"
   },
-  "hello": "Ahoj"
+  "hello": "Dobrý den"
 }
