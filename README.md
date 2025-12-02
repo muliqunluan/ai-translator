@@ -22,8 +22,8 @@ ai-translator/
 │   ├── diff.ts            # 文件差异比较
 │   ├── file-processor.ts  # 文件处理逻辑
 │   └── translate.ts       # 翻译核心逻辑
-├── message/               # 生产环境语言文件目录
-├── test-message/          # 测试环境语言文件目录
+├── workspace/               # 生产环境语言文件目录
+├── test-workspace/          # 测试环境语言文件目录
 ├── .env.template          # 配置文件模板
 ├── package.json           # 项目配置
 └── README.md             # 项目说明
@@ -84,10 +84,10 @@ temperature = 0.6
 
 # 工作模式设置
 is_test_mode = true  # true使用test-message文件夹，false使用message文件夹
-workspace = message
-work_temp = message/temp
-test_workspace = test-message
-test_work_temp = test-message/temp
+workspace = workspace
+work_temp = workspace/temp
+test_workspace = test-workspace
+test_work_temp = test-workspace/temp
 ```
 
 ## 用法
@@ -95,7 +95,7 @@ test_work_temp = test-message/temp
 ### 基本使用
 
 1. **准备语言文件：**
-   - 将你的英文源文件 `en.json` 放入 `message/` 文件夹（生产环境）或 `test-message/` 文件夹（测试环境）
+   - 将你的英文源文件 `en.json` 放入 `workspace/` 文件夹（生产环境）或 `test-workspace/` 文件夹（测试环境）
    - 创建其他语言的空JSON文件（如 `zh-CN.json`, `fr.json`, `de.json` 等）
 
 2. **运行自动翻译：**
@@ -111,10 +111,10 @@ bun run src/cli.ts --help
 ```
 
 #### 测试模式
-在 `.env` 文件中设置 `is_test_mode = true`，工具将使用 `test-message` 文件夹作为工作区，适合快速测试翻译效果。
+在 `.env` 文件中设置 `is_test_mode = true`，工具将使用 `test-workspace` 文件夹作为工作区，适合快速测试翻译效果。
 
 #### 生产模式
-在 `.env` 文件中设置 `is_test_mode = false`，工具将使用 `message` 文件夹作为工作区，用于正式翻译。
+在 `.env` 文件中设置 `is_test_mode = false`，工具将使用 `workspace` 文件夹作为工作区，用于正式翻译。
 
 ## 支持的语言
 
@@ -180,7 +180,7 @@ A: 检查以下几点：
 4. 查看终端输出的错误信息
 
 ### Q: 如何重新翻译所有内容？
-A: 删除 `message/temp/en_old.json` 文件，然后重新运行翻译命令。
+A: 删除 `workspace/temp/en_old.json` 文件，然后重新运行翻译命令。
 
 ### Q: 支持自定义翻译提示词吗？
 A: 目前工具使用内置的翻译提示词，确保翻译的一致性和质量。

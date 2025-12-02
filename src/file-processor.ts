@@ -16,7 +16,7 @@ export interface GroupedContent {
 
 
 // 获取message文件夹下的所有语言文件
-export async function getLanguageFiles(messageDir: string = 'message'): Promise<LanguageFile[]> {
+export async function getLanguageFiles(messageDir: string = 'workspace'): Promise<LanguageFile[]> {
   try {
     const fullPath = resolve(process.cwd(), messageDir);
     
@@ -193,7 +193,7 @@ export function updateLanguageFile(
 }
 
 // 确保 temp 文件存在
-export function ensureTempDirectory(tempDir: string = 'message/temp'): void {
+export function ensureTempDirectory(tempDir: string = 'workspace/temp'): void {
   const fullPath = resolve(process.cwd(), tempDir);
   if (!existsSync(fullPath)) {
     mkdirSync(fullPath, { recursive: true });

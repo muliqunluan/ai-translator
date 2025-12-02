@@ -43,8 +43,8 @@ async function initializeTranslation(options: TranslateOptions): Promise<{
   oldEnFilePath: string;
   targetLanguages: string[];
 }> {
-  const messageDir = options.messageDir || 'message';
-  const tempDir = options.tempDir || 'message/temp';
+  const messageDir = options.messageDir || 'workspace';
+  const tempDir = options.tempDir || 'workspace/temp';
 
   // 确保temp目录存在
   ensureTempDirectory(tempDir);
