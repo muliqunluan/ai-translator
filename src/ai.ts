@@ -1,5 +1,3 @@
-import { readFileSync } from 'fs';
-import { resolve } from 'path';
 import { LANGUAGE_MAP } from './config'
 
 // 配置接口
@@ -13,7 +11,6 @@ interface AIConfig {
 
 // 翻译请求接口
 interface TranslationRequest {
-  text: string;
   targetLanguage: string;
   context?: string;
 }
@@ -25,50 +22,14 @@ interface TranslationResponse {
   error?: string;
 }
 
-// 读取配置
+// 读取环境配置
 function loadConfig(): AIConfig {
-  try {
-    const envPath = resolve(process.cwd(), '.env');
-    const envContent = readFileSync(envPath, 'utf-8');
-
-    const config: Partial<AIConfig> = {};
-    envContent.split('\n').forEach(line => {
-      const [key, ...valueParts] = line.split('=');
-      if (key && valueParts.length > 0) {
-        const value = valueParts.join('=').trim();
-        switch (key.trim()) {
-          case 'apikey':
-            config.apikey = value;
-            break;
-          case 'url':
-            config.url = value;
-            break;
-          case 'module':
-            config.module = value;
-            break;
-          case 'max_tokens':
-            config.max_tokens = parseInt(value);
-            break;
-          case 'temperature':
-            config.temperature = parseFloat(value);
-            break;
-        }
-      }
-    });
-
-    if (!config.apikey || !config.url) {
-      throw new Error('Missing required API configuration (apikey or url)');
-    }
-
-    return {
-      apikey: config.apikey!,
-      url: config.url!,
-      module: config.module || 'glm-4.5',
-      max_tokens: config.max_tokens || 4096,
-      temperature: config.temperature || 0.6
-    };
-  } catch (error) {
-    throw new Error(`Failed to load configuration: ${error}`);
+  return {
+    apikey: process.env.apikey!,
+    url: process.env.url!,
+    module: process.env.module!,
+    max_tokens: Number(process.env.max_tokens),
+    temperature: Number(process.env.temperature)
   }
 }
 
@@ -177,7 +138,7 @@ ${jsonString}
 请返回完整的翻译后的JSON对象，格式与输入完全相同，只是值被翻译成${getLanguageName(targetLanguage)}。`;
 
   const response = await translateText({
-    text: jsonString,
+    // text: jsonString,
     targetLanguage,
     context: groupContext
   });
@@ -204,16 +165,6 @@ ${jsonString}
     cleanText = cleanText.trim();
 
     const translatedObject = JSON.parse(cleanText);
-
-    // 验证翻译结果
-    const originalKeys = Object.keys(textObject);
-
-    // 检查是否有键缺失，如果有则使用原值
-    for (const key of originalKeys) {
-      if (!(key in translatedObject)) {
-        translatedObject[key] = textObject[key];
-      }
-    }
 
     return translatedObject;
 
