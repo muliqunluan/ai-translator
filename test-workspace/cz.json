@@ -47,5 +47,10 @@
     "no_data": "Žádná data",
     "no_data_found": "Data nebyla nalezena"
   },
-  "hello": "Dobrý den"
+  "kobe-ds": {
+    "words": "Člověče! co mám říct"
+  },
+  "kebe-glm": {
+    "words": "Člověče! co můžu říct"
+  }
 }

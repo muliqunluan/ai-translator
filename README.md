@@ -1,10 +1,10 @@
-# 调用GLM模型实现的AI自动翻译工具
+# AI自动翻译工具
 
-该项目主要用于处理i18n语言文件的翻译问题，支持增量翻译、自动备份和多种语言。
+该项目主要用于处理i18n语言文件的翻译问题，支持多种AI模型、增量翻译、自动备份和多语言。
 
 ## 特性
 
-- **AI驱动翻译**：基于GLM模型，提供高质量的翻译结果
+- **AI驱动翻译**：支持多个AI模型，提供高质量的翻译结果
 - **增量翻译**：智能检测文件变化，只翻译新增或修改的内容
 - **多语言支持**：支持简体中文、法语、德语、西班牙语、意大利语、荷兰语、波兰语、瑞典语、丹麦语、捷克语、白俄罗斯语
 - **批量处理**：按组批量翻译，提高效率
@@ -64,15 +64,22 @@ bun install
 cp .env.template .env
 ```
 
-2. **修改 `.env` 文件，填入你的GLM API配置：**
+2. **修改 `.env` 文件，填入你的AI API配置：**
 ```env
-# GLM的API密钥
-apikey = your_glm_api_key_here
+# AI模型类型 (glm 或 ds)
+ai = glm
 
-# GLM的API地址
+# API密钥
+apikey = your_api_key_here
+
+# API地址
+# GLM: https://open.bigmodel.cn/api/paas/v4/chat/completions
+# DeepSeek: https://api.deepseek.com/v1
 url = https://open.bigmodel.cn/api/paas/v4/chat/completions
 
 # 模型编码
+# GLM: glm-4.5
+# DeepSeek: deepseek-chat
 module = glm-4.5
 
 # 其他配置
@@ -163,12 +170,20 @@ bun run src/cli.ts auto
 ### Q: 如何添加新的支持语言？
 A: 在 `src/config.ts` 文件中的 `LANGUAGE_MAP` 对象中添加新的语言映射，然后创建对应的JSON文件。
 
+### Q: 如何切换AI模型？
+A: 在 `.env` 文件中修改 `ai` 参数：
+- 设置为 `glm` 使用智谱AI模型
+- 设置为 `ds` 使用DeepSeek模型
+同时确保 `url` 和 `module` 参数对应所选模型的正确配置。
+
 ### Q: 翻译失败怎么办？
 A: 检查以下几点：
-1. API密钥是否正确
-2. 网络连接是否正常
-3. 源文件格式是否正确
-4. 查看终端输出的错误信息
+1. AI模型类型配置是否正确
+2. API密钥是否正确
+3. API地址是否与所选模型匹配
+4. 网络连接是否正常
+5. 源文件格式是否正确
+6. 查看终端输出的错误信息
 
 ### Q: 如何重新翻译所有内容？
 A: 删除 `workspace/temp/en_old.json` 文件，然后重新运行翻译命令。
@@ -186,4 +201,4 @@ MIT License
 
 ---
 
-**注意**：使用本工具需要有效的GLM API密钥，请确保遵守相关API的使用条款。
+**注意**：使用本工具需要有效的AI API密钥，请确保遵守相关API的使用条款。

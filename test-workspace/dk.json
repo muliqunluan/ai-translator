@@ -47,5 +47,10 @@
     "no_data": "Ingen data",
     "no_data_found": "Ingen data fundet"
   },
-  "hello": "Hej"
+  "kobe-ds": {
+    "words": "Mand! hvad kan jeg sige"
+  },
+  "kebe-glm": {
+    "words": "Man! hvad kan jeg sige"
+  }
 }

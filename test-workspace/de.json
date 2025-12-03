@@ -47,5 +47,10 @@
     "no_data": "Keine Daten",
     "no_data_found": "Keine Daten gefunden"
   },
-  "hello": "Hallo"
+  "kobe-ds": {
+    "words": "Mann! Was soll ich sagen"
+  },
+  "kebe-glm": {
+    "words": "Mann! Was kann ich sagen"
+  }
 }

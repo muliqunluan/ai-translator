@@ -47,5 +47,10 @@
     "no_data": "无数据",
     "no_data_found": "未找到数据"
   },
-  "hello": "你好"
+  "kobe-ds": {
+    "words": "老兄！我还能说什么"
+  },
+  "kebe-glm": {
+    "words": "天呐！我能说些什么呢"
+  }
 }
