@@ -9,9 +9,10 @@ export interface LanguageFile {
   exists: boolean;
 }
 
-// 分组接口
+// 分组接口 - 支持嵌套对象和数组
+export type NestedValue = string | Record<string, any> | any[];
 export interface GroupedContent {
-  [groupName: string]: Record<string, string>;
+  [groupName: string]: NestedValue;
 }
 
 
@@ -106,15 +107,18 @@ export function groupEnContent(enFilePath: string): GroupedContent {
   const groupedContent: GroupedContent = {};
 
   for (const [key, value] of Object.entries(enData)) {
-    if (typeof value === 'object' && value !== null) {
-      // 如果是对象，直接作为一个组
-      groupedContent[key] = value as Record<string, string>;
+    if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+      // 如果是对象，直接作为一个组，保持完整的嵌套结构
+      groupedContent[key] = value;
+    } else if (Array.isArray(value)) {
+      // 如果是数组，也作为一个组，保持数组结构
+      groupedContent[key] = value;
     } else {
       // 如果是字符串，创建一个默认组
       if (!groupedContent.default) {
         groupedContent.default = {};
       }
-      groupedContent.default[key] = value as string;
+      (groupedContent.default as Record<string, string>)[key] = value as string;
     }
   }
 
@@ -128,12 +132,12 @@ export function groupExistingContent(languageFilePath: string): GroupedContent {
 
   for (const [key, value] of Object.entries(data)) {
     if (typeof value === 'object' && value !== null) {
-      groupedContent[key] = value as Record<string, string>;
+      groupedContent[key] = value;
     } else {
       if (!groupedContent.default) {
         groupedContent.default = {};
       }
-      groupedContent.default[key] = value as string;
+      (groupedContent.default as Record<string, string>)[key] = value as string;
     }
   }
 
@@ -147,7 +151,9 @@ export function mergeGroupedContent(groupedContent: GroupedContent): Record<stri
   for (const [groupName, groupData] of Object.entries(groupedContent)) {
     if (groupName === 'default') {
       // 将default组的内容合并到顶级
-      Object.assign(mergedContent, groupData);
+      if (typeof groupData === 'object' && groupData !== null) {
+        Object.assign(mergedContent, groupData);
+      }
     } else {
       // 其他组作为嵌套对象
       mergedContent[groupName] = groupData;
@@ -169,20 +175,30 @@ export function updateLanguageFile(
   for (const [groupName, newGroupData] of Object.entries(newGroupedContent)) {
     if (!existingGroupedContent[groupName]) {
       // 如果组不存在，直接创建
-      existingGroupedContent[groupName] = { ...newGroupData };
+      existingGroupedContent[groupName] = newGroupData;
     } else {
       // 检查组内容是否发生了结构性变化
-      const existingKeys = Object.keys(existingGroupedContent[groupName]);
-      const newKeys = Object.keys(newGroupData);
+      const existingData = existingGroupedContent[groupName];
+      const newData = newGroupData;
       
-      // 如果新键的数量与现有键不同，或者有键不匹配，说明有结构性变化
-      // 这种情况下，完全替换整个组
-      if (existingKeys.length !== newKeys.length ||
-          !existingKeys.every(key => newKeys.includes(key))) {
-        existingGroupedContent[groupName] = { ...newGroupData };
+      // 如果两者都是对象，进行深度检查和合并
+      if (typeof existingData === 'object' && existingData !== null &&
+          typeof newData === 'object' && newData !== null) {
+        const existingKeys = Object.keys(existingData);
+        const newKeys = Object.keys(newData);
+        
+        // 如果新键的数量与现有键不同，或者有键不匹配，说明有结构性变化
+        // 这种情况下，完全替换整个组
+        if (existingKeys.length !== newKeys.length ||
+            !existingKeys.every(key => newKeys.includes(key))) {
+          existingGroupedContent[groupName] = newData;
+        } else {
+          // 否则，只合并新增或修改的键
+          Object.assign(existingGroupedContent[groupName] as Record<string, any>, newData);
+        }
       } else {
-        // 否则，只合并新增或修改的键
-        Object.assign(existingGroupedContent[groupName], newGroupData);
+        // 如果类型不匹配，直接替换
+        existingGroupedContent[groupName] = newData;
       }
     }
   }

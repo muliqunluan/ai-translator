@@ -108,28 +108,19 @@ async function checkTranslationNeeds(
   const enData = readJsonFile(enFilePath);
   const rawTranslatableContent = getTranslatableContent(enData, diffResult);
   
-  // 将 JSONObject 转换为 GroupedContent
+  // 将 JSONObject 转换为 GroupedContent，保持嵌套结构
   const translatableContent: GroupedContent = {};
   
   for (const [key, value] of Object.entries(rawTranslatableContent)) {
     if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-      // 如果是对象，检查并转换其值为字符串
-      const convertedObj: Record<string, string> = {};
-      for (const [subKey, subValue] of Object.entries(value)) {
-        if (typeof subValue === 'string') {
-          convertedObj[subKey] = subValue;
-        } else {
-          // 将非字符串值转换为字符串
-          convertedObj[subKey] = String(subValue);
-        }
-      }
-      translatableContent[key] = convertedObj;
+      // 如果是对象，保持其完整的嵌套结构，不进行任何转换
+      translatableContent[key] = value;
     } else {
       // 如果不是对象，创建默认组
       if (!translatableContent.default) {
         translatableContent.default = {};
       }
-      translatableContent.default[key] = typeof value === 'string' ? value : String(value || '');
+      (translatableContent.default as Record<string, string>)[key] = typeof value === 'string' ? value : String(value || '');
     }
   }
 
@@ -157,20 +148,28 @@ async function translateLanguage(
     for (const [groupName, groupData] of Object.entries(translatableContent)) {
       try {
         // 验证组数据
-        if (!groupData || Object.keys(groupData).length === 0) {
+        if (!groupData) {
+          continue;
+        }
+        
+        // 检查是否为对象类型
+        if (typeof groupData === 'object' && Object.keys(groupData).length === 0) {
           continue;
         }
         
         const context = `这是用户界面翻译项目的一部分。当前正在翻译 "${groupName}" 组的内容。请保持翻译的一致性和专业性。`;
         
+        // 确保传递给 translateTextObject 的是正确的类型
+        const inputData = typeof groupData === 'object' ? groupData as Record<string, any> : {};
+        
         const translatedGroup = await translateTextObject(
-          groupData,
+          inputData,
           languageCode,
           context
         );
         
         // 验证翻译结果
-        if (!translatedGroup || Object.keys(translatedGroup).length === 0) {
+        if (!translatedGroup || (typeof translatedGroup === 'object' && Object.keys(translatedGroup).length === 0)) {
           throw new Error(`组 ${groupName} 翻译结果为空`);
         }
         

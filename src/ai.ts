@@ -179,10 +179,10 @@ export { SupportAI };
 
 // 批量翻译文本对象
 export async function translateTextObject(
-  textObject: Record<string, string>,
+  textObject: Record<string, any>,
   targetLanguage: string,
   context?: string
-): Promise<Record<string, string>> {
+): Promise<Record<string, any>> {
   // 构建整组翻译的JSON字符串
   const jsonString = JSON.stringify(textObject, null, 2);
 
@@ -193,11 +193,14 @@ export async function translateTextObject(
 
 翻译要求：
 1. 只翻译值（values），保持键（keys）不变
-2. 保持JSON格式不变
-3. 对于占位符（如 {{name}}, {{field}} 等），请保持不变
-4. 对于技术术语，使用标准的${getLanguageName(targetLanguage)}翻译
-5. 保持简洁明了，符合用户界面的语言习惯
-6. 确保翻译的一致性和专业性
+2. 保持完整的JSON结构和嵌套关系不变
+3. 对于嵌套对象，递归翻译所有层级的值，保持对象结构
+4. 对于数组，翻译数组中的字符串元素，保持数组结构
+5. 对于占位符（如 {{name}}, {{field}} 等），请保持不变
+6. 对于技术术语，使用标准的${getLanguageName(targetLanguage)}翻译
+7. 保持简洁明了，符合用户界面的语言习惯
+8. 确保翻译的一致性和专业性
+9. 重要：不要将对象或数组转换为字符串，必须保持原始的JSON结构
 
 待翻译的JSON：
 \`\`\`json
@@ -205,6 +208,7 @@ ${jsonString}
 \`\`\`
 
 请返回完整的翻译后的JSON对象，格式与输入完全相同，只是值被翻译成${getLanguageName(targetLanguage)}。`;
+
 
   const response = await translateText({
     // text: jsonString,
