@@ -72,7 +72,7 @@ export function getTargetLanguages(languageFiles: LanguageFile[]): string[] {
 }
 
 // 读取JSON文件
-function readJsonFile(filePath: string): any {
+export function readJsonFile(filePath: string): any {
   try {
     if (!existsSync(filePath)) {
       return {};
@@ -86,7 +86,7 @@ function readJsonFile(filePath: string): any {
 }
 
 // 保存JSON文件
-function saveJsonFile(filePath: string, data: any): void {
+export function saveJsonFile(filePath: string, data: any): void {
   try {
     // 确保目录存在
     const dir = resolve(filePath, '..');
@@ -98,6 +98,18 @@ function saveJsonFile(filePath: string, data: any): void {
     writeFileSync(filePath, content, 'utf-8');
   } catch (error) {
     console.error(`保存文件失败 ${filePath}: ${error}`);
+  }
+}
+
+// 备份文件
+export function backupFile(filePath: string, backupPath: string): boolean {
+  try {
+    const data = readJsonFile(filePath);
+    saveJsonFile(backupPath, data);
+    return true;
+  } catch (error) {
+    console.error(`备份文件失败: ${error}`);
+    return false;
   }
 }
 

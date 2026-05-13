@@ -3,5 +3,6 @@
   "advancement.simulated.a_calculated_connection.desc": "成功校准并连接两个对接连接器",
   "advancement.simulated.applied_kinematics": "应用运动学",
   "hello": "你好",
-  "world": "世界"
+  "world": "世界",
+  "new": "新建"
 }

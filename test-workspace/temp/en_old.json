@@ -3,5 +3,6 @@
   "advancement.simulated.a_calculated_connection.desc": "Successfully align and connect two Docking Connectors",
   "advancement.simulated.applied_kinematics": "Applied Kinematics",
   "hello": "hello",
-  "world": "world"
+  "world": "world",
+  "new": "new"
 }

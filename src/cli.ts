@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { translate, printTranslateSummary } from './translate.js';
-import { getLanguageFiles, syncDeleteFieldsFromAllLanguages } from './file-processor.js';
-import { simpleDiff, deleteFieldByPath, readJsonFile, saveJsonFile, backupFile } from './diff.js';
+import { translate, printTranslateSummary, getLanguageName } from './translate.js';
+import { getLanguageFiles, syncDeleteFieldsFromAllLanguages, readJsonFile, saveJsonFile, backupFile } from './file-processor.js';
+import { simpleDiff, deleteFieldByPath } from './diff.js';
 import { resolve } from 'path';
-import { getLanguageName } from './ai.js';
 import * as cliProgress from 'cli-progress';
 
 const program = new Command();
