@@ -255,21 +255,12 @@ export function updateLanguageFile(
       const existingData = existingGroupedContent[groupName];
       const newData = newGroupData;
       
-      // 如果两者都是对象，进行深度检查和合并
+      // 如果两者都是对象，进行合并
       if (typeof existingData === 'object' && existingData !== null &&
           typeof newData === 'object' && newData !== null) {
-        const existingKeys = Object.keys(existingData);
-        const newKeys = Object.keys(newData);
-        
-        // 如果新键的数量与现有键不同，或者有键不匹配，说明有结构性变化
-        // 这种情况下，完全替换整个组
-        if (existingKeys.length !== newKeys.length ||
-            !existingKeys.every(key => newKeys.includes(key))) {
-          existingGroupedContent[groupName] = newData;
-        } else {
-          // 否则，只合并新增或修改的键
-          Object.assign(existingGroupedContent[groupName] as Record<string, any>, newData);
-        }
+        // 始终合并（Object.assign），保留现有键，添加/更新新键
+        // 避免增量更新时因 key 数量不匹配而误替换整个组
+        Object.assign(existingGroupedContent[groupName] as Record<string, any>, newData);
       } else {
         // 如果类型不匹配，直接替换
         existingGroupedContent[groupName] = newData;
