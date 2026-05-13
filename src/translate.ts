@@ -20,6 +20,8 @@ export interface TranslateOptions {
   workspaceDir?: string;
   tempDir?: string;
   onLanguageComplete?: (languageCode: string, groupName?: string) => void;
+  useLineGrouping?: boolean; // 是否对简单JSON文件使用行分组
+  linesPerGroup?: number;    // 每组的行数，默认20
 }
 
 // 翻译结果接口
@@ -73,6 +75,7 @@ async function initializeTranslation(options: TranslateOptions): Promise<{
 async function checkTranslationNeeds(
   enFilePath: string,
   oldEnFilePath: string,
+  options: TranslateOptions = {}
 ): Promise<{ shouldTranslate: boolean; translatableContent: GroupedContent }> {
 
   // 检查是否为首次运行或 en_old.json 为空
@@ -93,7 +96,11 @@ async function checkTranslationNeeds(
   
   // 如果是首次运行或 en_old.json 为空，翻译所有内容
   if (isFirstTime || isOldFileEmpty) {
-    const allContent = groupEnContent(enFilePath);
+    const allContent = groupEnContent(
+      enFilePath,
+      options.useLineGrouping !== false,
+      options.linesPerGroup || 20
+    );
     return { shouldTranslate: true, translatableContent: allContent };
   }
   
@@ -143,6 +150,15 @@ async function translateLanguage(
     const translatedGroups: GroupedContent = {};
     let groupErrors = 0;
     const totalGroups = Object.keys(translatableContent).length;
+    
+    // 检查是否使用了行分组（组名以 "lines_" 开头）
+    const isLineGrouping = Object.keys(translatableContent).some(name => name.startsWith('lines_'));
+    
+    if (isLineGrouping) {
+      console.log(`📊 检测到简单JSON文件，使用行分组翻译（共 ${totalGroups} 组）`);
+    } else {
+      console.log(`📊 开始翻译 ${languageCode}，共 ${totalGroups} 个组`);
+    }
 
     // 按组翻译
     for (const [groupName, groupData] of Object.entries(translatableContent)) {
@@ -178,6 +194,13 @@ async function translateLanguage(
         // 通知组完成
         if (onGroupComplete) {
           onGroupComplete(groupName);
+        }
+        
+        // 显示进度
+        const completedGroups = Object.keys(translatedGroups).length;
+        const progress = Math.round((completedGroups / totalGroups) * 100);
+        if (isLineGrouping) {
+          console.log(`  ✅ 完成组 ${groupName} (${completedGroups}/${totalGroups}, ${progress}%)`);
         }
         
       } catch (groupError) {
@@ -255,7 +278,8 @@ export async function translate(options: TranslateOptions = {}): Promise<Transla
     // 检查翻译需求
     const { shouldTranslate, translatableContent } = await checkTranslationNeeds(
       enFilePath,
-      oldEnFilePath
+      oldEnFilePath,
+      options
     );
 
     if (!shouldTranslate) {

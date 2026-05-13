@@ -101,11 +101,51 @@ function saveJsonFile(filePath: string, data: any): void {
   }
 }
 
+// 检测是否为简单JSON文件（只有一层键值对，所有值都是基本类型）
+export function isSimpleJson(data: any): boolean {
+  if (typeof data !== 'object' || data === null || Array.isArray(data)) {
+    return false;
+  }
+  
+  for (const value of Object.values(data)) {
+    // 如果任何值是对象或数组，就不是简单JSON
+    if (typeof value === 'object' && value !== null) {
+      return false;
+    }
+  }
+  
+  return true;
+}
+
+// 按行分组简单JSON文件
+export function groupSimpleJsonByLines(data: Record<string, any>, linesPerGroup: number = 20): GroupedContent {
+  const groupedContent: GroupedContent = {};
+  const entries = Object.entries(data);
+  const totalGroups = Math.ceil(entries.length / linesPerGroup);
+  
+  for (let i = 0; i < totalGroups; i++) {
+    const start = i * linesPerGroup;
+    const end = Math.min(start + linesPerGroup, entries.length);
+    const groupEntries = entries.slice(start, end);
+    const groupName = `lines_${i + 1}`;
+    
+    groupedContent[groupName] = Object.fromEntries(groupEntries);
+  }
+  
+  return groupedContent;
+}
+
 // 分组
-export function groupEnContent(enFilePath: string): GroupedContent {
+export function groupEnContent(enFilePath: string, useLineGrouping: boolean = true, linesPerGroup: number = 20): GroupedContent {
   const enData = readJsonFile(enFilePath);
   const groupedContent: GroupedContent = {};
 
+  // 如果是简单JSON且启用行分组，使用新的分组方法
+  if (useLineGrouping && isSimpleJson(enData)) {
+    return groupSimpleJsonByLines(enData, linesPerGroup);
+  }
+
+  // 否则使用原来的分组逻辑
   for (const [key, value] of Object.entries(enData)) {
     if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
       // 如果是对象，直接作为一个组，保持完整的嵌套结构
@@ -130,14 +170,43 @@ export function groupExistingContent(languageFilePath: string): GroupedContent {
   const data = readJsonFile(languageFilePath);
   const groupedContent: GroupedContent = {};
 
-  for (const [key, value] of Object.entries(data)) {
-    if (typeof value === 'object' && value !== null) {
-      groupedContent[key] = value;
-    } else {
-      if (!groupedContent.default) {
-        groupedContent.default = {};
+  // 检查是否为简单JSON结构（包含lines_组）
+  const hasLinesGroups = Object.keys(data).some(key => key.startsWith('lines_'));
+  
+  if (hasLinesGroups) {
+    // 如果是lines_组结构，将所有lines_组的内容合并到default组
+    const defaultGroup: Record<string, string> = {};
+    
+    for (const [key, value] of Object.entries(data)) {
+      if (key.startsWith('lines_')) {
+        // 合并lines_组的内容
+        if (typeof value === 'object' && value !== null) {
+          Object.assign(defaultGroup, value);
+        }
+      } else if (typeof value === 'object' && value !== null) {
+        // 其他对象类型保持原样
+        groupedContent[key] = value;
+      } else {
+        // 基本类型值
+        defaultGroup[key] = value as string;
       }
-      (groupedContent.default as Record<string, string>)[key] = value as string;
+    }
+    
+    // 如果有default组内容，添加到groupedContent
+    if (Object.keys(defaultGroup).length > 0) {
+      groupedContent.default = defaultGroup;
+    }
+  } else {
+    // 原始逻辑：处理普通结构
+    for (const [key, value] of Object.entries(data)) {
+      if (typeof value === 'object' && value !== null) {
+        groupedContent[key] = value;
+      } else {
+        if (!groupedContent.default) {
+          groupedContent.default = {};
+        }
+        (groupedContent.default as Record<string, string>)[key] = value as string;
+      }
     }
   }
 
@@ -151,6 +220,11 @@ export function mergeGroupedContent(groupedContent: GroupedContent): Record<stri
   for (const [groupName, groupData] of Object.entries(groupedContent)) {
     if (groupName === 'default') {
       // 将default组的内容合并到顶级
+      if (typeof groupData === 'object' && groupData !== null) {
+        Object.assign(mergedContent, groupData);
+      }
+    } else if (groupName.startsWith('lines_')) {
+      // 如果是lines_组，将其内容合并到顶级（用于简单JSON文件）
       if (typeof groupData === 'object' && groupData !== null) {
         Object.assign(mergedContent, groupData);
       }
